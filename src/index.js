@@ -1,11 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import {ThemeProvider} from 'theme-ui'
+import theme from './theme'
 import Splash from './views/Splash';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Splash />
+    <ThemeProvider theme={theme}>
+      <Splash />
+    </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
 );
