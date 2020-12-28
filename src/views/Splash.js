@@ -19,21 +19,23 @@ const Cursor = () => {
   const onMouseMove = (e) => {
     setPos({x: e.clientX, y:e.clientY})
   }
+  const size = 200
   return(
     <div className="cursor"
       sx={{
-        width: '200px',
-        height:'200px',
+        width: `${size}px`,
+        height:`${size}px`,
         borderRadius:'100%',
         backgroundImage: 'radial-gradient(#5257F7AA,#5257F703,#5257F700)',
         mixBlendMode:'soft-light',
         zIndex:1000,
-        left:`${pos.x}px`,
-        top:`${pos.y}px`,
+        left:`${pos.x-size/2}px`,
+        top:`${pos.y-size/2}px`,
         position:'absolute',
         display:'flex',
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
+        pointerEvents:'none',
       }}
     >
       <div
