@@ -65,13 +65,13 @@ const Slider = ({type, hx=0, hy=0, vx=0, vy=0, horizontal}) => {
   const dX = vx-hx
   const dY = vy-hy
   const displacement = Math.abs(dX)+Math.abs(dY)
-  const speedFactor = 0.75
+  const speedFactor = 2.5
   const speed = `${displacement*speedFactor}ms`
   const animation = keyframes({
     '0%': {
       transform: 'translate(0px,0px)'
     },
-    '50%': {
+    '80%': {
       transform: `translate(${dX}px,0px)`
     },
     '100%': {
