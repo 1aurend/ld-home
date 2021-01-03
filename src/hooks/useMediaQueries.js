@@ -3,6 +3,8 @@ import {
   useEffect,
   useCallback
 } from 'react'
+
+
 export default function useMediaQueries(queries) {
   const keys = Object.keys(queries)
   const mql = useState(

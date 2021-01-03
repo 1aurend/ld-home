@@ -1,18 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+/** @jsxImportSource theme-ui */
+import React from 'react'
+import ReactDOM from 'react-dom'
 import {ThemeProvider} from 'theme-ui'
 import theme from './theme'
-import Splash from './views/Splash';
-import reportWebVitals from './reportWebVitals';
+import Splash from './views/Splash'
+import reportWebVitals from './reportWebVitals'
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
       <Splash />
+      <div
+        sx={{
+          height:'100%',
+          width:'100%',
+          backgroundColor:'Teal1',
+        }}>
+      </div>
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')
-);
+)
 
 // If you want to start measuring performance in your app, pass a function
 // to log results (for example: reportWebVitals(console.log))
