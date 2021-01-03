@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 import React from 'react'
-import { css, keyframes } from '@emotion/react'
+import { keyframes } from '@emotion/react'
 
 
 export const Slider = ({type, hx=0, hy=0, vx=0, vy=0, horizontal}) => {
@@ -21,18 +21,34 @@ export const Slider = ({type, hx=0, hy=0, vx=0, vy=0, horizontal}) => {
     }
   })
   return (
-    <div sx={{position:'absolute', left:hx, top:hy, animation: !horizontal ? `${animation} ${speed} linear normal forwards` : 'none'}}>
+    <div
+      sx={{
+        position:'absolute',
+        left:hx,
+        top:hy,
+        animation: !horizontal ? `${animation} ${speed} linear normal forwards` : 'none'
+      }}>
       <TextBlock text={type}/>
     </div>
   )
 }
 
-
-
 export const TextFlex = ({horizontal}) => {
   return (
-    <div sx={{visibility:'hidden', height: horizontal ? 'auto' : '100%',width:'100%',display:'flex',flexDirection: horizontal ? 'row-reverse' : 'column', gridArea: horizontal ? 'horz' : 'vert', justifySelf: horizontal ? 'end' : 'start', alignSelf: horizontal ? 'start' : 'end', justifyContent:'space-between', paddingX: horizontal ? '2vmin' : 0}}>
-      <TextBlock id ={horizontal ? 'developerH' : 'developerV'}  text='developer'/>
+    <div
+      sx={{
+        visibility:'hidden',
+        height: horizontal ? 'auto' : '100%',
+        width:'100%',
+        display:'flex',
+        flexDirection: horizontal ? 'row-reverse' : 'column',
+        gridArea: horizontal ? 'horz' : 'vert',
+        justifySelf: horizontal ? 'end' : 'start',
+        alignSelf: horizontal ? 'start' : 'end',
+        justifyContent:'space-between',
+        paddingX: horizontal ? '2vmin' : 0
+      }}>
+      <TextBlock id={horizontal ? 'developerH' : 'developerV'}  text='developer'/>
       {horizontal &&
         <>
           <TextBlock text='>'/>
@@ -40,7 +56,7 @@ export const TextFlex = ({horizontal}) => {
           <TextBlock text='<'/>
         </>
       }
-      <TextBlock id ={horizontal ? 'educatorH' : 'educatorV'} text='educator'/>
+      <TextBlock id={horizontal ? 'educatorH' : 'educatorV'} text='educator'/>
       {horizontal &&
         <>
           <TextBlock text='>'/>
@@ -48,7 +64,7 @@ export const TextFlex = ({horizontal}) => {
           <TextBlock text='<'/>
         </>
       }
-      <TextBlock id ={horizontal ? 'philosopherH' : 'philosopherV'} text='philosopher'/>
+      <TextBlock id={horizontal ? 'philosopherH' : 'philosopherV'} text='philosopher'/>
     </div>
   )
 }
@@ -65,8 +81,13 @@ const TextBlock = ({text, id, color='Teal1'}) => {
     <div
       id={id}
       className='subtitle'
-      sx={{height:'auto',width:'auto',fontFamily:'heading', fontSize:'2.5vmin',color:color}}
-    >
+      sx={{
+        height:'auto',
+        width:'auto',
+        fontFamily:'heading',
+        fontSize:'2.5vmin',
+        color:color
+      }}>
       {text}
     </div>
 
