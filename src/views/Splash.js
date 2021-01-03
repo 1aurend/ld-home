@@ -8,13 +8,12 @@ import peirce from '../assets/fixationOfBelief'
 import Name from './Name'
 import Cursor from './Cursor'
 import { TextFlex, Slider } from './Subtitles'
-import useScrollAnimation from '../hooks/useScrollAnimation'
 
 
-const Splash = () => {
+const Splash = ({toVert}) => {
   const [horizontal, setHorizontal] = useState(true)
   const [textPos, setTextPos] = useState(null)
-  useScrollAnimation(1, window.innerHeight, setHorizontal, horizontal)
+  const [sticky, setSticky] = useState(false)
 
   const getPositions = useCallback( (el) => {
     const subtitles = document.getElementsByClassName('subtitle')
@@ -25,13 +24,21 @@ const Splash = () => {
     setTextPos(numbers)
   },[setTextPos])
 
+  useEffect(() => {
+    if (toVert) {
+      setHorizontal(false)
+      setTimeout(() => document.body.style.overflow = 'scroll', 2000)
+      setTimeout(() => setSticky(true), 2000)
+    }
+  }, [toVert])
+
   return(
     <div
       sx={{
         height:'100%',
         width:'100%',
         backgroundColor:'DarkPurple1',
-        position:'sticky'
+        position:'relative',
       }}>
       <div
         sx={{
@@ -82,6 +89,7 @@ const Splash = () => {
           vx={textPos?.developerV.x}
           vy={textPos?.developerV.y}
           horizontal={horizontal}
+          sticky={sticky}
           />
         <Slider
           type='educator'

@@ -3,20 +3,13 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import {ThemeProvider} from 'theme-ui'
 import theme from './theme'
-import Splash from './views/Splash'
+import Controller from './views/Controller'
 import reportWebVitals from './reportWebVitals'
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <Splash />
-      <div
-        sx={{
-          height:'100%',
-          width:'100%',
-          backgroundColor:'Teal1',
-        }}>
-      </div>
+      <Controller />
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')

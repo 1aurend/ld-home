@@ -31,7 +31,7 @@ const Cursor = () => {
           borderRadius:'100%',
           backgroundImage: 'radial-gradient(#5257F7AA,#5257F703,#5257F700)',
           mixBlendMode:'soft-light',
-          position:'absolute',
+          position:'fixed',
           left:`${pos.x-size/2}px`,
           top:`${pos.y-size/2}px`,
         }}
@@ -45,7 +45,7 @@ const Cursor = () => {
           top:`${pos.y-size/20}px`,
           borderRadius:'100%',
           opacity:1,
-          position:'absolute',
+          position:'fixed',
         }}
       >
       </div>
