@@ -10,10 +10,11 @@ const Name = ({horizontal}) => {
       color:'Teal1', textAlign:'right',
       marginX:'2vmin',
       gridArea:'name',
-      justifySelf:'end',
-      alignSelf:'end',
+      justifySelf:'center',
+      alignSelf:'center',
       lineHeight:'9vmin',
-      width: horizontal ? '100%' : '50%'
+      width: 'auto',
+      pb:'10vmin'
     }}>
       Lauren Davidson
     </div>
