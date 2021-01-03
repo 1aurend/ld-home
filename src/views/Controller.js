@@ -4,7 +4,7 @@ import React, {
   useEffect,
   useCallback
 } from 'react'
-import Splash from './Splash'
+import Splash from './SplashTwo'
 import Cursor from './Cursor'
 import peirce from '../assets/fixationOfBelief'
 

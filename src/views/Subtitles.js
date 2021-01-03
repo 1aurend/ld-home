@@ -37,7 +37,7 @@ export const TextFlex = ({horizontal}) => {
   return (
     <div
       sx={{
-        visibility:'hidden',
+        visibility:'visible',
         height: horizontal ? 'auto' : '100%',
         width:'100%',
         display:'flex',
