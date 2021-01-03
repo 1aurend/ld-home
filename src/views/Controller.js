@@ -6,6 +6,7 @@ import React, {
 } from 'react'
 import Splash from './Splash'
 import Cursor from './Cursor'
+import peirce from '../assets/fixationOfBelief'
 
 
 export default function Controller({ children }) {
@@ -25,17 +26,43 @@ export default function Controller({ children }) {
   }, [handleAnimation])
 
   return (
-    <>
-    <Splash
-      toVert={toVert}
-      />
     <div
       sx={{
-        height:'100%',
+        height:'max-content',
         width:'100%',
-        backgroundColor:'Teal1',
+        bg:'DarkPurple1',
+        position:'relative',
       }}>
+      <div
+        sx={{
+          height:'100vh',
+          width:'100%',
+          isolation: 'isolate',
+        }}>
+        <div
+          sx={{
+            height:'200vh',
+            width:'100%',
+            position:'absolute',
+            overflow:'hidden',
+            fontFamily:'heading',
+            fontSize:'teensy',
+            color:'DarkPurple1',
+            zIndex:'-100'
+          }}>
+            {peirce}
+          </div>
+        <Cursor />
+        <Splash
+          toVert={toVert}
+          />
+        </div>
+        <div
+          sx={{
+            height:'100vh',
+            width:'100%',
+          }}>
+        </div>
     </div>
-    </>
   )
 }
