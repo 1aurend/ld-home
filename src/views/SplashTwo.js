@@ -9,15 +9,22 @@ import Two from 'two.js'
 import Name from './Name'
 import { TextFlex, Slider } from './Subtitles'
 import theme from '../theme'
+import useWindowSize from '../hooks/useWindowSize'
 
 
 export default function Splash({ toVert }) {
   const [horizontal, setHorizontal] = useState(true)
   const canvas = useRef(null)
+  const two = useRef(null)
+  const size = useWindowSize()
 
-  const textAnim = useCallback(el => {
-    const params = {width: window.innerWidth*.6, height: window.innerHeight*.3}
-    const two = new Two(params).appendTo(el)
+  useEffect(() => {
+    if (!two.current) {
+      const params = {width: size.width*.6, height: size.height*.3}
+      two.current = new Two(params).appendTo(canvas.current)
+    } else {
+      two.current.clear()
+    }
 
     const makeSlider = (text, x) => {
       const slider = new Two.Text(text, x, 170)
@@ -28,17 +35,18 @@ export default function Splash({ toVert }) {
       slider.weight = 600
       return slider
     }
-    const philosopher = makeSlider('philosopher', window.innerWidth/12)
-    const left1 = makeSlider('<', window.innerWidth/5)
-    const right1 = makeSlider('>', window.innerWidth/4)
-    const educator = makeSlider('educator', window.innerWidth/3.5)
-    const left2 = makeSlider('<', window.innerWidth/2.75)
-    const right2 = makeSlider('>', window.innerWidth/2.4)
-    const developer = makeSlider('developer', window.innerWidth/2.15)
+    const philosopher = makeSlider('philosopher', size.width/12)
+    const left1 = makeSlider('<', size.width/5)
+    const right1 = makeSlider('>', size.width/4)
+    const educator = makeSlider('educator', size.width/3.5)
+    const left2 = makeSlider('<', size.width/2.75)
+    const right2 = makeSlider('>', size.width/2.4)
+    const developer = makeSlider('developer', size.width/2.15)
 
-    two.add(philosopher, educator, developer, left1, right1, left2, right2)
-    two.update()
-  }, [])
+    two.current.add(philosopher, educator, developer, left1, right1, left2, right2)
+    two.current.update()
+
+  }, [size])
 
   return (
     <>
@@ -71,7 +79,7 @@ export default function Splash({ toVert }) {
           left:0,
         }}>
         <div
-          ref={textAnim}
+          ref={canvas}
           sx={{
             height:'30vh',
             width:'60vw',
