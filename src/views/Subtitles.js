@@ -1,9 +1,10 @@
 /** @jsxImportSource theme-ui */
-import React from 'react'
+import React, {forwardRef} from 'react'
 import { keyframes } from '@emotion/react'
 
 
-export const Slider = ({type, hx=0, hy=0, vx=0, vy=0, horizontal, sticky}) => {
+export const Slider = forwardRef((props, ref) => {
+  const {type, hx=0, hy=0, vx=0, vy=0, horizontal, hidden} = props
   const dX = vx-hx
   const dY = vy-hy
   const displacement = Math.abs(dX)+Math.abs(dY)
@@ -22,16 +23,19 @@ export const Slider = ({type, hx=0, hy=0, vx=0, vy=0, horizontal, sticky}) => {
   })
   return (
     <div
+      ref={ref}
+      className='slider'
       sx={{
-        position: sticky ? 'sticky' : 'absolute',
-        left: sticky ? 0 : hx,
-        top: sticky ? 0 : hy,
-        animation: sticky ? 'none' : !horizontal ? `${animation} ${speed} linear normal forwards` : 'none'
+        position: 'fixed',
+        left: hx,
+        top: hy,
+        animation: !horizontal ? `${animation} ${speed} linear normal forwards` : 'none',
+        visibility: hidden ? 'hidden' : 'visible'
       }}>
       <TextBlock text={type} color={'Orange1'}/>
     </div>
   )
-}
+})
 
 export const TextFlex = ({horizontal}) => {
   return (
