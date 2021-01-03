@@ -5,22 +5,21 @@ import {
 
 
 export default function useScrollAnimation(start, end, setter, state) {
-  const [run, setRun] = useState(false)
+  const [run, setRun] = useState(false) // turn into a counter for various animations states?
   const handleAnimation = e => {
     e.preventDefault()
-    const current = window.scrollY
     console.log(e)
     console.log(window.scrollY)
     if (e.deltaY > start && state && !run) {
       setter(false)
       setRun(true)
+      setTimeout(() => document.body.style.overflow = 'scroll', 2000)
       return
     }
-    // if (run) {
-    //   window.scrollTo(e.deltaY)
-    // }
-    // if (current < end && !state) {
+    // if (window.scrollY < end && !state && run) {
     //   setter(true)
+    //   setRun(false)
+    //   document.body.style.overflow = 'hidden'
     //   return
     // }
   }
