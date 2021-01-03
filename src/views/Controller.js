@@ -2,28 +2,49 @@
 import React, {
   useState,
   useEffect,
-  useCallback
+  useCallback,
+  useRef
 } from 'react'
 import Splash from './SplashNew'
 import Cursor from './Cursor'
 import peirce from '../assets/fixationOfBelief'
+import createScrollamaTrigger from '../utils/createScrollamaTrigger'
 
 
 export default function Controller({ children }) {
   const [toVert, setToVert] = useState(false)
+  const [reverse, setReverse] = useState(false)
+  const scrollama = useRef(null)
+
+  const reverseAnim = useCallback(response => {
+    if (window.scrollY < 50 && response.direction === 'up') {
+      scrollama.current?.destroy()
+      setToVert(false)
+      setReverse(true)
+    }
+  }, [])
 
   const handleAnimation = useCallback(e => {
     e.preventDefault()
     if (!toVert) {
       setToVert(true)
+      setReverse(false)
     }
-    return () => window.removeEventListener('wheel', handleAnimation)
-  }, [toVert])
+    window.removeEventListener('wheel', handleAnimation)
+    setTimeout(() => scrollama.current = createScrollamaTrigger({offset:.95, enter: reverseAnim, id: 'splash'}), 2000)
+  }, [toVert, reverseAnim])
+
+  useEffect(() => {
+    if (reverse) {
+      setTimeout(() => window.addEventListener('wheel', handleAnimation), 2000)
+    }
+  }, [reverse, handleAnimation])
 
   useEffect(() => {
     window.addEventListener('load', () => {window.scrollTo(0,0)})
     window.addEventListener('wheel', handleAnimation)
-  }, [handleAnimation])
+    return () => window.removeEventListener('wheel', handleAnimation)
+  }, [])
 
   return (
     <div
@@ -55,6 +76,7 @@ export default function Controller({ children }) {
         <Cursor />
         <Splash
           toVert={toVert}
+          reverse={reverse}
           />
         </div>
         <div

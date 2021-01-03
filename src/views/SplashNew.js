@@ -6,15 +6,15 @@ import React, {
   useRef,
   useLayoutEffect,
 } from 'react'
+import scrollama from 'scrollama'
 import Name from './Name'
 import { TextFlex, Slider } from './Subtitles'
 import theme from '../theme'
 import useWindowSize from '../hooks/useWindowSize'
 
 
-export default function Splash({ toVert }) {
+export default function Splash({ toVert, reverse }) {
   const [horizontal, setHorizontal] = useState(true)
-  const canvas = useRef(null)
   const name = useRef(null)
   const [namePos, setNamePos] = useState(null)
   const size = useWindowSize()
@@ -30,8 +30,14 @@ export default function Splash({ toVert }) {
     if (toVert) {
       setHorizontal(false)
       setTimeout(() => document.body.style.overflow = 'scroll', 2000)
+      return
     }
-  }, [toVert])
+    if (reverse) {
+      setHorizontal(true)
+      setTimeout(() => document.body.style.overflow = 'hidden', 2000)
+      return
+    }
+  }, [toVert, reverse])
 
 
   useEffect(()=>{
@@ -83,6 +89,7 @@ export default function Splash({ toVert }) {
   return (
     <>
       <div
+        id='splash'
         sx={{
           height:'100vh',
           width:'100vw',
@@ -120,6 +127,7 @@ export default function Splash({ toVert }) {
             vy={size.height*.52}
             horizontal={horizontal}
             ref={philosopher}
+            reverse={reverse}
             />
           <Slider
             type='educator'
@@ -129,6 +137,7 @@ export default function Splash({ toVert }) {
             vy={size.height*.44}
             horizontal={horizontal}
             ref={educator}
+            reverse={reverse}
             />
           <Slider
             type='developer'
@@ -138,6 +147,7 @@ export default function Splash({ toVert }) {
             vy={size.height*.36}
             horizontal={horizontal}
             ref={developer}
+            reverse={reverse}
             />
         </>
       }

@@ -8,10 +8,9 @@ import Name from './Name'
 import { TextFlex, Slider } from './Subtitles'
 
 
-const Splash = ({toVert}) => {
+const Splash = ({toVert, reverse}) => {
   const [horizontal, setHorizontal] = useState(true)
   const [textPos, setTextPos] = useState(null)
-  const [sticky, setSticky] = useState(false)
 
   const getPositions = useCallback( (el) => {
     const subtitles = document.getElementsByClassName('subtitle')
@@ -26,9 +25,14 @@ const Splash = ({toVert}) => {
     if (toVert) {
       setHorizontal(false)
       setTimeout(() => document.body.style.overflow = 'scroll', 2000)
-      setTimeout(() => setSticky(true), 2000)
+      return
     }
-  }, [toVert])
+    if (reverse) {
+      setHorizontal(true)
+      document.body.style.overflow = 'hidden'
+      return
+    }
+  }, [toVert, reverse])
 
   return(
     <>
