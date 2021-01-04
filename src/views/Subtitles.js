@@ -44,7 +44,7 @@ export const Slider = forwardRef((props, ref) => {
         position: 'fixed',
         left: hx,
         top: hy,
-        animation: reverse ? `${reverseAnim} ${reverseSpeed} linear normal forwards` : !horizontal ? `${animation} ${speed} linear normal forwards` : 'none',
+        animation: !horizontal ? `${animation} ${speed} linear normal forwards` : `${reverseAnim} ${reverseSpeed} linear normal forwards`,
         visibility: hidden ? 'hidden' : 'visible'
       }}>
       <TextBlock text={type} color={'Orange1'}/>

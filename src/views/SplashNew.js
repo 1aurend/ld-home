@@ -13,8 +13,8 @@ import theme from '../theme'
 import useWindowSize from '../hooks/useWindowSize'
 
 
-export default function Splash({ toVert, reverse }) {
-  const [horizontal, setHorizontal] = useState(true)
+export default function Splash({ toVert, reverse, horizontal }) {
+  // const [horizontal, setHorizontal] = useState(true)
   const name = useRef(null)
   const [namePos, setNamePos] = useState(null)
   const size = useWindowSize()
@@ -26,18 +26,18 @@ export default function Splash({ toVert, reverse }) {
   const [eHx, setEHx] = useState(0)
   const [dHx, setDHx] = useState(0)
 
-  useEffect(() => {
-    if (toVert) {
-      setHorizontal(false)
-      setTimeout(() => document.body.style.overflow = 'scroll', 2000)
-      return
-    }
-    if (reverse) {
-      setHorizontal(true)
-      setTimeout(() => document.body.style.overflow = 'hidden', 2000)
-      return
-    }
-  }, [toVert, reverse])
+  // useEffect(() => {
+  //   if (toVert) {
+  //     setHorizontal(false)
+  //     setTimeout(() => document.body.style.overflow = 'scroll', 2000)
+  //     return
+  //   }
+  //   if (reverse) {
+  //     setHorizontal(true)
+  //     setTimeout(() => document.body.style.overflow = 'hidden', 2000)
+  //     return
+  //   }
+  // }, [toVert, reverse])
 
 
   useEffect(()=>{
@@ -79,7 +79,7 @@ export default function Splash({ toVert, reverse }) {
   },[])
 
 
-  useLayoutEffect(() => {
+  useEffect(() => {
     if (name.current) {
       const rect = name.current.getBoundingClientRect()
       setNamePos({x: rect.x, width: rect.width})

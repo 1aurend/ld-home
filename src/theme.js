@@ -38,4 +38,4 @@ export default {
   },
   space: [0, 4, 8, 16, 32, 48],
   breakpoints: ['40em', '64em', '80em'],
-};
+}
