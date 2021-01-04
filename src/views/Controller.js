@@ -17,12 +17,14 @@ export default function Controller({ children }) {
   const [horizontal, setHorizontal] = useState(true)
   const scrollama = useRef(null)
   console.log(scrollama.current)
+  const init = useRef(true)
 
   const splashAnimation = (type, response) => {
     console.log(type)
     console.log(response)
     if (type === 0) {
       if (horizontal) {
+        init.current = false
         window.removeEventListener('wheel', wheelCb)
         setHorizontal(false)
         setTimeout(() => onVert(), 2000)
@@ -117,6 +119,7 @@ export default function Controller({ children }) {
         <Cursor />
         <Splash
           horizontal={horizontal}
+          init={init.current}
           />
         </div>
         <div

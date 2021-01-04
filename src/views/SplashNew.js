@@ -13,7 +13,7 @@ import theme from '../theme'
 import useWindowSize from '../hooks/useWindowSize'
 
 
-export default function Splash({ toVert, reverse, horizontal }) {
+export default function Splash({ toVert, init, horizontal }) {
   // const [horizontal, setHorizontal] = useState(true)
   const name = useRef(null)
   const [namePos, setNamePos] = useState(null)
@@ -127,7 +127,7 @@ export default function Splash({ toVert, reverse, horizontal }) {
             vy={size.height*.52}
             horizontal={horizontal}
             ref={philosopher}
-            reverse={reverse}
+            init={init}
             />
           <Slider
             type='educator'
@@ -137,7 +137,7 @@ export default function Splash({ toVert, reverse, horizontal }) {
             vy={size.height*.44}
             horizontal={horizontal}
             ref={educator}
-            reverse={reverse}
+            init={init}
             />
           <Slider
             type='developer'
@@ -147,7 +147,7 @@ export default function Splash({ toVert, reverse, horizontal }) {
             vy={size.height*.36}
             horizontal={horizontal}
             ref={developer}
-            reverse={reverse}
+            init={init}
             />
         </>
       }

@@ -1,10 +1,24 @@
 /** @jsxImportSource theme-ui */
-import React, {forwardRef} from 'react'
+import React, {
+  forwardRef,
+  useRef,
+  useEffect
+} from 'react'
 import { keyframes } from '@emotion/react'
 
 
 export const Slider = forwardRef((props, ref) => {
-  const {type, hx=0, hy=0, vx=0, vy=0, horizontal, hidden, reverse} = props
+  const {
+    type,
+    hx=0,
+    hy=0,
+    vx=0,
+    vy=0,
+    horizontal,
+    hidden,
+    init
+  } = props
+
   const dX = vx-hx
   const dY = vy-hy
   const displacement = Math.abs(dX)+Math.abs(dY)
@@ -36,6 +50,17 @@ export const Slider = forwardRef((props, ref) => {
       transform: `translate(0px, 0px)`
     }
   })
+  const pulse = keyframes({
+    '0%': {
+      transform: `scale3d(1, 1, 1)`
+    },
+    '50%': {
+      transform: `scale3d(1.05, 1.05, 1.05)`
+    },
+    '100%': {
+      transform: `scale3d(1, 1, 1)`
+    }
+  })
   return (
     <div
       ref={ref}
@@ -44,7 +69,7 @@ export const Slider = forwardRef((props, ref) => {
         position: 'fixed',
         left: hx,
         top: hy,
-        animation: !horizontal ? `${animation} ${speed} linear normal forwards` : `${reverseAnim} ${reverseSpeed} linear normal forwards`,
+        animation: init ? `${pulse} 1s ease-in-out` : !horizontal ? `${animation} ${speed} linear normal forwards` : `${reverseAnim} ${reverseSpeed} linear normal forwards`,
         visibility: hidden ? 'hidden' : 'visible'
       }}>
       <TextBlock text={type} color={'Orange1'}/>
