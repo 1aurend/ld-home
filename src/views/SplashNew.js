@@ -44,6 +44,7 @@ export default function Splash({ toVert, init, horizontal }) {
     if (philosopherDims && educatorDims && developerDims && namePos){
       const getRolePos = () => {
         const totalWidth = philosopherDims.width + educatorDims.width + developerDims.width
+        console.log(namePos.width)
         const emptySpace = namePos.width - totalWidth
         console.log(emptySpace);
         const spacer = emptySpace / 2
@@ -112,7 +113,8 @@ export default function Splash({ toVert, init, horizontal }) {
             alignSelf:'center',
             lineHeight:'9vmin',
             width: 'auto',
-            pb: '10vmin'
+            pb: '10vmin',
+            boxSizing: 'border-box'
           }}>
           Lauren Davidson
         </div>

@@ -69,7 +69,7 @@ export const Slider = forwardRef((props, ref) => {
         position: 'fixed',
         left: hx,
         top: hy,
-        animation: init ? `${pulse} 1s ease-in-out` : !horizontal ? `${animation} ${speed} linear normal forwards` : `${reverseAnim} ${reverseSpeed} linear normal forwards`,
+        animation: init ? `${pulse} 1.5s ease-in-out` : !horizontal ? `${animation} ${speed} linear normal forwards` : `${reverseAnim} ${reverseSpeed} linear normal forwards`,
         visibility: hidden ? 'hidden' : 'visible'
       }}>
       <TextBlock text={type} color={'Orange1'}/>
@@ -129,7 +129,7 @@ const TextBlock = ({text, id, color='Teal1'}) => {
         height:'auto',
         width:'auto',
         fontFamily:'heading',
-        fontSize:'2.5vmin',
+        fontSize:'2vw',
         color:color
       }}>
       {text}
