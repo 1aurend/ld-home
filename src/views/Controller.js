@@ -2,7 +2,6 @@
 import React, {
   useState,
   useEffect,
-  useCallback,
   useRef
 } from 'react'
 import Splash from './SplashNew'
@@ -12,20 +11,15 @@ import createScrollamaTrigger from '../utils/createScrollamaTrigger'
 
 
 export default function Controller({ children }) {
-  const [toVert, setToVert] = useState(false)
-  const [reverse, setReverse] = useState(false)
   const [horizontal, setHorizontal] = useState(true)
   const scrollama = useRef(null)
-  console.log(scrollama.current)
   const init = useRef(true)
 
   const splashAnimation = (type, response) => {
-    console.log(type)
-    console.log(response)
     if (type === 0) {
       if (horizontal) {
         init.current = false
-        window.removeEventListener('wheel', wheelCb)
+        window.removeEventListener('wheel', wheelCb.current)
         setHorizontal(false)
         setTimeout(() => onVert(), 2000)
         return
@@ -41,7 +35,7 @@ export default function Controller({ children }) {
       return
     }
   }
-  const wheelCb = splashAnimation.bind(null, 0)
+  const wheelCb = useRef(splashAnimation.bind(null, 0))
   const onVert = () => {
     document.body.style.overflow = 'scroll'
     scrollama.current = createScrollamaTrigger({offset:.99, enter: splashAnimation.bind(null, 1), id: 'splash'})
@@ -49,44 +43,14 @@ export default function Controller({ children }) {
   const onReset = () => {
     document.body.style.overflow = 'hidden'
     scrollama.current.destroy()
-    window.addEventListener('wheel', wheelCb)
+    window.addEventListener('wheel', wheelCb.current)
   }
 
-  // const reverseAnim = useCallback(response => {
-  //   if (window.scrollY < 50 && response.direction === 'up') {
-  //     scrollama.current?.destroy()
-  //     setToVert(false)
-  //     setReverse(true)
-  //   }
-  // }, [])
-  //
-  // const handleAnimation = useCallback(e => {
-  //   e.preventDefault()
-  //   if (!toVert) {
-  //     setToVert(true)
-  //     setReverse(false)
-  //   }
-  //   window.removeEventListener('wheel', handleAnimation)
-  //   setTimeout(() => scrollama.current = createScrollamaTrigger({offset:.95, enter: reverseAnim, id: 'splash'}), 2000)
-  // }, [toVert, reverseAnim])
-  //
-  // useEffect(() => {
-  //   if (reverse) {
-  //     setTimeout(() => window.addEventListener('wheel', handleAnimation), 2000)
-  //   }
-  // }, [reverse, handleAnimation])
-  //
-  // useEffect(() => {
-  //   window.addEventListener('load', () => {window.scrollTo(0,0)})
-  //   window.addEventListener('wheel', handleAnimation)
-  //   window.addEventListener('wheel', splashAnimation.bind(null, 0))
-  //   return () => window.removeEventListener('wheel', handleAnimation)
-  // }, [])
-
   useEffect(() => {
+    const callback = wheelCb.current
     window.addEventListener('load', () => {window.scrollTo(0,0)})
-    window.addEventListener('wheel',  wheelCb)
-    return () => window.removeEventListener('wheel', wheelCb)
+    window.addEventListener('wheel',  wheelCb.current)
+    return () => window.removeEventListener('wheel', callback)
   }, [])
 
   return (
