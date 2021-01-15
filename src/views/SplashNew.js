@@ -10,7 +10,8 @@ import { Slider } from './Subtitles'
 import useWindowSize from '../hooks/useWindowSize'
 
 
-export default function Splash({ horizontal, init }) {
+export default function Splash({ horizontal, init, progress }) {
+  console.log(progress)
   const size = useWindowSize()
 
   const name = useRef(null)
@@ -84,7 +85,7 @@ export default function Splash({ horizontal, init }) {
           justifyContent:'center',
           alignItems:'center',
           position:'absolute',
-          top:0,
+          top:`${-progress}px`,
           left:0,
         }}>
         <div
@@ -92,14 +93,15 @@ export default function Splash({ horizontal, init }) {
           sx={{
             fontSize:'7vw',
             fontFamily:'heading',
-            color:'Teal1', textAlign:'right',
+            color:'Teal1',
+            textAlign:'right',
             gridArea:'name',
             justifySelf:'center',
             alignSelf:'center',
             lineHeight:'9vmin',
-            width: 'auto',
-            pb: '10vmin',
-            boxSizing: 'border-box'
+            width:'auto',
+            pb:'10vmin',
+            boxSizing:'border-box'
           }}>
           Lauren Davidson
         </div>

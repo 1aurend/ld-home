@@ -6,53 +6,66 @@ import React, {
   useState
 } from 'react'
 import { useElementScroll } from 'framer-motion'
-import { disableBodyScroll, enableBodyScroll, clearAllBodyScrollLocks } from 'body-scroll-lock'
+import {
+  disableBodyScroll,
+  clearAllBodyScrollLocks
+} from 'body-scroll-lock'
+import Cursor from './Cursor'
+import peirce from '../assets/fixationOfBelief'
+import Splash from './SplashNew'
 
 
 const Controller = () => {
+  const scrollTarget = useRef(null)
+  const { scrollYProgress, scrollY } = useElementScroll(scrollTarget)
   const [progress, setProgress] = useState(0)
-  const ref = useRef(null)
-  const innerRef = useRef(null)
-  const { scrollYProgress } = useElementScroll(ref)
-  scrollYProgress.onChange(setProgress)
+  scrollY.onChange(setProgress)
+  const horizontal = progress === 0 ? true : false
+  const init = useRef(true)
 
   useEffect(() => {
-    if (ref.current) {
-      console.log('here')
-      console.log(ref.current)
-      disableBodyScroll(ref.current)
+    if (scrollTarget.current) {
+      disableBodyScroll(scrollTarget.current, {reserveScrollBarGap: true})
+      init.current = false
     }
-  }, [ref])
+    return () => clearAllBodyScrollLocks()
+  }, [scrollTarget])
 
   return (
-    <>
     <div
-      ref={ref}
+      ref={scrollTarget}
       sx={{
-        height: '300px',
-        width: '50vw',
+        height: '100vh',
+        width: '100vw',
         bg: 'DarkPurple1',
-        overflow:'scroll'
+        overflow:'scroll',
       }}
       >
       <div
-        ref={innerRef}
         sx={{
-          height: '3000px',
-          width: '50vw',
-          bg: 'Orange1',
-          overflow:'scroll'
-        }}
-        >
+          height:'max-content',
+          width:'100vw',
+          isolation: 'isolate',
+        }}>
+        <div
+          sx={{
+            height:'200vh', //remember to calibrate this after content is all in
+            width:'100%',
+            fontFamily:'heading',
+            fontSize:'teensy',
+            color:'DarkPurple1',
+            zIndex:'-100',
+          }}>
+            {peirce}
+        </div>
+        <Cursor />
+      </div>
+      <Splash
+        horizontal={horizontal}
+        init={init.current}
+        progress={progress > 100 ? progress-100 : 0}
+        />
     </div>
-    </div>
-    <h1
-      sx={{
-        color:'white',
-      }}
-      >{progress}
-    </h1>
-    </>
   )
 }
 
