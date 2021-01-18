@@ -14,6 +14,7 @@ import theme from '../theme'
 import Cursor from './Cursor'
 import peirce from '../assets/fixationOfBelief'
 import Splash from './SplashNew'
+import Developer from './Developer'
 
 
 const Controller = () => {
@@ -48,7 +49,6 @@ const Controller = () => {
           height:'max-content',
           width:'100vw',
           isolation: 'isolate',
-          border:`2px solid red`
         }}>
         <div
           sx={{
@@ -58,7 +58,6 @@ const Controller = () => {
             fontSize:'teensy',
             color:'DarkPurple1',
             zIndex:'-100',
-            border: `2px solid ${theme.colors.Marigold}`,
             overflow:'hidden'
           }}>
             {peirce}
@@ -70,6 +69,7 @@ const Controller = () => {
         init={init.current}
         progress={progress > 100 ? progress-100 : 0}
         />
+      <Developer progress={progress > 100 ? progress-100 : 0}/>
     </div>
   )
 }

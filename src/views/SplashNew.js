@@ -86,8 +86,8 @@ export default function Splash({ horizontal, init, progress }) {
           alignItems:'center',
           position:'absolute',
           top:`${-progress}px`,
+          opacity: 1,
           left:0,
-          border:'3px solid white'
         }}>
         <div
           ref={name}
