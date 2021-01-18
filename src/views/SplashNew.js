@@ -87,11 +87,12 @@ export default function Splash({ horizontal, init, progress }) {
           position:'absolute',
           top:`${-progress}px`,
           left:0,
+          border:'3px solid white'
         }}>
         <div
           ref={name}
           sx={{
-            fontSize:'7vw',
+            fontSize:'min(max(2rem, 7vw), 100px)',
             fontFamily:'heading',
             color:'Teal1',
             textAlign:'right',

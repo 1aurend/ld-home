@@ -10,6 +10,7 @@ import {
   disableBodyScroll,
   clearAllBodyScrollLocks
 } from 'body-scroll-lock'
+import theme from '../theme'
 import Cursor from './Cursor'
 import peirce from '../assets/fixationOfBelief'
 import Splash from './SplashNew'
@@ -22,6 +23,7 @@ const Controller = () => {
   scrollY.onChange(setProgress)
   const horizontal = progress === 0 ? true : false
   const init = useRef(true)
+  console.log(scrollYProgress)
 
   useEffect(() => {
     if (scrollTarget.current) {
@@ -46,6 +48,7 @@ const Controller = () => {
           height:'max-content',
           width:'100vw',
           isolation: 'isolate',
+          border:`2px solid red`
         }}>
         <div
           sx={{
@@ -55,6 +58,8 @@ const Controller = () => {
             fontSize:'teensy',
             color:'DarkPurple1',
             zIndex:'-100',
+            border: `2px solid ${theme.colors.Marigold}`,
+            overflow:'hidden'
           }}>
             {peirce}
         </div>

@@ -129,7 +129,7 @@ const TextBlock = ({text, id, color='Teal1'}) => {
         height:'auto',
         width:'auto',
         fontFamily:'heading',
-        fontSize:'2vw',
+        fontSize:'min(max(1rem, 2vw), 25px)',
         color:color
       }}>
       {text}
