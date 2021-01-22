@@ -11,7 +11,7 @@ import {
   clearAllBodyScrollLocks
 } from 'body-scroll-lock'
 import theme from '../theme'
-import Cursor from './Cursor'
+import Cursor from './RAFCursor'
 import peirce from '../assets/fixationOfBelief'
 import Splash from './SplashNew'
 import Developer from './Developer'
