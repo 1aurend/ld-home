@@ -7,12 +7,12 @@ import React, {
   useLayoutEffect,
 } from 'react'
 import { Slider } from './Subtitles'
-import useWindowSize from '../hooks/useWindowSize'
+import useRAFWindowSize from '../hooks/useRAFWindowSize'
 
 
 export default function Splash({ horizontal, init, progress }) {
   console.log(progress)
-  const size = useWindowSize()
+  const size = useRAFWindowSize()
 
   const name = useRef(null)
   const [namePos, setNamePos] = useState(null)

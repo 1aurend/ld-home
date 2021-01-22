@@ -4,34 +4,37 @@ import {
   useCallback
 } from 'react'
 
-
 export default function useMediaQueries(queries) {
   const keys = Object.keys(queries)
-  const mql = useState(
+
+  const queryList = useState(
     Object.fromEntries(keys.map(key => {
       return [key, window.matchMedia(queries[key])]
     }))
   )[0]
-  const handleMQMatches = useCallback((queries, init) => {
-    if (init) {
-      return Object.fromEntries(keys.map(key => {
-        return [key, mql[key].matches]
-      }))
-    }
+
+  const [matches, setMatches] = useState(
+    Object.fromEntries(
+      keys.map(key => {
+        return [key, queryList[key].matches]
+  })))
+
+  const handleMQMatches = useCallback(() => {
     return setMatches(Object.fromEntries(keys.map(key => {
-      return [key, mql[key].matches]
+      return [key, queryList[key].matches]
     })))
-  }, [mql, keys])
-  const [matches, setMatches] = useState(handleMQMatches(queries, true))
+  }, [queryList, keys])
+
   useEffect(() => {
     keys.forEach(media => {
-      mql[media].addListener(handleMQMatches)
+      queryList[media].addListener(handleMQMatches)
     })
     return () => {
       keys.forEach(media => {
-        mql[media].removeListener(handleMQMatches)
+        queryList[media].removeListener(handleMQMatches)
       })
     }
-  }, [handleMQMatches, mql, keys])
+  }, [handleMQMatches, queryList, keys])
+
   return matches
 }

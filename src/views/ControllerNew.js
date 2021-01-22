@@ -15,6 +15,7 @@ import Cursor from './RAFCursor'
 import peirce from '../assets/fixationOfBelief'
 import Splash from './SplashNew'
 import Developer from './Developer'
+import useMediaQueries from '../hooks/useMediaQueries'
 
 
 const Controller = () => {
@@ -33,6 +34,10 @@ const Controller = () => {
     }
     return () => clearAllBodyScrollLocks()
   }, [scrollTarget])
+
+  const mQs = {or: '(orientation: portrait)', mot: '(prefers-reduced-motion)'}
+  const mediaVals = useMediaQueries(mQs)
+  console.log(mediaVals)
 
   return (
     <div

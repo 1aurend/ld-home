@@ -7,7 +7,7 @@ import React, {
   useLayoutEffect,
 } from 'react'
 import { motion, useAnimation } from 'framer-motion'
-import useWindowSize from '../hooks/useWindowSize'
+import useRAFWindowSize from '../hooks/useRAFWindowSize'
 
 
 export default function Developer({ progress }) {

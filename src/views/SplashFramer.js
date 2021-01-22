@@ -7,12 +7,12 @@ import React, {
   useLayoutEffect,
 } from 'react'
 import { Slider } from './Subtitles'
-import useWindowSize from '../hooks/useWindowSize'
+import useRAFWindowSize from '../hooks/useRAFWindowSize'
 import { motion, useViewportScroll } from 'framer-motion'
 
 
 export default function Splash({ horizontal, init }) {
-  const size = useWindowSize()
+  const size = useRAFWindowSize()
   const { scrollYProgress } = useViewportScroll()
   console.log(scrollYProgress)
 

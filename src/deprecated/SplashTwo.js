@@ -10,7 +10,7 @@ import Two from 'two.js'
 import Name from './Name'
 import { TextFlex, Slider } from './Subtitles'
 import theme from '../theme'
-import useWindowSize from '../hooks/useWindowSize'
+import useRAFWindowSize from '../hooks/useRAFWindowSize'
 
 
 export default function Splash({ toVert }) {
@@ -19,7 +19,7 @@ export default function Splash({ toVert }) {
   const two = useRef(null)
   const name = useRef(null)
   const namePos = useRef(null)
-  const size = useWindowSize()
+  const size = useRAFWindowSize()
 
   useEffect(() => {
     if (!two.current) {
