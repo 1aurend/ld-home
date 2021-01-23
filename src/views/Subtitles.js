@@ -138,7 +138,7 @@ const Line = () => {
   )
 }
 
-const TextBlock = ({text, id, color='Teal1'}) => {
+export const TextBlock = ({text, id, color='Teal1'}) => {
   return(
     <div
       id={id}
@@ -148,7 +148,7 @@ const TextBlock = ({text, id, color='Teal1'}) => {
         width:'auto',
         fontFamily:'heading',
         fontSize:'min(max(1rem, 2vw), 25px)',
-        color:color
+        color:color,
       }}>
       {text}
     </div>
