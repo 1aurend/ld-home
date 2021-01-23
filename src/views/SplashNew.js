@@ -10,9 +10,9 @@ import { Slider } from './Subtitles'
 import useRAFWindowSize from '../hooks/useRAFWindowSize'
 
 
-export default function Splash({ horizontal, init, progress }) {
-  console.log(progress)
+export default function Splash({ init, yPos }) {
   const size = useRAFWindowSize()
+  const horizontal = yPos > -100 ? true : false
 
   const name = useRef(null)
   const [namePos, setNamePos] = useState(null)
@@ -37,11 +37,8 @@ export default function Splash({ horizontal, init, progress }) {
     if (philosopherDims && educatorDims && developerDims && namePos){
       const getRolePos = () => {
         const totalWidth = philosopherDims.width + educatorDims.width + developerDims.width
-        console.log(namePos.width)
         const emptySpace = namePos.width - totalWidth
-        console.log(emptySpace);
         const spacer = emptySpace / 2
-        console.log(spacer);
         return {eHx:namePos.x+philosopherDims.width+spacer,dHx: namePos.x+philosopherDims.width + educatorDims.width + 2*spacer}
       }
       setPHx(namePos.x)
@@ -85,7 +82,7 @@ export default function Splash({ horizontal, init, progress }) {
           justifyContent:'center',
           alignItems:'center',
           position:'absolute',
-          top:`${-progress}px`,
+          top:`${yPos}px`,
           opacity: 1,
           left:0,
         }}>
@@ -96,8 +93,6 @@ export default function Splash({ horizontal, init, progress }) {
             fontFamily:'heading',
             color:'Teal1',
             textAlign:'right',
-            gridArea:'name',
-            justifySelf:'center',
             alignSelf:'center',
             lineHeight:'9vmin',
             width:'auto',
