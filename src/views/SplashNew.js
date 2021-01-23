@@ -81,7 +81,7 @@ export default function Splash({ yPos }) {
           justifyContent:'center',
           alignItems:'center',
           position:'absolute',
-          top:`${yPos}px`,
+          top:`${-yPos}px`,
           opacity: 1,
           left:0,
         }}>
