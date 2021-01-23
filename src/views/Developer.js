@@ -16,13 +16,21 @@ export default function Developer({ progress }) {
   const sequence = async() => {
     await lineControls.start({width:'40vw', transition:{duration:3}})
     console.log('stuff');
-    await tileControls.start({width:'400px', height:'200px', transition:{duration:3}})
+    await tileControls.start({
+      width:'400px',
+      height:'200px',
+      borderTopLeftRadius:'0px',
+      borderTopRightRadius:'0px',
+      borderBottomLeftRadius:'0px',
+      borderBottomRightRadius:'0px',
+      transition:{duration:3}
+    })
   }
 
   useEffect(() => {
     sequence()
-    console.log('running');
   },[])
+  
   return (
     <motion.div
       sx={{position:'absolute', display:'flex', justifyContent:'flex-end', alignItems:'flex-start', height:'50vh', width:'75vw', left:'12.5vw', top: '12.5vh',bg:'red', opacity:0.5}}
