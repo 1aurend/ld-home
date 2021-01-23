@@ -18,7 +18,7 @@ import { TextBlock } from './Subtitles'
 const Controller = () => {
   const globalYPos = useWheelY()
   const height = useRAFWindowSize().height
-  const globalYPercent = (-globalYPos)/height
+  const globalYPercent = (globalYPos)/(4*height)
 
   // const mQs = {or: '(orientation: portrait)', mot: '(prefers-reduced-motion)'}
   // const mediaVals = useMediaQueries(mQs)
@@ -65,7 +65,7 @@ const Controller = () => {
         </section>
       </main>
       {/*<Splash yPos={globalYPos}/>*/}
-      {globalYPercent > 0.25 && <Developer />}
+      {globalYPercent > 0.125 && <Developer yPercent={globalYPercent}/>}
     </Background>
   )
 }

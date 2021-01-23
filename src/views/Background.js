@@ -30,7 +30,7 @@ export default function TextBackground({ children, yPos }) {
             zIndex:'-100',
             overflow:'hidden',
             position:'absolute',
-            top:`${yPos}px`
+            top:`${-yPos}px`
           }}>
             {peirce}
         </div>

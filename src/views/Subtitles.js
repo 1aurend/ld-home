@@ -68,13 +68,13 @@ export const Slider = forwardRef((props, ref) => {
       prevAnimStep.current = 1
       return `${pulse} 1.5s ease-in-out`
     }
-    if (yPos > -100) {
+    if (yPos < 100) {
       if (prevAnimStep.current === 1) {
         return `none`
       }
       return `${reverseAnim} ${reverseSpeed} linear normal forwards`
     }
-    if (yPos < -100) {
+    if (yPos > 100) {
       prevAnimStep.current = 2
       return `${animation} ${speed} linear normal forwards`
     }

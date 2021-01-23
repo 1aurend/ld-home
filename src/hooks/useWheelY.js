@@ -31,12 +31,12 @@ export default function useWheelDelta() {
       ticking.current = true
     }
     const handleWheel = e => {
-      eDelta.current = e.deltaY
+      eDelta.current = e.deltaY * 1.25
       requestTick()
     }
     window.addEventListener('wheel', handleWheel)
     return () => window.removeEventListener('wheel', handleWheel)
   },[])
 
-  return yPos
+  return - yPos
 }
