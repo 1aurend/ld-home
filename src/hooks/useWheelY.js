@@ -31,7 +31,6 @@ export default function useWheelDelta() {
       ticking.current = true
     }
     const handleWheel = e => {
-      console.log(e)
       eDelta.current = e.deltaY
       requestTick()
     }

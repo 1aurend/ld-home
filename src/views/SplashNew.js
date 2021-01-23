@@ -10,9 +10,8 @@ import { Slider } from './Subtitles'
 import useRAFWindowSize from '../hooks/useRAFWindowSize'
 
 
-export default function Splash({ init, yPos }) {
+export default function Splash({ yPos }) {
   const size = useRAFWindowSize()
-  const horizontal = yPos > -100 ? true : false
 
   const name = useRef(null)
   const [namePos, setNamePos] = useState(null)
@@ -110,10 +109,9 @@ export default function Splash({ init, yPos }) {
             hy={size.height*.52}
             vx={window.innerWidth/2+namePos.width/2+20}
             vy={size.height*.52}
-            horizontal={horizontal}
             ref={philosopher}
             hidden={hidden.current}
-            init={init}
+            yPos={yPos}
             />
           <Slider
             type='educator'
@@ -121,10 +119,9 @@ export default function Splash({ init, yPos }) {
             hy={size.height*.52}
             vx={window.innerWidth/2+namePos.width/2+20}
             vy={size.height*.44}
-            horizontal={horizontal}
             ref={educator}
             hidden={hidden.current}
-            init={init}
+            yPos={yPos}
             />
           <Slider
             type='developer'
@@ -132,10 +129,9 @@ export default function Splash({ init, yPos }) {
             hy={size.height*.52}
             vx={window.innerWidth/2+namePos.width/2+20}
             vy={size.height*.36}
-            horizontal={horizontal}
             ref={developer}
             hidden={hidden.current}
-            init={init}
+            yPos={yPos}
             />
         </>
       }

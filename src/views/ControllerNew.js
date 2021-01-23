@@ -24,7 +24,6 @@ const Controller = () => {
   return (
     <Background yPos={globalYPos}>
       <Splash
-        init={false}
         yPos={globalYPos}
         />
       {globalYPercent > 0.25 && <Developer />}

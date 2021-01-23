@@ -14,9 +14,8 @@ export const Slider = forwardRef((props, ref) => {
     hy=0,
     vx=0,
     vy=0,
-    horizontal,
     hidden,
-    init
+    yPos
   } = props
 
   const dX = vx-hx
@@ -61,6 +60,25 @@ export const Slider = forwardRef((props, ref) => {
       transform: `scale3d(1, 1, 1)`
     }
   })
+
+  // TODO: make it so one animation can't start until the other finishes?
+  const prevAnimStep = useRef(0)
+  const controls = () => {
+    if (yPos === 0) {
+      prevAnimStep.current = 1
+      return `${pulse} 1.5s ease-in-out`
+    }
+    if (yPos > -100) {
+      if (prevAnimStep.current === 1) {
+        return `none`
+      }
+      return `${reverseAnim} ${reverseSpeed} linear normal forwards`
+    }
+    if (yPos < -100) {
+      prevAnimStep.current = 2
+      return `${animation} ${speed} linear normal forwards`
+    }
+  }
   return (
     <div
       ref={ref}
@@ -69,7 +87,7 @@ export const Slider = forwardRef((props, ref) => {
         position: 'fixed',
         left: hx,
         top: hy,
-        animation: init ? `${pulse} 1.5s ease-in-out` : !horizontal ? `${animation} ${speed} linear normal forwards` : `${reverseAnim} ${reverseSpeed} linear normal forwards`,
+        animation: controls(),
         visibility: hidden ? 'hidden' : 'visible'
       }}>
       <TextBlock text={type} color={'Orange1'}/>
