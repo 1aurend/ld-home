@@ -32,8 +32,8 @@ export default function Developer({ yPercent }) {
   ]
   const tileValues = [
     {val:borderRadiusScrub, from:50, to:20, unit:'px'},
-    {val:tileWidthScrub, from:4, to:55, unit:'vw'},
-    {val:tileHeightScrub, from:4, to:55, unit:'vw'},
+    {val:tileWidthScrub, from:4, to:80, unit:'vmin'},
+    {val:tileHeightScrub, from:4, to:80, unit:'vmin'},
     {val:marginTopScrub, from:5.4, to:0, unit:'vh'},
     {val:translateScrub, from:4, to:0, unit:'vh'}
   ]
