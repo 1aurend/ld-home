@@ -13,7 +13,7 @@ const Name = ({ yPos }) => {
       lineHeight:'9vmin',
       width: 'auto',
       pb:'5vmin',
-      transform: `translateY(${yPos}px)`,
+      transform: `translateY(${-yPos}px)`,
     }}>
       Lauren Davidson
     </div>

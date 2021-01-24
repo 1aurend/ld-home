@@ -5,14 +5,13 @@ import React, {
   useRef,
   useState
 } from 'react'
-import Splash from './SplashNew'
 import Developer from './Developer'
 // import useMediaQueries from '../hooks/useMediaQueries'
 import useRAFWindowSize from '../hooks/useRAFWindowSize'
 import Background from './Background'
 import useWheelY from '../hooks/useWheelY'
 import Name from './Name'
-import { TextBlock } from './Subtitles'
+import Slider from './Slider'
 
 
 const Controller = () => {
@@ -58,13 +57,12 @@ const Controller = () => {
               justifyContent:'space-between',
             }}
             >
-            <TextBlock text='philosopher' color={'Orange1'}/>
-            <TextBlock text='educator' color={'Orange1'}/>
-            <TextBlock text='developer' color={'Orange1'}/>
+            <Slider type='philosopher' yPercent={globalYPercent}/>
+            <Slider type='educator' yPercent={globalYPercent}/>
+            <Slider type='developer' yPercent={globalYPercent}/>
           </div>
         </section>
       </main>
-      {/*<Splash yPos={globalYPos}/>*/}
       {globalYPercent > 0.125 && <Developer yPercent={globalYPercent}/>}
     </Background>
   )

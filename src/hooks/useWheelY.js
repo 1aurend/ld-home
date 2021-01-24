@@ -21,6 +21,14 @@ export default function useWheelDelta() {
         prevY.current = 0
         return
       }
+      if ((prevY.current - eDelta.current) < -(window.innerHeight*4)) {
+        if (prevY.current === -(window.innerHeight*4)) {
+          return
+        }
+        setYPos(-(window.innerHeight*4))
+        prevY.current = -(window.innerHeight*4)
+        return
+      }
       setYPos(prevY.current - eDelta.current)
       prevY.current = prevY.current - eDelta.current
     }
