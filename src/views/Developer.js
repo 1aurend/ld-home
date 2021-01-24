@@ -19,7 +19,7 @@ export default function Developer({ yPercent }) {
   const tileWidthScrub = useMotionValue()
   const tileHeightScrub = useMotionValue()
   const marginTopScrub = useMotionValue()
-  const translateScrub = useMotionValue()
+  const translateScrub = useMotionValue(`4vh`)
   const translate = useMotionTemplate`translate(5px,${translateScrub})`
 
   // const borderTopLeftRadiusScrub = useMotionValue('7.5px')
@@ -48,8 +48,8 @@ export default function Developer({ yPercent }) {
         justifyContent:'flex-end',
         alignItems:'flex-start',
         height:'50vh',
-        width:'75vw',
-        left:'12.5vw',
+        width:'80vw',
+        left:'10vw',
         top: '12.5vh',
       }}>
       <div
@@ -70,7 +70,7 @@ export default function Developer({ yPercent }) {
           sx={{
             position:'relative',
             bg:'light',
-            opacity:1,
+            opacity:.9,
             zIndex:2
           }}
         ></motion.div>

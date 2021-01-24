@@ -49,7 +49,7 @@ const Controller = () => {
             height:'100vh',
           }}
           >
-          <Name yPos={globalYPos}/>
+          <Name yPercent={globalYPercent}/>
           <div
             id='sliders'
             sx={{
