@@ -12,8 +12,7 @@ export default function TextBackground({ children, yPos }) {
         width: '100vw',
         bg: 'DarkPurple1',
         overflow:'hidden',
-      }}
-      >
+      }}>
       <div
         sx={{
           height:'max-content',
@@ -22,7 +21,7 @@ export default function TextBackground({ children, yPos }) {
         }}>
         <div
           sx={{
-            height:'200vh', //remember to calibrate this after content is all in
+            height:'400vh', //remember to calibrate this after content is all in
             width:'100%',
             fontFamily:'heading',
             fontSize:'teensy',
@@ -35,8 +34,8 @@ export default function TextBackground({ children, yPos }) {
             {peirce}
         </div>
         <Cursor />
+        {children}
       </div>
-      {children}
     </div>
   )
 }

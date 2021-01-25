@@ -1,7 +1,8 @@
 /** @jsxImportSource theme-ui */
 import React, {
   useRef,
-  useEffect
+  useEffect,
+  useCallback
 } from 'react'
 import { keyframes } from '@emotion/react'
 import {
@@ -14,21 +15,24 @@ import useRAFWindowSize from '../hooks/useRAFWindowSize'
 
 const Slider = props => {
   const { type, yPercent } = props
+  console.log(yPercent)
   const size = useRAFWindowSize()
+  const x = useMotionValue()
+  const y = useMotionValue()
   const hX = useRef()
   const hY = useRef()
-  const getPos = el => {
+  const getPos = useCallback(el => {
     const rect = el.getBoundingClientRect()
     hX.current = rect.left
     hY.current = rect.top
-    x.set(rect.left)
-    y.set(rect.top)
-  }
+    if (yPercent === 0) {
+      x.set(rect.left)
+      y.set(rect.top)
+    }
+  }, [x, y, yPercent])
 
   const toY = type === 'educator' ? (hY.current-(size.height*.16))/2+(size.height*.16) : type === 'philosopher' ? hY.current : size.height*0.16
   const endX = type === 'educator' ? 0.08 : type === 'philosopher' ? 0.13 : 0.05
-  const x = useMotionValue()
-  const y = useMotionValue()
 
   const sliderX = [
     {val:x, from:hX.current, to:size.width*0.8, unit:'px'},

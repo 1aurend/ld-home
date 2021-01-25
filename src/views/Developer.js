@@ -17,7 +17,9 @@ export default function Developer({ yPercent }) {
   const lineScrub = useMotionValue()
   const borderRadiusScrub = useMotionValue()
   const tileWidthScrub = useMotionValue()
+  const lightWidthScrub = useMotionValue()
   const tileHeightScrub = useMotionValue()
+  const lightHeightScrub = useMotionValue()
   const marginTopScrub = useMotionValue()
   const translateScrub = useMotionValue(`4vh`)
   const translate = useMotionTemplate`translate(5px,${translateScrub})`
@@ -33,7 +35,9 @@ export default function Developer({ yPercent }) {
   const tileValues = [
     {val:borderRadiusScrub, from:50, to:20, unit:'px'},
     {val:tileWidthScrub, from:4, to:80, unit:'vmin'},
+    {val:lightWidthScrub, from:1, to:40, unit:'vmin'},
     {val:tileHeightScrub, from:4, to:80, unit:'vmin'},
+    {val:lightHeightScrub, from:1, to:40, unit:'vmin'},
     {val:marginTopScrub, from:5.4, to:0, unit:'vh'},
     {val:translateScrub, from:4, to:0, unit:'vh'}
   ]
@@ -58,7 +62,7 @@ export default function Developer({ yPercent }) {
           justifyContent:'flex-end',
           alignItems:'flex-start',
           height:'auto',
-          bg:'none'
+          bg:'none',
         }}>
         <motion.div
           style={{
@@ -68,12 +72,28 @@ export default function Developer({ yPercent }) {
             transform:translate
           }}
           sx={{
-            position:'relative',
-            bg:'light',
-            opacity:.9,
-            zIndex:2
-          }}
-        ></motion.div>
+            cursor:'pointer',
+            backgroundImage: 'radial-gradient(#5257F7AA,#5257F703,#5257F700 80vmin)',
+            mixBlendMode:'soft-light',
+            display:'flex',
+            justifyContent:'center',
+            alignItems:'center',
+            zIndex:100
+          }}>
+          <motion.div
+            style={{
+              borderRadius:borderRadiusScrub,
+              width:lightWidthScrub,
+              height:lightHeightScrub,
+            }}
+            sx={{
+              bg:'white',
+              opacity:1,
+              isolation:'isolate',
+              zIndex:200
+            }}>
+          </motion.div>
+        </motion.div>
         <motion.div
           style={{width:lineScrub}}
           sx={{

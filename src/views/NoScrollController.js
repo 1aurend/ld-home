@@ -7,7 +7,6 @@ import React, {
 } from 'react'
 import Developer from './Developer'
 // import useMediaQueries from '../hooks/useMediaQueries'
-import useRAFWindowSize from '../hooks/useRAFWindowSize'
 import Background from './Background'
 import useWheelY from '../hooks/useWheelY'
 import Name from './Name'
@@ -16,8 +15,7 @@ import Slider from './Slider'
 
 const Controller = () => {
   const globalYPos = useWheelY()
-  const height = useRAFWindowSize().height
-  const globalYPercent = (globalYPos)/(4*height)
+  const globalYPercent = globalYPos.percent
 
   // const mQs = {or: '(orientation: portrait)', mot: '(prefers-reduced-motion)'}
   // const mediaVals = useMediaQueries(mQs)
