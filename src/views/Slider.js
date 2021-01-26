@@ -50,13 +50,13 @@ const Slider = props => {
   }, [x, y])
 
   useEffect(() => {
-    if (sliderRef.current) {
+    if (sliderRef.current && yPercent === 0) {
       const rect = sliderRef.current.getBoundingClientRect()
       hX.current = rect.left
       hY.current = rect.top
       toY.current = type === 'educator' ? (rect.top-(size.height*.16))/2+(size.height*.16) : type === 'philosopher' ? rect.top : size.height*0.16
     }
-  }, [size, type])
+  }, [size, type, yPercent])
 
   const sliderX = [
     {val:x, from:hX.current, to:size.width*0.8, unit:'px'},
