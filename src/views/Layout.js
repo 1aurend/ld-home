@@ -8,16 +8,12 @@ import React, {
 import Developer from './Developer'
 // import useMediaQueries from '../hooks/useMediaQueries'
 import Background from './Background'
-import useWheelY from '../hooks/useWheelY'
 import Name from './Name'
 import Slider from './Slider'
 
 
-const Controller = ({ globalYPos, size }) => {
-  // const globalYPos = useWheelY()
-  console.log(`controller: ${JSON.stringify(globalYPos)}`)
+const Layout = ({ globalYPos, size }) => {
   const globalYPercent = globalYPos.percent
-  // console.log(globalYPercent)
 
   // const mQs = {or: '(orientation: portrait)', mot: '(prefers-reduced-motion)'}
   // const mediaVals = useMediaQueries(mQs)
@@ -68,4 +64,4 @@ const Controller = ({ globalYPos, size }) => {
   )
 }
 
-export default Controller
+export default Layout

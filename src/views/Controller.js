@@ -3,16 +3,12 @@ import {
   useEffect,
   useRef
 } from 'react'
-import useDebounceWindowSize from './useDebounceWindowSize'
-import Controller from '../views/NoScrollController'
-
-const animList = [
-  {min:0, max:.13},
-  {min:.13, max:.6}
-]
+import useDebounceWindowSize from '../hooks/useDebounceWindowSize'
+import Layout from './Layout'
+import animList from './animList'
 
 
-export default function WheelY() {
+export default function Controller() {
   const size = useDebounceWindowSize()
   const prevSize = useRef({width:window.innerWidth,height: window.innerHeight})
   const ticking = useRef(false)
@@ -22,47 +18,27 @@ export default function WheelY() {
   const prevYPercent = useRef(0)
   const [yPos, setYPos] = useState({px:0,percent:0})
 
-  // console.log(prevSize.current)
-
   const getSnapToPercent = (y, animList) => {
     const currentAnim = animList.filter(anim => y >= anim.min && y <= anim.max)
     return currentAnim[0]? currentAnim[0].min : 1
   }
-
-  // const calculateGlobalY = (state, action) => {
-  //   switch (action.type) {
-  //   case 'wheel':
-  //     console.log('wheel')
-  //     return calculateScroll()
-  //   case 'resize':
-  //     console.log('resize')
-  //     return snapToAnimStart()
-  //   default:
-  //     alert('something went wrong: unable to calculate Y')
-  //   }
-  // }
-
-  // const createScroll = () => setYPos({type:'wheel'})
 
   useEffect(()=>{
     const calculateScroll = () => {
       const yMax = 4*prevSize.current.height
       ticking.current = false
       if (prevY.current - eDelta.current > 0) {
-        console.log('max')
         prevY.current = 0
         prevYPercent.current = 0
         setYPos({px:0,percent:0})
         return
       }
       if ((prevY.current - eDelta.current) < -(yMax)) {
-        console.log('min')
         prevY.current = -(yMax)
         prevYPercent.current = 1
         setYPos({px:yMax,percent:1})
         return
       }
-      console.log('calc')
       const nextY = prevY.current - eDelta.current
       prevY.current = nextY
       prevYPercent.current = -nextY/(yMax)
@@ -76,7 +52,6 @@ export default function WheelY() {
     }
     const handleWheel = e => {
       eDelta.current = e.deltaY * 1.25
-      // console.log(e)
       requestTick()
     }
     window.addEventListener('wheel', handleWheel)
@@ -85,9 +60,7 @@ export default function WheelY() {
 
   useEffect(() => {
     const snapToAnimStart = () => {
-      console.log('snap')
       const snapToPercent = getSnapToPercent(prevYPercent.current, animList)
-      console.log(snapToPercent)
       prevSize.current = size
       prevYPercent.current = snapToPercent
       prevY.current = -snapToPercent*(4*size.height)
@@ -100,5 +73,5 @@ export default function WheelY() {
     }
   }, [size])
 
-  return <Controller globalYPos={yPos} size={prevSize.current} />
+  return <Layout globalYPos={yPos} size={prevSize.current} />
 }
