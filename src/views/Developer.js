@@ -23,6 +23,7 @@ export default function Developer({ yPercent }) {
   const marginTopScrub = useMotionValue()
   const translateScrub = useMotionValue(`4vh`)
   const translate = useMotionTemplate`translate(5px,${translateScrub})`
+  const lightBackground = useMotionTemplate`radial-gradient(#5257F7AA,#5257F703,#5257F700 ${tileWidthScrub})`
 
   // const borderTopLeftRadiusScrub = useMotionValue('7.5px')
   // const borderTopRightRadiusScrub = useMotionValue('7.5px')
@@ -69,11 +70,11 @@ export default function Developer({ yPercent }) {
             height:tileHeightScrub,
             width:tileWidthScrub,
             borderRadius:borderRadiusScrub,
-            transform:translate
+            transform:translate,
+            backgroundImage: lightBackground,
           }}
           sx={{
             cursor:'pointer',
-            backgroundImage: 'radial-gradient(#5257F7AA,#5257F703,#5257F700 80vmin)',
             mixBlendMode:'soft-light',
             display:'flex',
             justifyContent:'center',

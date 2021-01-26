@@ -19,7 +19,7 @@ const Layout = ({ globalYPos, size }) => {
   // const mediaVals = useMediaQueries(mQs)
 
   return (
-    <Background yPos={globalYPos}>
+    <Background yPos={globalYPos} yPercent={globalYPercent}>
       <main
         id='splash'
         sx={{

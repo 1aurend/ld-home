@@ -4,7 +4,7 @@ import Cursor from './RAFCursor'
 import peirce from '../assets/fixationOfBelief'
 
 
-export default function TextBackground({ children, yPos }) {
+export default function TextBackground({ children, yPos, yPercent }) {
   return (
     <div
       sx={{
@@ -29,11 +29,11 @@ export default function TextBackground({ children, yPos }) {
             zIndex:'-100',
             overflow:'hidden',
             position:'absolute',
-            top:`${-yPos}px`
+            top:`${-yPos.px}px`
           }}>
             {peirce}
         </div>
-        <Cursor />
+        <Cursor yPercent={yPercent}/>
         {children}
       </div>
     </div>
