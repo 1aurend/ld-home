@@ -4,12 +4,13 @@ import ReactDOM from 'react-dom'
 import {ThemeProvider} from 'theme-ui'
 import theme from './theme'
 import Controller from './views/NoScrollController'
+import WheelY from './hooks/WheelY'
 import reportWebVitals from './reportWebVitals'
 
 ReactDOM.render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <Controller />
+      <WheelY />
     </ThemeProvider>
   </React.StrictMode>,
   document.getElementById('root')

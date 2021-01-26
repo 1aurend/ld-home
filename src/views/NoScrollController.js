@@ -13,11 +13,11 @@ import Name from './Name'
 import Slider from './Slider'
 
 
-const Controller = () => {
-  const globalYPos = useWheelY()
+const Controller = ({ globalYPos, size }) => {
+  // const globalYPos = useWheelY()
   console.log(`controller: ${JSON.stringify(globalYPos)}`)
   const globalYPercent = globalYPos.percent
-  console.log(globalYPercent)
+  // console.log(globalYPercent)
 
   // const mQs = {or: '(orientation: portrait)', mot: '(prefers-reduced-motion)'}
   // const mediaVals = useMediaQueries(mQs)
@@ -57,9 +57,9 @@ const Controller = () => {
               justifyContent:'space-between',
             }}
             >
-            <Slider type='philosopher' yPercent={globalYPercent}/>
-            <Slider type='educator' yPercent={globalYPercent}/>
-            <Slider type='developer' yPercent={globalYPercent}/>
+            <Slider type='philosopher' yPercent={globalYPercent} size={size}/>
+            <Slider type='educator' yPercent={globalYPercent} size={size}/>
+            <Slider type='developer' yPercent={globalYPercent} size={size}/>
           </div>
         </section>
       </main>

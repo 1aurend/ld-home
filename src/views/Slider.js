@@ -10,50 +10,62 @@ import {
   useMotionValue,
 } from 'framer-motion'
 import getScrubValues from '../utils/getScrubValues'
-import useRAFWindowSize from '../hooks/useRAFWindowSize'
+
+const pulse = keyframes({
+  '0%': {
+    transform: `scale3d(1, 1, 1)`
+  },
+  '50%': {
+    transform: `scale3d(1.05, 1.05, 1.05)`
+  },
+  '100%': {
+    transform: `scale3d(1, 1, 1)`
+  }
+})
 
 
 const Slider = props => {
-  const { type, yPercent } = props
-  console.log(yPercent)
-  const size = useRAFWindowSize()
+  const {
+    type,
+    yPercent,
+    size
+  } = props
   const x = useMotionValue()
   const y = useMotionValue()
-  const hX = useRef() //these need to get reset on a resize
+  const hX = useRef()
   const hY = useRef()
+  const sliderRef = useRef()
+  const toY = useRef()
+  const endX = type === 'educator' ? 0.08 : type === 'philosopher' ? 0.13 : 0.05
+
   const getPos = useCallback(el => {
+    sliderRef.current = el
     const rect = el.getBoundingClientRect()
     hX.current = rect.left
     hY.current = rect.top
-    if (yPercent === 0) {
+    if (!x.current) {
       x.set(rect.left)
       y.set(rect.top)
     }
-  }, [x, y, yPercent])
+  }, [x, y])
 
-  const toY = type === 'educator' ? (hY.current-(size.height*.16))/2+(size.height*.16) : type === 'philosopher' ? hY.current : size.height*0.16
-  const endX = type === 'educator' ? 0.08 : type === 'philosopher' ? 0.13 : 0.05
+  useEffect(() => {
+    if (sliderRef.current) {
+      const rect = sliderRef.current.getBoundingClientRect()
+      hX.current = rect.left
+      hY.current = rect.top
+      toY.current = type === 'educator' ? (rect.top-(size.height*.16))/2+(size.height*.16) : type === 'philosopher' ? rect.top : size.height*0.16
+    }
+  }, [size, type])
 
   const sliderX = [
     {val:x, from:hX.current, to:size.width*0.8, unit:'px'},
   ]
   const sliderY = [
-    {val:y, from:hY.current, to:toY, unit:'px'},
+    {val:y, from:hY.current, to:toY.current, unit:'px'},
   ]
   getScrubValues(yPercent, 0.03, endX, sliderX)
   getScrubValues(yPercent, endX, 0.13, sliderY)
-
-  const pulse = keyframes({
-    '0%': {
-      transform: `scale3d(1, 1, 1)`
-    },
-    '50%': {
-      transform: `scale3d(1.05, 1.05, 1.05)`
-    },
-    '100%': {
-      transform: `scale3d(1, 1, 1)`
-    }
-  })
 
   return (
     <motion.div

@@ -9,7 +9,7 @@ import getScrubValues from '../utils/getScrubValues'
 
 
 const Name = ({ yPercent }) => {
-  console.log(yPercent)
+  // console.log(yPercent)
   const y = useMotionValue(0)
   const nameY = [
     {val:y, from:0, to:60, unit:'vh'},
