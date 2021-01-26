@@ -19,7 +19,7 @@ const Slider = props => {
   const size = useRAFWindowSize()
   const x = useMotionValue()
   const y = useMotionValue()
-  const hX = useRef()
+  const hX = useRef() //these need to get reset on a resize
   const hY = useRef()
   const getPos = useCallback(el => {
     const rect = el.getBoundingClientRect()

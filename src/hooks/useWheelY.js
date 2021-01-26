@@ -14,7 +14,6 @@ const animList = [
 export default function useWheelDelta() {
   const size = useDebounceWindowSize()
   const prevSize = useRef({width:window.innerWidth,height: window.innerHeight})
-  const yMax = 4*prevSize.current.height
   const ticking = useRef(false)
   const eDelta = useRef(0)
   const prevY = useRef(0)
@@ -22,8 +21,11 @@ export default function useWheelDelta() {
   // console.log(prevSize.current)
 
   const calculateScroll = () => {
+    console.log('scroll')
+    const yMax = 4*prevSize.current.height
     ticking.current = false
     if (prevY.current - eDelta.current > 0) {
+      console.log('max')
       if (prevY.current === 0) {
         return {px:0,percent:0}
       }
@@ -58,6 +60,7 @@ export default function useWheelDelta() {
     console.log(snapToPercent)
     prevSize.current = size
     prevYPercent.current = snapToPercent
+    prevY.current = snapToPercent*(4*size.height)
     return {px:snapToPercent*(4*size.height),percent:snapToPercent}
   }
 

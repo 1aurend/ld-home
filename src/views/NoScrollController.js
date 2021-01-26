@@ -15,7 +15,9 @@ import Slider from './Slider'
 
 const Controller = () => {
   const globalYPos = useWheelY()
+  console.log(`controller: ${JSON.stringify(globalYPos)}`)
   const globalYPercent = globalYPos.percent
+  console.log(globalYPercent)
 
   // const mQs = {or: '(orientation: portrait)', mot: '(prefers-reduced-motion)'}
   // const mediaVals = useMediaQueries(mQs)
