@@ -19,7 +19,7 @@ const Cursor = ({ size=200, yPercent }) => {
   const lightRadiusScrub = useMotionValue()
   const lightBackground = useMotionTemplate`radial-gradient(#5257F7AA,#5257F703,#5257F700 ${lightRadiusScrub})`
   const lightValues = [
-    {val:lightRadiusScrub, from:size, to:0, unit:'px'},
+    {val:lightRadiusScrub, from:size/1.5, to:0, unit:'px'},
   ]
 
   getScrubValues(yPercent, 0.3, 0.6, lightValues)
