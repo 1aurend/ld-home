@@ -23,90 +23,119 @@ export default function Developer({ yPercent }) {
   const marginTopScrub = useMotionValue()
   const translateScrub = useMotionValue(`4vh`)
   const translate = useMotionTemplate`translate(5px,${translateScrub})`
-  const lightBackground = useMotionTemplate`radial-gradient(#5257F7AA,#5257F703,#5257F700 ${tileWidthScrub})`
+  const lightBackground = useMotionTemplate`radial-gradient(#5257F7AA,#5257F703,#5257F700 ${lightWidthScrub})`
+  const leftScrub = useMotionValue()
+  const rightScrub = useMotionValue()
 
-  // const borderTopLeftRadiusScrub = useMotionValue('7.5px')
-  // const borderTopRightRadiusScrub = useMotionValue('7.5px')
-  // const borderBottomLeftRadiusScrub = useMotionValue('7.5px')
-  // const borderBottomRightRadiusScrub = useMotionValue('7.5px')
+  const borderTopLeftRadiusScrub = useMotionValue()
+  const borderTopRightRadiusScrub = useMotionValue()
+  const borderBottomLeftRadiusScrub = useMotionValue()
+  const borderBottomRightRadiusScrub = useMotionValue()
+
+  const flipScrub = useMotionValue()
+  const flip = useMotionTemplate`rotateX(${flipScrub})`
+  const opacityScrub = useMotionValue()
+
+  const flipValues = [
+    {val:flipScrub, from:0, to:180, unit:'deg'},
+    {val:opacityScrub, from:1, to:0, unit:''}
+  ]
 
   const lineValues = [
-    {val:lineScrub, from:0, to:20, unit:'vw'},
+    {val:lineScrub, from:0, to:80, unit:'vw'},
+    {val:leftScrub, from:87, to:7, unit:'vw'},
+    {val:rightScrub, from:12.5, to:12.5, unit:'vw'},
+  ]
+  const lineShrink = [
+    {val:lineScrub, from:80, to:60, unit:'vw'},
+    {val:rightScrub, from:12.5, to:32.5, unit:'vw'},
   ]
   const tileValues = [
-    {val:borderRadiusScrub, from:50, to:20, unit:'px'},
-    {val:tileWidthScrub, from:4, to:80, unit:'vmin'},
-    {val:lightWidthScrub, from:1, to:40, unit:'vmin'},
-    {val:tileHeightScrub, from:4, to:80, unit:'vmin'},
-    {val:lightHeightScrub, from:1, to:40, unit:'vmin'},
-    {val:marginTopScrub, from:5.4, to:0, unit:'vh'},
+    {val:borderTopLeftRadiusScrub, from:30, to:0, unit:'px'},
+    {val:borderTopRightRadiusScrub, from:30, to:0, unit:'px'},
+    {val:borderBottomLeftRadiusScrub, from:30, to:20, unit:'px'},
+    {val:borderBottomRightRadiusScrub, from:30, to:20, unit:'px'},
+    {val:tileWidthScrub, from:1, to:60, unit:'vw'},
+    {val:lightWidthScrub, from:1, to:120, unit:'vw'},
+    {val:tileHeightScrub, from:1, to:60, unit:'vw'},
+    {val:lightHeightScrub, from:1, to:120, unit:'vw'},
+    {val:marginTopScrub, from:14, to:18.5, unit:'vh'},
     {val:translateScrub, from:4, to:0, unit:'vh'}
   ]
   getScrubValues(yPercent, 0.13, 0.3, lineValues)
   getScrubValues(yPercent, 0.3, 0.6, tileValues)
+  if (yPercent > 0.3) {
+    getScrubValues(yPercent, 0.6, 0.7, lineShrink)
+  }
+  getScrubValues(yPercent, 0.7, 0.72, flipValues)
 
   return (
-    <div
-      sx={{
-        position:'absolute',
-        display:'flex',
-        justifyContent:'flex-end',
-        alignItems:'flex-start',
-        height:'50vh',
-        width:'80vw',
-        left:'10vw',
-        top: '12.5vh',
-      }}>
-      <div
+    <>
+      <motion.div
+        id='tile-parent'
+        style={{
+          height:tileHeightScrub,
+          width:tileWidthScrub,
+          transform:translate,
+          marginTop:marginTopScrub,
+          left:leftScrub
+        }}
         sx={{
-          display:'flex',
-          justifyContent:'flex-end',
-          alignItems:'flex-start',
-          height:'auto',
-          bg:'none',
+          position:'absolute',
+          perspective:'20vw',
+          zIndex:1000
         }}>
         <motion.div
-          style={{
-            height:tileHeightScrub,
-            width:tileWidthScrub,
-            borderRadius:borderRadiusScrub,
-            transform:translate,
-            backgroundImage: lightBackground,
-          }}
+          id='tile-glow'
+          style={{backgroundImage: lightBackground}}
           sx={{
-            cursor:'pointer',
             mixBlendMode:'soft-light',
-            display:'flex',
-            justifyContent:'center',
-            alignItems:'center',
-            zIndex:100
+            height:'200%',
+            width:'200%',
+            position:'absolute',
+            top:'-50%',
+            left:'-50%',
           }}>
-          <motion.div
-            style={{
-              borderRadius:borderRadiusScrub,
-              width:lightWidthScrub,
-              height:lightHeightScrub,
-            }}
-            sx={{
-              bg:'white',
-              opacity:1,
-              isolation:'isolate',
-              zIndex:200
-            }}>
-          </motion.div>
         </motion.div>
         <motion.div
-          style={{width:lineScrub}}
+          id='tile'
+          style={{
+            borderTopLeftRadius:borderTopLeftRadiusScrub,
+            borderTopRightRadius:borderTopRightRadiusScrub,
+            borderBottomLeftRadius:borderBottomLeftRadiusScrub,
+            borderBottomRightRadius:borderBottomRightRadiusScrub,
+            transform:flip,
+            opacity:opacityScrub
+          }}
           sx={{
-            position:'relative',
-            height:'3px',
-            bg:'Teal1',
-            opacity:0.75,
-            mt:'6vh',
-            zIndex:1
+            bg:'white',
+            zIndex:200,
+            position:'absolute',
+            top:0,
+            left:0,
+            height:'100%',
+            width:'100%',
+            cursor:'pointer',
+            transformOrigin:'center top',
           }}>
         </motion.div>
-      </div>
-    </div>
+      </motion.div>
+      <motion.div
+        id='line'
+        style={{
+          width:lineScrub,
+          right:rightScrub
+        }}
+        sx={{
+          position:'absolute',
+          height:'3px',
+          bg:'light',
+          opacity:0.75,
+          mt:'6vh',
+          zIndex:1000,
+          top:'12.5vh'
+        }}>
+      </motion.div>
+    </>
   )
 }

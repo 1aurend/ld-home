@@ -17,7 +17,7 @@ export default function TextBackground({ children, yPos, yPercent }) {
         sx={{
           height:'max-content',
           width:'100vw',
-          isolation: 'isolate',
+          isolation:'isolate',
         }}>
         <div
           sx={{
