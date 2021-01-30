@@ -43,12 +43,12 @@ export default function Developer({ yPercent }) {
 
   const lineValues = [
     {val:lineScrub, from:0, to:75, unit:'vw'},
-    {val:leftScrub, from:92, to:12, unit:'vw'},
-    {val:rightScrub, from:12.5, to:12.5, unit:'vw'},
+    {val:leftScrub, from:86, to:11, unit:'vw'},
+    {val:rightScrub, from:14, to:14, unit:'vw'},
   ]
   const lineShrink = [
     {val:lineScrub, from:75, to:55, unit:'vw'},
-    {val:rightScrub, from:12.5, to:33, unit:'vw'},
+    {val:rightScrub, from:14, to:34, unit:'vw'},
   ]
   const tileValues = [
     {val:borderTopLeftRadiusScrub, from:30, to:0, unit:'px'},
