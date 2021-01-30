@@ -42,25 +42,24 @@ export default function Developer({ yPercent }) {
   ]
 
   const lineValues = [
-    {val:lineScrub, from:0, to:80, unit:'vw'},
-    {val:leftScrub, from:87, to:7, unit:'vw'},
+    {val:lineScrub, from:0, to:75, unit:'vw'},
+    {val:leftScrub, from:92, to:12, unit:'vw'},
     {val:rightScrub, from:12.5, to:12.5, unit:'vw'},
   ]
   const lineShrink = [
-    {val:lineScrub, from:80, to:60, unit:'vw'},
-    {val:rightScrub, from:12.5, to:32.5, unit:'vw'},
+    {val:lineScrub, from:75, to:55, unit:'vw'},
+    {val:rightScrub, from:12.5, to:33, unit:'vw'},
   ]
   const tileValues = [
     {val:borderTopLeftRadiusScrub, from:30, to:0, unit:'px'},
     {val:borderTopRightRadiusScrub, from:30, to:0, unit:'px'},
     {val:borderBottomLeftRadiusScrub, from:30, to:20, unit:'px'},
     {val:borderBottomRightRadiusScrub, from:30, to:20, unit:'px'},
-    {val:tileWidthScrub, from:1, to:60, unit:'vw'},
-    {val:lightWidthScrub, from:1, to:120, unit:'vw'},
-    {val:tileHeightScrub, from:1, to:60, unit:'vw'},
-    {val:lightHeightScrub, from:1, to:120, unit:'vw'},
-    {val:marginTopScrub, from:14, to:18.5, unit:'vh'},
-    {val:translateScrub, from:4, to:0, unit:'vh'}
+    {val:tileWidthScrub, from:1, to:55, unit:'vw'},
+    {val:lightWidthScrub, from:1, to:110, unit:'vw'},
+    {val:tileHeightScrub, from:1, to:55, unit:'vw'},
+    {val:lightHeightScrub, from:1, to:110, unit:'vw'},
+    {val:marginTopScrub, from:18, to:18.5, unit:'vh'},
   ]
   getScrubValues(yPercent, 0.13, 0.3, lineValues)
   getScrubValues(yPercent, 0.3, 0.6, tileValues)
@@ -76,14 +75,11 @@ export default function Developer({ yPercent }) {
         style={{
           height:tileHeightScrub,
           width:tileWidthScrub,
-          transform:translate,
           marginTop:marginTopScrub,
           left:leftScrub
         }}
         sx={{
           position:'absolute',
-          perspective:'20vw',
-          zIndex:1000
         }}>
         <motion.div
           id='tile-glow'
@@ -95,30 +91,45 @@ export default function Developer({ yPercent }) {
             position:'absolute',
             top:'-50%',
             left:'-50%',
+            zIndex:10
           }}>
         </motion.div>
-        <motion.div
-          id='tile'
-          style={{
-            borderTopLeftRadius:borderTopLeftRadiusScrub,
-            borderTopRightRadius:borderTopRightRadiusScrub,
-            borderBottomLeftRadius:borderBottomLeftRadiusScrub,
-            borderBottomRightRadius:borderBottomRightRadiusScrub,
-            transform:flip,
-            opacity:opacityScrub
-          }}
+        <div
+          id='perspective-wrapper'
           sx={{
-            bg:'white',
-            zIndex:200,
+            zIndex:100,
+            height:'100%',
+            width:'100%',
             position:'absolute',
             top:0,
             left:0,
-            height:'100%',
-            width:'100%',
-            cursor:'pointer',
-            transformOrigin:'center top',
-          }}>
-        </motion.div>
+            isolation:'isolate',
+            perspective:'20vw'
+          }}
+          >
+          <motion.div
+            id='tile'
+            style={{
+              borderTopLeftRadius:borderTopLeftRadiusScrub,
+              borderTopRightRadius:borderTopRightRadiusScrub,
+              borderBottomLeftRadius:borderBottomLeftRadiusScrub,
+              borderBottomRightRadius:borderBottomRightRadiusScrub,
+              transform:flip,
+              opacity:opacityScrub
+            }}
+            sx={{
+              bg:'white',
+              position:'absolute',
+              top:0,
+              left:0,
+              height:'100%',
+              width:'100%',
+              cursor:'pointer',
+              transformOrigin:'center top',
+              mixBlendMode:'normal'
+            }}>
+          </motion.div>
+        </div>
       </motion.div>
       <motion.div
         id='line'
@@ -132,8 +143,8 @@ export default function Developer({ yPercent }) {
           bg:'light',
           opacity:0.75,
           mt:'6vh',
-          zIndex:1000,
-          top:'12.5vh'
+          zIndex:50,
+          top:'12.5vh',
         }}>
       </motion.div>
     </>

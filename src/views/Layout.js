@@ -59,7 +59,7 @@ const Layout = ({ globalYPos, size }) => {
           </div>
         </section>
       </main>
-      {globalYPercent > 0.125 && <Developer yPercent={globalYPercent}/>}
+      {false && <Developer yPercent={globalYPercent}/>}
     </Background>
   )
 }

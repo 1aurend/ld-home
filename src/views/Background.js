@@ -2,6 +2,7 @@
 import React from 'react'
 import Cursor from './RAFCursor'
 import peirce from '../assets/fixationOfBelief'
+import Developer from './Developer'
 
 
 export default function TextBackground({ children, yPos, yPercent }) {
@@ -35,6 +36,7 @@ export default function TextBackground({ children, yPos, yPercent }) {
         </div>
         <Cursor yPercent={yPercent}/>
         {children}
+        {yPercent > 0.125 && <Developer yPercent={yPercent}/>}
       </div>
     </div>
   )
