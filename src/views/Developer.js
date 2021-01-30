@@ -126,7 +126,40 @@ export default function Developer({ yPercent }) {
               width:'100%',
               cursor:'pointer',
               transformOrigin:'center top',
-              mixBlendMode:'normal'
+              mixBlendMode:'normal',
+              zIndex:104
+            }}>
+          </motion.div>
+          <motion.div
+            id='tile'
+            sx={{
+              bg:'white',
+              position:'absolute',
+              top:0,
+              left:0,
+              height:'100%',
+              width:'100%',
+              cursor:'pointer',
+              transformOrigin:'center top',
+              mixBlendMode:'normal',
+              zIndex:103,
+              display:yPercent < 0.7 ? 'none' : 'visible'
+            }}>
+          </motion.div>
+          <motion.div
+            id='tile'
+            sx={{
+              bg:'white',
+              position:'absolute',
+              top:0,
+              left:0,
+              height:'100%',
+              width:'100%',
+              cursor:'pointer',
+              transformOrigin:'center top',
+              mixBlendMode:'normal',
+              zIndex:102,
+              display:yPercent < 0.7 ? 'none' : 'visible'
             }}>
           </motion.div>
         </div>
