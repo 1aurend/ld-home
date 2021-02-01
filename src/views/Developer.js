@@ -57,7 +57,7 @@ export default function Developer({ yPercent }) {
     {val:borderBottomRightRadiusScrub, from:30, to:20, unit:'px'},
     {val:tileWidthScrub, from:1, to:55, unit:'vw'},
     {val:lightWidthScrub, from:1, to:110, unit:'vw'},
-    {val:tileHeightScrub, from:1, to:55, unit:'vw'},
+    {val:tileHeightScrub, from:1, to:40, unit:'vw'},
     {val:lightHeightScrub, from:1, to:110, unit:'vw'},
     {val:marginTopScrub, from:18, to:18.5, unit:'vh'},
   ]

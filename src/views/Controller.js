@@ -18,11 +18,6 @@ export default function Controller() {
   const prevYPercent = useRef(0)
   const [yPos, setYPos] = useState({px:0,percent:0})
 
-  const getSnapToPercent = (y, animList) => {
-    const currentAnim = animList.filter(anim => y >= anim.min && y <= anim.max)
-    return currentAnim[0]? currentAnim[0].min : 1
-  }
-
   useEffect(()=>{
     const calculateScroll = () => {
       const yMax = 4*prevSize.current.height
@@ -59,17 +54,11 @@ export default function Controller() {
   },[])
 
   useEffect(() => {
-    const snapToAnimStart = () => {
-      const snapToPercent = getSnapToPercent(prevYPercent.current, animList)
-      prevSize.current = size
-      prevYPercent.current = snapToPercent
-      prevY.current = -snapToPercent*(4*size.height)
-      resize.current = false
-      setYPos({px:snapToPercent*(4*size.height),percent:snapToPercent})
-    }
     if (size.height !== prevSize.current.height || size.width !== prevSize.current.width) {
-      resize.current = true
-      snapToAnimStart()
+      prevSize.current = size
+      prevY.current = 0
+      prevYPercent.current = 0
+      setYPos({px:0,percent:0})
     }
   }, [size])
 
