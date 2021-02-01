@@ -7,6 +7,7 @@ import useDebounceWindowSize from '../hooks/useDebounceWindowSize'
 import Layout from './Layout'
 import animList from './animList'
 
+const yMultiplier = 10
 
 export default function Controller() {
   const size = useDebounceWindowSize()
@@ -20,7 +21,7 @@ export default function Controller() {
 
   useEffect(()=>{
     const calculateScroll = () => {
-      const yMax = 4*prevSize.current.height
+      const yMax = yMultiplier*prevSize.current.height
       ticking.current = false
       if (prevY.current - eDelta.current > 0) {
         prevY.current = 0
