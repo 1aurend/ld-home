@@ -1,6 +1,6 @@
 export default {
   fonts: {
-    body: 'Montserrat, sans-serif',
+    body: 'Quicksand, sans-serif',
     heading: 'Della Respira, serif',
     fatserif: 'Suez One, serif',
     monospace: 'Menlo, monospace',

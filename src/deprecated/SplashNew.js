@@ -8,13 +8,10 @@ import React, {
 } from 'react'
 import { Slider } from './Subtitles'
 import useRAFWindowSize from '../hooks/useRAFWindowSize'
-import { motion, useViewportScroll } from 'framer-motion'
 
 
-export default function Splash({ horizontal, init }) {
+export default function Splash({ yPos }) {
   const size = useRAFWindowSize()
-  const { scrollYProgress } = useViewportScroll()
-  console.log(scrollYProgress)
 
   const name = useRef(null)
   const [namePos, setNamePos] = useState(null)
@@ -39,11 +36,8 @@ export default function Splash({ horizontal, init }) {
     if (philosopherDims && educatorDims && developerDims && namePos){
       const getRolePos = () => {
         const totalWidth = philosopherDims.width + educatorDims.width + developerDims.width
-        console.log(namePos.width)
         const emptySpace = namePos.width - totalWidth
-        console.log(emptySpace);
         const spacer = emptySpace / 2
-        console.log(spacer);
         return {eHx:namePos.x+philosopherDims.width+spacer,dHx: namePos.x+philosopherDims.width + educatorDims.width + 2*spacer}
       }
       setPHx(namePos.x)
@@ -87,22 +81,22 @@ export default function Splash({ horizontal, init }) {
           justifyContent:'center',
           alignItems:'center',
           position:'absolute',
-          top:0,
+          top:`${-yPos}px`,
+          opacity: 1,
           left:0,
         }}>
         <div
           ref={name}
           sx={{
-            fontSize:'7vw',
+            fontSize:'min(max(2rem, 7vw), 100px)',
             fontFamily:'heading',
-            color:'Teal1', textAlign:'right',
-            gridArea:'name',
-            justifySelf:'center',
+            color:'Teal1',
+            textAlign:'right',
             alignSelf:'center',
             lineHeight:'9vmin',
-            width: 'auto',
-            pb: '10vmin',
-            boxSizing: 'border-box'
+            width:'auto',
+            pb:'10vmin',
+            boxSizing:'border-box'
           }}>
           Lauren Davidson
         </div>
@@ -115,10 +109,9 @@ export default function Splash({ horizontal, init }) {
             hy={size.height*.52}
             vx={window.innerWidth/2+namePos.width/2+20}
             vy={size.height*.52}
-            horizontal={horizontal}
             ref={philosopher}
             hidden={hidden.current}
-            init={init}
+            yPos={yPos}
             />
           <Slider
             type='educator'
@@ -126,10 +119,9 @@ export default function Splash({ horizontal, init }) {
             hy={size.height*.52}
             vx={window.innerWidth/2+namePos.width/2+20}
             vy={size.height*.44}
-            horizontal={horizontal}
             ref={educator}
             hidden={hidden.current}
-            init={init}
+            yPos={yPos}
             />
           <Slider
             type='developer'
@@ -137,10 +129,9 @@ export default function Splash({ horizontal, init }) {
             hy={size.height*.52}
             vx={window.innerWidth/2+namePos.width/2+20}
             vy={size.height*.36}
-            horizontal={horizontal}
             ref={developer}
             hidden={hidden.current}
-            init={init}
+            yPos={yPos}
             />
         </>
       }
