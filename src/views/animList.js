@@ -7,6 +7,38 @@ export default animList
 
 const yMultiplier = 10
 
+export const animations = {
+  SLIDER: {
+    philosopher:{
+      x:{from:.01,to:.05},
+      y:{from:.05,to:.05},
+    },
+    educator:{
+      x:{from:.01,to:.035},
+      y:{from:.035,to:.05},
+    },
+    developer:{
+      x:{from:.01,to:.02},
+      y:{from:.02,to:.05}
+    }
+  },
+  DEVELOPER: {
+    line:{
+      extend:{},
+      shrink:{}
+    },
+    tile:{
+      radius:{},
+      grow:{}
+    },
+    flips:{}
+  },
+  DTOE:{},
+  EDUCATOR:{},
+  ETOP:{},
+  PHILOSOPHER:{},
+}
+
 // Jx = .01 -> .05
 // Jy = .025 -> .05
 // DLine = .055 -> .13

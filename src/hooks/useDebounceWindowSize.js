@@ -4,7 +4,7 @@ import {
 } from 'react'
 import debounce from 'lodash.debounce'
 
-export default function useRAFSize(wait=500, maxWait=1000) {
+export default function useDebouncedSize(wait=500, maxWait=1000) {
   const [dims, setDims] = useState({width:window.innerWidth, height: window.innerHeight})
 
   useEffect(()=>{

@@ -10,6 +10,7 @@ import {
   useMotionValue,
 } from 'framer-motion'
 import getScrubValues from '../utils/getScrubValues'
+import { animations } from './animList'
 
 const pulse = keyframes({
   '0%': {
@@ -36,7 +37,7 @@ const Slider = props => {
   const hY = useRef()
   const sliderRef = useRef()
   const toY = useRef()
-  const endX = type === 'educator' ? 0.08 : type === 'philosopher' ? 0.13 : 0.05
+  const endX = animations.SLIDER[type].x.to
 
   const getPos = useCallback(el => {
     sliderRef.current = el
@@ -64,8 +65,8 @@ const Slider = props => {
   const sliderY = [
     {val:y, from:hY.current, to:toY.current, unit:'px'},
   ]
-  getScrubValues(yPercent, 0.03, endX, sliderX)
-  getScrubValues(yPercent, endX, 0.13, sliderY)
+  getScrubValues(yPercent, 0.01, endX, sliderX)
+  getScrubValues(yPercent, endX, 0.05, sliderY)
 
   return (
     <motion.div
