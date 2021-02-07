@@ -8,7 +8,7 @@ import {
   useMotionTemplate
 } from 'framer-motion'
 import getScrubValues from '../utils/getScrubValues'
-import { animations } from './animList'
+import { animations, yMultiplier } from './animList'
 
 
 export default function TextBackground({ children, yPos, yPercent }) {
@@ -55,19 +55,20 @@ export default function TextBackground({ children, yPos, yPercent }) {
         <motion.div
           style={{color:bgColor}}
           sx={{
-            height:'1000vh', //remember to calibrate this after content is all in
+            height:`${100*yMultiplier}vh`,
             width:'100%',
             fontFamily:'heading',
             fontSize:'teensy',
             zIndex:'-100',
             overflow:'hidden',
             position:'absolute',
-            top:`${-yPos.px}px`
+            top:`${-yPos.px}px` //make this a motion value
           }}>
-            {peirce}
-            {peirce}
-            {peirce}
-            {peirce}
+          {yPercent <= 0.05 && peirce}
+          {(yPercent > 0.05 && yPercent <= .30) && peirce}
+          {(yPercent > 0.40 && yPercent <= .65) && peirce}
+          {(yPercent > 0.75 && yPercent <= .98) && peirce}
+          {yPercent > 0.99 && peirce}
         </motion.div>
         <Cursor yPercent={yPercent}/>
         {children}
