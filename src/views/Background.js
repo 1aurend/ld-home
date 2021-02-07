@@ -27,10 +27,15 @@ export default function TextBackground({ children, yPos, yPercent }) {
     {val:green, from:97, to:8, unit:''},
     {val:blue, from:78, to:38, unit:''}
   ]
+  const endVals = [
+    {val:red, from:125, to:19, unit:''},
+    {val:green, from:8, to:20, unit:''},
+    {val:blue, from:38, to:56, unit:''}
+  ]
 
   getScrubValues(yPercent, animations.DTOE.from, animations.DTOE.to, eVals)
   getScrubValues(yPercent, animations.ETOP.from, animations.ETOP.to, pVals)
-
+  getScrubValues(yPercent, animations.PTOEND.from, animations.PTOEND.to, endVals)
 
 
   return (

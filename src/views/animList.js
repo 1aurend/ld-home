@@ -64,6 +64,7 @@ export const animations = {
       three:{from:.94,to:.96}
     }
   },
+  PTOEND:{from:.99,to:1.0},
 }
 
 // .05 = .01 -> .05

@@ -23,8 +23,13 @@ const Cursor = ({ size=200, yPercent }) => {
   const lightValues = [
     {val:lightRadiusScrub, from:size/1.5, to:0, unit:'px'},
   ]
+  const endValues = [
+    {val:lightRadiusScrub, from:0, to:size/1.5, unit:'px'},
+  ]
 
   getScrubValues(yPercent, animations.DEVELOPER.tile.grow.from, animations.DEVELOPER.tile.grow.to, lightValues)
+  getScrubValues(yPercent, animations.PTOEND.from, animations.PTOEND.to, endValues)
+
 
   useEffect(()=>{
     const moveSpotlight = () => {
