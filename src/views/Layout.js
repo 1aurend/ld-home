@@ -1,11 +1,6 @@
 /** @jsxImportSource theme-ui */
-import React, {
-  useEffect,
-  useCallback,
-  useRef,
-  useState
-} from 'react'
-import Developer from './Developer'
+import React from 'react'
+import TileStack from './TileStack'
 // import useMediaQueries from '../hooks/useMediaQueries'
 import Background from './Background'
 import Name from './Name'
@@ -59,7 +54,9 @@ const Layout = ({ globalYPos, size }) => {
           </div>
         </section>
       </main>
-      {globalYPercent >= .05 && <Developer yPercent={globalYPercent}/>}
+      {globalYPercent >= .05 && <TileStack type='DEVELOPER' yPercent={globalYPercent}/>}
+      {globalYPercent >= .40 && <TileStack type='EDUCATOR' yPercent={globalYPercent}/>}
+      {globalYPercent >= .75 && <TileStack type='PHILOSOPHER' yPercent={globalYPercent}/>}
     </Background>
   )
 }

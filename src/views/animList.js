@@ -1,9 +1,3 @@
-// const animList = [
-//   {min:0, max:.13},
-//   {min:.13, max:.6}
-// ]
-//
-// export default animList
 
 export const yMultiplier = 10
 
@@ -41,53 +35,36 @@ export const animations = {
   DTOE:{from:.30,to:.40},
   EDUCATOR:{
     line:{
-      extend:{from:.40,to:.45},
-      shrink:{from:.53,to:.56}
+      extend:{from:.40,to:.44},
+      shrink:{from:.61,to:.65}
     },
     tile:{
       radius:{},
-      grow:{from:.45,to:.53}
+      grow:{from:.44,to:.52}
     },
     flips:{
-      one:{from:.57,to:.59},
-      two:{from:.60,to:.62},
-      three:{from:.63,to:.65}
+      one:{from:.53,to:.55},
+      two:{from:.56,to:.58},
+      three:{from:.59,to:.61}
     }
   },
   ETOP:{from:.65,to:.75},
   PHILOSOPHER:{
     line:{
-      extend:{from:.75,to:.80},
-      shrink:{from:.88,to:.91}
+      extend:{from:.75,to:.79},
+      shrink:{from:.96,to:1.0}
     },
     tile:{
       radius:{},
-      grow:{from:.80,to:.88}
+      grow:{from:.79,to:.87}
     },
     flips:{
-      one:{from:.92,to:.94},
-      two:{from:.95,to:.97},
-      three:{from:.98,to:1.0}
+      one:{from:.88,to:.90},
+      two:{from:.91,to:.93},
+      three:{from:.94,to:.96}
     }
   },
 }
-
-// Jx = .01 -> .05
-// Jy = .025 -> .05
-// DLine = .055 -> .13
-// DTile = .13 -> .21
-// DRadius = ?
-// DFlips = .35 -> .36, .37 -> .38, .39 -> .40
-// D-ETransition =
-// ELine =
-// ETile =
-// ERadius =
-// EFlips =
-// E-PTransition =
-// PLine =
-// PRadius =
-// PTile =
-// PFlips = .95 -> .96, .97 -> .98, .99 -> 1
 
 // .05 = .01 -> .05
 // .25 = .05 -> .30

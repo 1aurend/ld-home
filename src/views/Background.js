@@ -2,13 +2,11 @@
 import React from 'react'
 import Cursor from './RAFCursor'
 import peirce from '../assets/fixationOfBelief'
-import Developer from './Developer'
 import {
   motion,
   useMotionValue,
   useMotionTemplate
 } from 'framer-motion'
-import theme from '../theme'
 import getScrubValues from '../utils/getScrubValues'
 import { animations } from './animList'
 

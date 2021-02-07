@@ -40,7 +40,10 @@ const Slider = props => {
   const startX = animations.SLIDER[type].x.from
   const endX = animations.SLIDER[type].x.to
   const endY = animations.SLIDER[type].y.to
-  const opacity = useMotionValue()
+  const opacityD = useMotionValue(1)
+  const opacityE = useMotionValue(1)
+  const opacityP = useMotionValue(1)
+
 
   const getPos = useCallback(el => {
     sliderRef.current = el
@@ -71,11 +74,21 @@ const Slider = props => {
   ]
   const dToE = [
     {val:y, from:toY.current, to: type === 'philosopher' ? (hY.current-(size.height*.16))/2+(size.height*.16) : type === 'educator' ? size.height*0.16 : 0, unit:'px'},
-    {val:opacity, from:1, to:0, unit:''}
+    {val:opacityD, from:1, to:0, unit:''}
+  ]
+  const eToP = [
+    {val:y, from:type === 'philosopher' ? (hY.current-(size.height*.16))/2+(size.height*.16) : type === 'educator' ? size.height*0.16 : 0, to: type === 'philosopher' ? size.height*0.16 : 0, unit:'px'},
+    {val:opacityE, from:1, to:0, unit:''}
+  ]
+  const pFade = [
+    {val:opacityP, from:1, to:0, unit:''}
   ]
   getScrubValues(yPercent, startX, endX, sliderX)
   getScrubValues(yPercent, endX, endY, sliderY)
   getScrubValues(yPercent, animations.DTOE.from, animations.DTOE.to, dToE)
+  getScrubValues(yPercent, animations.ETOP.from, animations.ETOP.to, eToP)
+  getScrubValues(yPercent, animations.PHILOSOPHER.line.shrink.from, animations.PHILOSOPHER.line.shrink.to, pFade)
+
 
   return (
     <motion.div
@@ -85,7 +98,7 @@ const Slider = props => {
         left:yPercent !== 0 ? x : '',
         top:yPercent !== 0 ? y : '',
         position:yPercent !== 0 ? 'fixed' : '',
-        opacity:type === 'developer' ? opacity : ''
+        opacity: type === 'developer' ? opacityD : type === 'educator' ? opacityE : opacityP
       }}
       sx={{
         height:'auto',

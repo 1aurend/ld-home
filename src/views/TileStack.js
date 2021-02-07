@@ -1,10 +1,5 @@
 /** @jsxImportSource theme-ui */
-import React, {
-  useState,
-  useCallback,
-  useEffect,
-  useRef,
-} from 'react'
+import React from 'react'
 import {
   motion,
   useMotionValue,
@@ -14,7 +9,7 @@ import getScrubValues from '../utils/getScrubValues'
 import { animations } from './animList'
 
 
-export default function Developer({ yPercent }) {
+export default function TileStack({ yPercent, type }) {
   const lineScrub = useMotionValue()
   const borderRadiusScrub = useMotionValue()
   const tileWidthScrub = useMotionValue()
@@ -22,8 +17,6 @@ export default function Developer({ yPercent }) {
   const tileHeightScrub = useMotionValue()
   const lightHeightScrub = useMotionValue()
   const marginTopScrub = useMotionValue()
-  const translateScrub = useMotionValue(`4vh`)
-  const translate = useMotionTemplate`translate(5px,${translateScrub})`
   const lightBackground = useMotionTemplate`radial-gradient(#5257F7AA,#5257F703,#5257F700 ${lightWidthScrub})`
   const leftScrub = useMotionValue()
   const rightScrub = useMotionValue()
@@ -76,13 +69,12 @@ export default function Developer({ yPercent }) {
     {val:lightHeightScrub, from:1, to:110, unit:'vw'},
     {val:marginTopScrub, from:18, to:18.5, unit:'vh'},
   ]
-  getScrubValues(yPercent, animations.DEVELOPER.line.extend.from, animations.DEVELOPER.line.extend.to, lineValues)
-  getScrubValues(yPercent, animations.DEVELOPER.line.shrink.from, animations.DEVELOPER.line.shrink.to, lineShrink)
-  getScrubValues(yPercent, animations.DEVELOPER.tile.grow.from, animations.DEVELOPER.tile.grow.to, tileValues)
-  getScrubValues(yPercent, animations.DEVELOPER.flips.one.from, animations.DEVELOPER.flips.one.to, flipValues)
-  getScrubValues(yPercent, animations.DEVELOPER.flips.two.from, animations.DEVELOPER.flips.two.to, secondFlipValues)
-  getScrubValues(yPercent, animations.DEVELOPER.flips.three.from, animations.DEVELOPER.flips.three.to, thirdFlipValues)
-
+  getScrubValues(yPercent, animations[type].line.extend.from, animations[type].line.extend.to, lineValues)
+  getScrubValues(yPercent, animations[type].line.shrink.from, animations[type].line.shrink.to, lineShrink)
+  getScrubValues(yPercent, animations[type].tile.grow.from, animations[type].tile.grow.to, tileValues)
+  getScrubValues(yPercent, animations[type].flips.one.from, animations[type].flips.one.to, flipValues)
+  getScrubValues(yPercent, animations[type].flips.two.from, animations[type].flips.two.to, secondFlipValues)
+  getScrubValues(yPercent, animations[type].flips.three.from, animations[type].flips.three.to, thirdFlipValues)
 
 
   return (
@@ -101,7 +93,7 @@ export default function Developer({ yPercent }) {
         <motion.div
           id='tile-glow'
           style={{
-            backgroundImage: lightBackground,
+            backgroundImage:lightBackground,
             transform:thirdFlip,
             opacity:thirdOpacityScrub
           }}
