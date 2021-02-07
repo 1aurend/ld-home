@@ -10,19 +10,21 @@ import {
   useMotionTemplate
 } from 'framer-motion'
 import getScrubValues from '../utils/getScrubValues'
+import { animations } from './animList'
+
 
 const Cursor = ({ size=200, yPercent }) => {
   const [paintPos, setPaintPos] = useState({x:0,y:0})
   const ticking = useRef(false)
   const ePos = useRef({x:0,y:0})
 
-  const lightRadiusScrub = useMotionValue()
+  const lightRadiusScrub = useMotionValue(`${size/1.5}px`)
   const lightBackground = useMotionTemplate`radial-gradient(#5257F7AA,#5257F703,#5257F700 ${lightRadiusScrub})`
   const lightValues = [
     {val:lightRadiusScrub, from:size/1.5, to:0, unit:'px'},
   ]
 
-  getScrubValues(yPercent, 0.3, 0.6, lightValues)
+  getScrubValues(yPercent, animations.DEVELOPER.tile.grow.from, animations.DEVELOPER.tile.grow.to, lightValues)
 
   useEffect(()=>{
     const moveSpotlight = () => {

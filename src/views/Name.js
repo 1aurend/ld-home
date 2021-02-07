@@ -6,15 +6,15 @@ import {
   useMotionTemplate
 } from 'framer-motion'
 import getScrubValues from '../utils/getScrubValues'
+import { animations } from './animList'
 
 
 const Name = ({ yPercent }) => {
-  // console.log(yPercent)
   const y = useMotionValue(0)
   const nameY = [
     {val:y, from:0, to:60, unit:'vh'},
   ]
-  getScrubValues(yPercent, 0, .15, nameY)
+  getScrubValues(yPercent, animations.NAME.from, animations.NAME.to, nameY)
   const translate = useMotionTemplate`translateY(-${y})`
 
   return(

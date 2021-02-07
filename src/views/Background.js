@@ -3,15 +3,44 @@ import React from 'react'
 import Cursor from './RAFCursor'
 import peirce from '../assets/fixationOfBelief'
 import Developer from './Developer'
+import {
+  motion,
+  useMotionValue,
+  useMotionTemplate
+} from 'framer-motion'
+import theme from '../theme'
+import getScrubValues from '../utils/getScrubValues'
+import { animations } from './animList'
 
 
 export default function TextBackground({ children, yPos, yPercent }) {
+  const red = useMotionValue(19)
+  const green = useMotionValue(20)
+  const blue = useMotionValue(56)
+  const bgColor = useMotionTemplate`rgb(${red},${green},${blue})`
+
+  const eVals = [
+    {val:red, from:19, to:1, unit:''},
+    {val:green, from:20, to:97, unit:''},
+    {val:blue, from:56, to:78, unit:''}
+  ]
+  const pVals = [
+    {val:red, from:1, to:125, unit:''},
+    {val:green, from:97, to:8, unit:''},
+    {val:blue, from:78, to:38, unit:''}
+  ]
+
+  getScrubValues(yPercent, animations.DTOE.from, animations.DTOE.to, eVals)
+  getScrubValues(yPercent, animations.ETOP.from, animations.ETOP.to, pVals)
+
+
+
   return (
-    <div
+    <motion.div
+      style={{backgroundColor:bgColor}}
       sx={{
         height: '100vh',
         width: '100vw',
-        bg: 'DarkPurple1',
         overflow:'hidden',
       }}>
       <div
@@ -20,13 +49,13 @@ export default function TextBackground({ children, yPos, yPercent }) {
           width:'100vw',
           isolation:'isolate',
         }}>
-        <div
+        <motion.div
+          style={{color:bgColor}}
           sx={{
             height:'1000vh', //remember to calibrate this after content is all in
             width:'100%',
             fontFamily:'heading',
             fontSize:'teensy',
-            color:'DarkPurple1',
             zIndex:'-100',
             overflow:'hidden',
             position:'absolute',
@@ -36,11 +65,10 @@ export default function TextBackground({ children, yPos, yPercent }) {
             {peirce}
             {peirce}
             {peirce}
-        </div>
+        </motion.div>
         <Cursor yPercent={yPercent}/>
         {children}
-        {yPercent > 0.125 && <Developer yPercent={yPercent}/>}
       </div>
-    </div>
+    </motion.div>
   )
 }

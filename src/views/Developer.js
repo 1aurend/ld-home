@@ -11,6 +11,7 @@ import {
   useMotionTemplate
 } from 'framer-motion'
 import getScrubValues from '../utils/getScrubValues'
+import { animations } from './animList'
 
 
 export default function Developer({ yPercent }) {
@@ -38,6 +39,9 @@ export default function Developer({ yPercent }) {
   const secondFlipScrub = useMotionValue()
   const secondFlip = useMotionTemplate`rotateX(${secondFlipScrub})`
   const secondOpacityScrub = useMotionValue()
+  const thirdFlipScrub = useMotionValue()
+  const thirdFlip = useMotionTemplate`rotateX(${thirdFlipScrub})`
+  const thirdOpacityScrub = useMotionValue()
 
   const flipValues = [
     {val:flipScrub, from:0, to:180, unit:'deg'},
@@ -47,6 +51,10 @@ export default function Developer({ yPercent }) {
     {val:secondFlipScrub, from:0, to:180, unit:'deg'},
     {val:secondOpacityScrub, from:1, to:0, unit:''}
   ]
+  const thirdFlipValues = [
+    {val:thirdFlipScrub, from:0, to:180, unit:'deg'},
+    {val:thirdOpacityScrub, from:1, to:0, unit:''}
+  ]
 
   const lineValues = [
     {val:lineScrub, from:0, to:75, unit:'vw'},
@@ -54,8 +62,8 @@ export default function Developer({ yPercent }) {
     {val:rightScrub, from:14, to:14, unit:'vw'},
   ]
   const lineShrink = [
-    {val:lineScrub, from:75, to:55, unit:'vw'},
-    {val:rightScrub, from:14, to:34, unit:'vw'},
+    {val:lineScrub, from:75, to:0, unit:'vw'},
+    // {val:rightScrub, from:14, to:34, unit:'vw'},
   ]
   const tileValues = [
     {val:borderTopLeftRadiusScrub, from:30, to:0, unit:'px'},
@@ -68,11 +76,13 @@ export default function Developer({ yPercent }) {
     {val:lightHeightScrub, from:1, to:110, unit:'vw'},
     {val:marginTopScrub, from:18, to:18.5, unit:'vh'},
   ]
-  getScrubValues(yPercent, 0.13, 0.3, lineValues)
-  getScrubValues(yPercent, 0.3, 0.6, tileValues)
-  getScrubValues(yPercent, 0.6, 0.7, lineShrink)
-  getScrubValues(yPercent, 0.7, 0.72, flipValues)
-  getScrubValues(yPercent, 0.73, 0.75, secondFlipValues)
+  getScrubValues(yPercent, animations.DEVELOPER.line.extend.from, animations.DEVELOPER.line.extend.to, lineValues)
+  getScrubValues(yPercent, animations.DEVELOPER.line.shrink.from, animations.DEVELOPER.line.shrink.to, lineShrink)
+  getScrubValues(yPercent, animations.DEVELOPER.tile.grow.from, animations.DEVELOPER.tile.grow.to, tileValues)
+  getScrubValues(yPercent, animations.DEVELOPER.flips.one.from, animations.DEVELOPER.flips.one.to, flipValues)
+  getScrubValues(yPercent, animations.DEVELOPER.flips.two.from, animations.DEVELOPER.flips.two.to, secondFlipValues)
+  getScrubValues(yPercent, animations.DEVELOPER.flips.three.from, animations.DEVELOPER.flips.three.to, thirdFlipValues)
+
 
 
   return (
@@ -90,7 +100,11 @@ export default function Developer({ yPercent }) {
         }}>
         <motion.div
           id='tile-glow'
-          style={{backgroundImage: lightBackground}}
+          style={{
+            backgroundImage: lightBackground,
+            transform:thirdFlip,
+            opacity:thirdOpacityScrub
+          }}
           sx={{
             mixBlendMode:'soft-light',
             height:'200%',
@@ -98,7 +112,8 @@ export default function Developer({ yPercent }) {
             position:'absolute',
             top:'-50%',
             left:'-50%',
-            zIndex:10
+            zIndex:10,
+            transformOrigin:'center top',
           }}>
         </motion.div>
         <div
@@ -154,11 +169,15 @@ export default function Developer({ yPercent }) {
               transformOrigin:'center top',
               mixBlendMode:'normal',
               zIndex:103,
-              display:yPercent < 0.7 ? 'none' : 'visible'
+              display:yPercent < 0.16 ? 'none' : 'visible'
             }}>
           </motion.div>
           <motion.div
             id='tile-three'
+            style={{
+              transform:thirdFlip,
+              opacity:thirdOpacityScrub
+            }}
             sx={{
               bg:'white',
               position:'absolute',
@@ -170,7 +189,7 @@ export default function Developer({ yPercent }) {
               transformOrigin:'center top',
               mixBlendMode:'normal',
               zIndex:102,
-              display:yPercent < 0.7 ? 'none' : 'visible'
+              display:yPercent < 0.16 ? 'none' : 'visible'
             }}>
           </motion.div>
         </div>

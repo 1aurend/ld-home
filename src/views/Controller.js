@@ -5,9 +5,8 @@ import {
 } from 'react'
 import useDebounceWindowSize from '../hooks/useDebounceWindowSize'
 import Layout from './Layout'
-import animList from './animList'
+import { yMultiplier } from './animList'
 
-const yMultiplier = 10
 
 export default function Controller() {
   const size = useDebounceWindowSize()
