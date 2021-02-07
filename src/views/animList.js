@@ -23,7 +23,7 @@ export const animations = {
       shrink:{from:.26,to:.30}
     },
     tile:{
-      radius:{},
+      topRadius:{from:.09,to:.095},
       grow:{from:.09,to:.17}
     },
     flips:{
@@ -39,7 +39,7 @@ export const animations = {
       shrink:{from:.61,to:.65}
     },
     tile:{
-      radius:{},
+      topRadius:{from:.44,to:.445},
       grow:{from:.44,to:.52}
     },
     flips:{
@@ -55,7 +55,7 @@ export const animations = {
       shrink:{from:.96,to:1.0}
     },
     tile:{
-      radius:{},
+      topRadius:{from:.79,to:.795},
       grow:{from:.79,to:.87}
     },
     flips:{

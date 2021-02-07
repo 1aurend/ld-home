@@ -21,10 +21,10 @@ export default function TileStack({ yPercent, type }) {
   const leftScrub = useMotionValue()
   const rightScrub = useMotionValue()
 
-  const borderTopLeftRadiusScrub = useMotionValue()
-  const borderTopRightRadiusScrub = useMotionValue()
-  const borderBottomLeftRadiusScrub = useMotionValue()
-  const borderBottomRightRadiusScrub = useMotionValue()
+  const borderTopLeftRadiusScrub = useMotionValue(30)
+  const borderTopRightRadiusScrub = useMotionValue(30)
+  const borderBottomLeftRadiusScrub = useMotionValue(30)
+  const borderBottomRightRadiusScrub = useMotionValue(30)
 
   const flipScrub = useMotionValue()
   const flip = useMotionTemplate`rotateX(${flipScrub})`
@@ -50,28 +50,31 @@ export default function TileStack({ yPercent, type }) {
   ]
 
   const lineValues = [
-    {val:lineScrub, from:0, to:75, unit:'vw'},
-    {val:leftScrub, from:86, to:11, unit:'vw'},
-    {val:rightScrub, from:14, to:14, unit:'vw'},
+    {val:lineScrub, from:0, to:68, unit:'vw'},
+    {val:leftScrub, from:79.5, to:11, unit:'vw'},
+    {val:rightScrub, from:20.5, to:20.5, unit:'vw'},
   ]
   const lineShrink = [
-    {val:lineScrub, from:75, to:0, unit:'vw'},
+    {val:lineScrub, from:68, to:0, unit:'vw'},
     // {val:rightScrub, from:14, to:34, unit:'vw'},
   ]
   const tileValues = [
-    {val:borderTopLeftRadiusScrub, from:30, to:0, unit:'px'},
-    {val:borderTopRightRadiusScrub, from:30, to:0, unit:'px'},
     {val:borderBottomLeftRadiusScrub, from:30, to:20, unit:'px'},
     {val:borderBottomRightRadiusScrub, from:30, to:20, unit:'px'},
     {val:tileWidthScrub, from:1, to:55, unit:'vw'},
     {val:lightWidthScrub, from:1, to:110, unit:'vw'},
     {val:tileHeightScrub, from:1, to:40, unit:'vw'},
     {val:lightHeightScrub, from:1, to:110, unit:'vw'},
-    {val:marginTopScrub, from:18, to:18.5, unit:'vh'},
+    {val:marginTopScrub, from:17.5, to:18, unit:'vh'},
+  ]
+  const tileBorderVals = [
+    {val:borderTopLeftRadiusScrub, from:30, to:0, unit:'px'},
+    {val:borderTopRightRadiusScrub, from:30, to:0, unit:'px'},
   ]
   getScrubValues(yPercent, animations[type].line.extend.from, animations[type].line.extend.to, lineValues)
   getScrubValues(yPercent, animations[type].line.shrink.from, animations[type].line.shrink.to, lineShrink)
   getScrubValues(yPercent, animations[type].tile.grow.from, animations[type].tile.grow.to, tileValues)
+  getScrubValues(yPercent, animations[type].tile.topRadius.from, animations[type].tile.topRadius.to, tileBorderVals)
   getScrubValues(yPercent, animations[type].flips.one.from, animations[type].flips.one.to, flipValues)
   getScrubValues(yPercent, animations[type].flips.two.from, animations[type].flips.two.to, secondFlipValues)
   getScrubValues(yPercent, animations[type].flips.three.from, animations[type].flips.three.to, thirdFlipValues)
@@ -151,6 +154,10 @@ export default function TileStack({ yPercent, type }) {
               opacity:secondOpacityScrub
             }}
             sx={{
+              borderTopLeftRadius:0,
+              borderTopRightRadius:0,
+              borderBottomLeftRadius:20,
+              borderBottomRightRadius:20,
               bg:'white',
               position:'absolute',
               top:0,
@@ -161,7 +168,7 @@ export default function TileStack({ yPercent, type }) {
               transformOrigin:'center top',
               mixBlendMode:'normal',
               zIndex:103,
-              display:yPercent < 0.16 ? 'none' : 'visible'
+              display:yPercent < animations[type].tile.grow.to ? 'none' : 'visible'
             }}>
           </motion.div>
           <motion.div
@@ -171,6 +178,10 @@ export default function TileStack({ yPercent, type }) {
               opacity:thirdOpacityScrub
             }}
             sx={{
+              borderTopLeftRadius:0,
+              borderTopRightRadius:0,
+              borderBottomLeftRadius:20,
+              borderBottomRightRadius:20,
               bg:'white',
               position:'absolute',
               top:0,
@@ -181,7 +192,7 @@ export default function TileStack({ yPercent, type }) {
               transformOrigin:'center top',
               mixBlendMode:'normal',
               zIndex:102,
-              display:yPercent < 0.16 ? 'none' : 'visible'
+              display:yPercent < animations[type].tile.grow.to ? 'none' : 'visible'
             }}>
           </motion.div>
         </div>
@@ -199,7 +210,7 @@ export default function TileStack({ yPercent, type }) {
           opacity:0.75,
           mt:'6vh',
           zIndex:50,
-          top:'12.5vh',
+          top:'12vh',
         }}>
       </motion.div>
     </>
