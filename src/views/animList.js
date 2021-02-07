@@ -24,18 +24,22 @@ export const animations = {
   },
   DEVELOPER: {
     line:{
-      extend:{},
-      shrink:{}
+      extend:{from:.055,to:.10},
+      shrink:{from:.18,to:.21}
     },
     tile:{
       radius:{},
-      grow:{}
+      grow:{from:.10,to:.18}
     },
-    flips:{}
+    flips:{
+      one:{from:.22,to:.24},
+      two:{from:.25,to:.27},
+      three:{from:.28,to:.30}
+    }
   },
-  DTOE:{},
+  DTOE:{from:.30,to:.40},
   EDUCATOR:{},
-  ETOP:{},
+  ETOP:{from:.65,to:.75},
   PHILOSOPHER:{},
 }
 

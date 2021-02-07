@@ -14,12 +14,18 @@ const getCurrentVal = (percentage, from, to, unit) => {
 
 const getScrubValues = (current, start, end, motionValuesArr) => {
   if (current < start ) {
+    if (start - current > 0.05) {
+      return
+    }
     motionValuesArr.forEach( motionValue => {
       motionValue.val.set(`${motionValue.from}${motionValue.unit}`)
     })
     return
   }
   if (current > end) {
+    if (current - end > 0.05) {
+      return
+    }
     motionValuesArr.forEach( motionValue => {
       motionValue.val.set(`${motionValue.to}${motionValue.unit}`)
     })

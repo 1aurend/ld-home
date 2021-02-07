@@ -63,9 +63,7 @@ export default function Developer({ yPercent }) {
   ]
   getScrubValues(yPercent, 0.13, 0.3, lineValues)
   getScrubValues(yPercent, 0.3, 0.6, tileValues)
-  if (yPercent > 0.3) {
-    getScrubValues(yPercent, 0.6, 0.7, lineShrink)
-  }
+  getScrubValues(yPercent, 0.6, 0.7, lineShrink)
   getScrubValues(yPercent, 0.7, 0.72, flipValues)
 
   return (
