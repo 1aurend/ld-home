@@ -35,10 +35,17 @@ export default function Developer({ yPercent }) {
   const flipScrub = useMotionValue()
   const flip = useMotionTemplate`rotateX(${flipScrub})`
   const opacityScrub = useMotionValue()
+  const secondFlipScrub = useMotionValue()
+  const secondFlip = useMotionTemplate`rotateX(${secondFlipScrub})`
+  const secondOpacityScrub = useMotionValue()
 
   const flipValues = [
     {val:flipScrub, from:0, to:180, unit:'deg'},
     {val:opacityScrub, from:1, to:0, unit:''}
+  ]
+  const secondFlipValues = [
+    {val:secondFlipScrub, from:0, to:180, unit:'deg'},
+    {val:secondOpacityScrub, from:1, to:0, unit:''}
   ]
 
   const lineValues = [
@@ -65,6 +72,8 @@ export default function Developer({ yPercent }) {
   getScrubValues(yPercent, 0.3, 0.6, tileValues)
   getScrubValues(yPercent, 0.6, 0.7, lineShrink)
   getScrubValues(yPercent, 0.7, 0.72, flipValues)
+  getScrubValues(yPercent, 0.73, 0.75, secondFlipValues)
+
 
   return (
     <>
@@ -106,7 +115,7 @@ export default function Developer({ yPercent }) {
           }}
           >
           <motion.div
-            id='tile'
+            id='tile-one'
             style={{
               borderTopLeftRadius:borderTopLeftRadiusScrub,
               borderTopRightRadius:borderTopRightRadiusScrub,
@@ -129,7 +138,11 @@ export default function Developer({ yPercent }) {
             }}>
           </motion.div>
           <motion.div
-            id='tile'
+            id='tile-two'
+            style={{
+              transform:secondFlip,
+              opacity:secondOpacityScrub
+            }}
             sx={{
               bg:'white',
               position:'absolute',
@@ -145,7 +158,7 @@ export default function Developer({ yPercent }) {
             }}>
           </motion.div>
           <motion.div
-            id='tile'
+            id='tile-three'
             sx={{
               bg:'white',
               position:'absolute',

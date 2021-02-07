@@ -22,7 +22,7 @@ export default function TextBackground({ children, yPos, yPercent }) {
         }}>
         <div
           sx={{
-            height:'400vh', //remember to calibrate this after content is all in
+            height:'1000vh', //remember to calibrate this after content is all in
             width:'100%',
             fontFamily:'heading',
             fontSize:'teensy',
@@ -32,6 +32,9 @@ export default function TextBackground({ children, yPos, yPercent }) {
             position:'absolute',
             top:`${-yPos.px}px`
           }}>
+            {peirce}
+            {peirce}
+            {peirce}
             {peirce}
         </div>
         <Cursor yPercent={yPercent}/>
