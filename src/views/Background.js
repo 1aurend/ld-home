@@ -8,7 +8,7 @@ import {
   useMotionTemplate
 } from 'framer-motion'
 import getScrubValues from '../utils/getScrubValues'
-import { animations, yMultiplier } from './animList'
+import { animations, yMultiplier } from '../utils/animList'
 
 
 export default function TextBackground({ children, yPos, yPercent }) {

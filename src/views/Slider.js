@@ -10,7 +10,7 @@ import {
   useMotionValue,
 } from 'framer-motion'
 import getScrubValues from '../utils/getScrubValues'
-import { animations } from './animList'
+import { animations } from '../utils/animList'
 
 const pulse = keyframes({
   '0%': {

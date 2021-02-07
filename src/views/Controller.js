@@ -5,7 +5,7 @@ import {
 } from 'react'
 import useDebounceWindowSize from '../hooks/useDebounceWindowSize'
 import Layout from './Layout'
-import { yMultiplier, wheelMultiplier } from './animList'
+import { yMultiplier, wheelMultiplier } from '../utils/animList'
 
 
 export default function Controller() {
