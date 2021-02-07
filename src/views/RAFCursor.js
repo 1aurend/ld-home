@@ -20,15 +20,19 @@ const Cursor = ({ size=200, yPercent }) => {
 
   const lightRadiusScrub = useMotionValue(`${size/1.5}px`)
   const lightBackground = useMotionTemplate`radial-gradient(#5257F7AA,#5257F703,#5257F700 ${lightRadiusScrub})`
-  const lightValues = [
+  const fadeValues = [
     {val:lightRadiusScrub, from:size/1.5, to:0, unit:'px'},
   ]
-  const endValues = [
+  const growValues = [
     {val:lightRadiusScrub, from:0, to:size/1.5, unit:'px'},
   ]
 
-  getScrubValues(yPercent, animations.DEVELOPER.tile.grow.from, animations.DEVELOPER.tile.grow.to, lightValues)
-  getScrubValues(yPercent, animations.PTOEND.from, animations.PTOEND.to, endValues)
+  getScrubValues(yPercent, animations.DEVELOPER.tile.grow.from, animations.DEVELOPER.tile.grow.to, fadeValues)
+  getScrubValues(yPercent, animations.DTOE.from, animations.DTOE.to, growValues)
+  getScrubValues(yPercent, animations.EDUCATOR.tile.grow.from, animations.EDUCATOR.tile.grow.to, fadeValues)
+  getScrubValues(yPercent, animations.ETOP.from, animations.ETOP.to, growValues)
+  getScrubValues(yPercent, animations.PHILOSOPHER.tile.grow.from, animations.PHILOSOPHER.tile.grow.to, fadeValues)
+  getScrubValues(yPercent, animations.PTOEND.from, animations.PTOEND.to, growValues)
 
 
   useEffect(()=>{
