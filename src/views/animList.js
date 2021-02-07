@@ -1,5 +1,6 @@
 
 export const yMultiplier = 10
+export const wheelMultiplier = 1.15
 
 export const animations = {
   NAME: {from:.01,to:.05},

@@ -5,7 +5,7 @@ import {
 } from 'react'
 import useDebounceWindowSize from '../hooks/useDebounceWindowSize'
 import Layout from './Layout'
-import { yMultiplier } from './animList'
+import { yMultiplier, wheelMultiplier } from './animList'
 
 
 export default function Controller() {
@@ -46,7 +46,7 @@ export default function Controller() {
       ticking.current = true
     }
     const handleWheel = e => {
-      eDelta.current = e.deltaY * 1.25
+      eDelta.current = e.deltaY * wheelMultiplier
       requestTick()
     }
     window.addEventListener('wheel', handleWheel)
