@@ -55,7 +55,7 @@ export default function TextBackground({ children, yPos, yPercent }) {
         <motion.div
           style={{color:bgColor}}
           sx={{
-            height:`${100*yMultiplier}vh`,
+            height:`${(100*yMultiplier)+100}vh`,
             width:'100%',
             fontFamily:'heading',
             fontSize:'teensy',
@@ -64,11 +64,17 @@ export default function TextBackground({ children, yPos, yPercent }) {
             position:'absolute',
             top:`${-yPos.px}px` //make this a motion value
           }}>
-          {yPercent <= 0.05 && peirce}
-          {(yPercent > 0.05 && yPercent <= .30) && peirce}
-          {(yPercent > 0.40 && yPercent <= .65) && peirce}
-          {(yPercent > 0.75 && yPercent <= .98) && peirce}
-          {yPercent > 0.99 && peirce}
+          {peirce}
+          {peirce}
+          {peirce}
+          {peirce}
+          {peirce}
+          {peirce}
+          {peirce}
+          {peirce}
+          {peirce}
+          {peirce}
+          {peirce}
         </motion.div>
         <Cursor yPercent={yPercent}/>
         {children}
@@ -76,3 +82,10 @@ export default function TextBackground({ children, yPos, yPercent }) {
     </motion.div>
   )
 }
+
+
+// {yPercent <= 0.05 && peirce}
+// {(yPercent > 0.05 && yPercent <= .30) && peirce}
+// {(yPercent > 0.40 && yPercent <= .65) && peirce}
+// {(yPercent > 0.75 && yPercent <= .98) && peirce}
+// {yPercent > 0.99 && peirce}

@@ -17,7 +17,9 @@ export default function TileStack({ yPercent, type }) {
   const tileHeightScrub = useMotionValue()
   const lightHeightScrub = useMotionValue()
   const marginTopScrub = useMotionValue()
-  const lightBackground = useMotionTemplate`radial-gradient(#5257F7AA,#5257F703,#5257F700 ${lightWidthScrub})`
+  const onPurple = useMotionTemplate`radial-gradient( #5257F7AA,#5257F703,#5257F700 ${lightWidthScrub})`
+  const onTeal = useMotionTemplate`radial-gradient(#B3BDD9AA,#B3BDD903,#B3BDD900 ${lightWidthScrub})`
+  const onRed = useMotionTemplate`radial-gradient(#D6ACCFAA,#D6ACCF03,#D6ACCF00 ${lightWidthScrub})`
   const leftScrub = useMotionValue()
   const rightScrub = useMotionValue()
 
@@ -96,7 +98,7 @@ export default function TileStack({ yPercent, type }) {
         <motion.div
           id='tile-glow'
           style={{
-            backgroundImage:lightBackground,
+            backgroundImage:yPercent <= .30 || yPercent >= .99 ? onPurple : yPercent > .30 && yPercent <= .65 ? onTeal : onRed,
             transform:thirdFlip,
             opacity:thirdOpacityScrub
           }}
