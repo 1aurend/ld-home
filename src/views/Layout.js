@@ -5,9 +5,10 @@ import TileStack from './TileStack'
 import Background from './Background'
 import Name from './Name'
 import Slider from './Slider'
+import Icons from './Icons'
 
 
-const Layout = ({ globalYPos, size }) => {
+const Layout = ({ globalYPos, size, scrollTo }) => {
   const globalYPercent = globalYPos.percent
 
   // const mQs = {or: '(orientation: portrait)', mot: '(prefers-reduced-motion)'}
@@ -15,7 +16,7 @@ const Layout = ({ globalYPos, size }) => {
 
   return (
     <Background yPos={globalYPos} yPercent={globalYPercent}>
-      <main
+      <section
         id='splash'
         sx={{
           height:'100vh',
@@ -29,8 +30,8 @@ const Layout = ({ globalYPos, size }) => {
           opacity: 1,
           left:0,
         }}>
-        <section
-          id='splash'
+        <div
+          id='name-width'
           sx={{
             display:'flex',
             flexDirection:'column',
@@ -52,11 +53,12 @@ const Layout = ({ globalYPos, size }) => {
             <Slider type='educator' yPercent={globalYPercent} size={size}/>
             <Slider type='developer' yPercent={globalYPercent} size={size}/>
           </div>
-        </section>
-      </main>
+        </div>
+      </section>
       {globalYPercent >= .05 && <TileStack type='DEVELOPER' yPercent={globalYPercent}/>}
       {globalYPercent >= .40 && <TileStack type='EDUCATOR' yPercent={globalYPercent}/>}
       {globalYPercent >= .75 && <TileStack type='PHILOSOPHER' yPercent={globalYPercent}/>}
+      <Icons scrollTo={scrollTo}/>
     </Background>
   )
 }

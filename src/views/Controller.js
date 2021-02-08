@@ -12,6 +12,7 @@ export default function Controller() {
   const size = useDebounceWindowSize()
   const prevSize = useRef({width:window.innerWidth,height: window.innerHeight})
   const ticking = useRef(false)
+  const tickingScrollTo = useRef(false)
   const resize = useRef(false)
   const eDelta = useRef(0)
   const prevY = useRef(0)
@@ -62,5 +63,21 @@ export default function Controller() {
     }
   }, [size])
 
-  return <Layout globalYPos={yPos} size={prevSize.current} />
+  const interpolateScroll = (target,step=200) => {
+    const yMax = yMultiplier*prevSize.current.height
+    const nextY = prevY.current - step
+    prevY.current = nextY
+    prevYPercent.current = -nextY/(yMax)
+    setYPos({px:-nextY,percent:-nextY/(yMax)})
+    if (prevYPercent.current < target+.01) {
+      requestAnimationFrame(() => interpolateScroll(target))
+    }
+  }
+  const scrollTo = target => {
+    if (prevYPercent.current < target) {
+      requestAnimationFrame(() => interpolateScroll(target))
+    }
+  }
+
+  return <Layout globalYPos={yPos} size={prevSize.current} scrollTo={scrollTo} />
 }
