@@ -65,11 +65,11 @@ export default function TileStack({ yPercent, type }) {
     {val:lightWidthScrub, from:1, to:110, unit:'vw'},
     {val:tileHeightScrub, from:1, to:40, unit:'vw'},
     {val:lightHeightScrub, from:1, to:110, unit:'vw'},
-    {val:marginTopScrub, from:17.5, to:18, unit:'vh'},
   ]
   const tileBorderVals = [
     {val:borderTopLeftRadiusScrub, from:30, to:0, unit:'px'},
     {val:borderTopRightRadiusScrub, from:30, to:0, unit:'px'},
+    {val:marginTopScrub, from:17.5, to:18, unit:'vh'},
   ]
   getScrubValues(yPercent, animations[type].line.extend.from, animations[type].line.extend.to, lineValues)
   getScrubValues(yPercent, animations[type].line.shrink.from, animations[type].line.shrink.to, lineShrink)
