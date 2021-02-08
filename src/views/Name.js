@@ -14,7 +14,11 @@ const Name = ({ yPercent }) => {
   const nameY = [
     {val:y, from:0, to:60, unit:'vh'},
   ]
-  getScrubValues(yPercent, animations.NAME.from, animations.NAME.to, nameY)
+  const endY = [
+    {val:y, from:60, to:20, unit:'vh'},
+  ]
+  getScrubValues(yPercent, animations.NAME.out.from, animations.NAME.out.to, nameY)
+  getScrubValues(yPercent, animations.NAME.in.from, animations.NAME.in.to, endY)
   const translate = useMotionTemplate`translateY(-${y})`
 
   return(

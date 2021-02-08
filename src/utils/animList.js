@@ -3,7 +3,10 @@ export const yMultiplier = 10
 export const wheelMultiplier = 1.15
 
 export const animations = {
-  NAME: {from:.01,to:.05},
+  NAME: {
+    out:{from:.01,to:.05},
+    in:{from:.99, to:1.0}
+  },
   SLIDER: {
     philosopher:{
       x:{from:.01,to:.05},

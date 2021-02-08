@@ -43,7 +43,7 @@ const Slider = props => {
   const opacityD = useMotionValue(1)
   const opacityE = useMotionValue(1)
   const opacityP = useMotionValue(1)
-
+  // TODO: anything that has a starting value has to reset on resize
 
   const getPos = useCallback(el => {
     sliderRef.current = el
@@ -98,7 +98,7 @@ const Slider = props => {
         left:yPercent !== 0 ? x : '',
         top:yPercent !== 0 ? y : '',
         position:yPercent !== 0 ? 'fixed' : '',
-        opacity: type === 'developer' ? opacityD : type === 'educator' ? opacityE : opacityP
+        opacity:type === 'developer' ? opacityD : type === 'educator' ? opacityE : opacityP
       }}
       sx={{
         height:'auto',
