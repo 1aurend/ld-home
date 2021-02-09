@@ -20,8 +20,8 @@ const Cursor = ({ size=200, yPercent }) => {
 
   const lightRadiusScrub = useMotionValue(`${size/1.5}px`)
   const onPurple = useMotionTemplate`radial-gradient(#5257F7AA,#5257F703,#5257F700 ${lightRadiusScrub})`
-  const onTeal = useMotionTemplate`radial-gradient(#B3BDD9AA,#B3BDD903,#B3BDD900 ${lightRadiusScrub})`
-  const onRed = useMotionTemplate`radial-gradient(#D6ACCFAA,#D6ACCF03,#D6ACCF00 ${lightRadiusScrub})`
+  const onTeal = useMotionTemplate`radial-gradient(#7FF0D9AA,#7FF0D903,#7FF0D900 ${lightRadiusScrub})`
+  const onRed = useMotionTemplate`radial-gradient(#EEACCFAA,#EEACCF03,#EEACCF00 ${lightRadiusScrub})`
   const fadeValues = [
     {val:lightRadiusScrub, from:size/1.5, to:0, unit:'px'},
   ]

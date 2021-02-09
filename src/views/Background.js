@@ -18,19 +18,19 @@ export default function TextBackground({ children, yPos, yPercent }) {
   const bgColor = useMotionTemplate`rgb(${red},${green},${blue})`
 
   const eVals = [
-    {val:red, from:19, to:1, unit:''},
-    {val:green, from:20, to:97, unit:''},
-    {val:blue, from:56, to:78, unit:''}
+    {val:red, from:19, to:6, unit:''},
+    {val:green, from:20, to:75, unit:''},
+    {val:blue, from:56, to:72, unit:''}
   ]
   const pVals = [
-    {val:red, from:1, to:125, unit:''},
-    {val:green, from:97, to:8, unit:''},
-    {val:blue, from:78, to:38, unit:''}
+    {val:red, from:6, to:98, unit:''},
+    {val:green, from:75, to:23, unit:''},
+    {val:blue, from:72, to:46, unit:''}
   ]
   const endVals = [
-    {val:red, from:125, to:19, unit:''},
-    {val:green, from:8, to:20, unit:''},
-    {val:blue, from:38, to:56, unit:''}
+    {val:red, from:98, to:19, unit:''},
+    {val:green, from:23, to:20, unit:''},
+    {val:blue, from:46, to:56, unit:''}
   ]
 
   getScrubValues(yPercent, animations.DTOE.from, animations.DTOE.to, eVals)

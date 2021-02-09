@@ -17,9 +17,9 @@ export default function TileStack({ yPercent, type }) {
   const tileHeightScrub = useMotionValue()
   const lightHeightScrub = useMotionValue()
   const marginTopScrub = useMotionValue()
-  const onPurple = useMotionTemplate`radial-gradient( #5257F7AA,#5257F703,#5257F700 ${lightWidthScrub})`
-  const onTeal = useMotionTemplate`radial-gradient(#B3BDD9AA,#B3BDD903,#B3BDD900 ${lightWidthScrub})`
-  const onRed = useMotionTemplate`radial-gradient(#D6ACCFAA,#D6ACCF03,#D6ACCF00 ${lightWidthScrub})`
+  const onPurple = useMotionTemplate`radial-gradient(ellipse at center, #5257F7CC 10%,#5257F703 70%,#5257F700 75%, transparent ${lightWidthScrub})`
+  const onTeal = useMotionTemplate`radial-gradient(ellipse at center, #7FF0D9CC 10%,#7FF0D903 70%,#7FF0D900 75%, transparent ${lightWidthScrub})`
+  const onRed = useMotionTemplate`radial-gradient(ellipse at center, #EEACCFCC 10%,#EEACCF03 70%,#EEACCF00 75%, transparent ${lightWidthScrub})`
   const leftScrub = useMotionValue()
   const rightScrub = useMotionValue()
 
@@ -64,7 +64,7 @@ export default function TileStack({ yPercent, type }) {
     {val:borderBottomLeftRadiusScrub, from:30, to:20, unit:'px'},
     {val:borderBottomRightRadiusScrub, from:30, to:20, unit:'px'},
     {val:tileWidthScrub, from:1, to:55, unit:'vw'},
-    {val:lightWidthScrub, from:1, to:110, unit:'vw'},
+    {val:lightWidthScrub, from:1, to:100, unit:'vw'},
     {val:tileHeightScrub, from:1, to:40, unit:'vw'},
     {val:lightHeightScrub, from:1, to:110, unit:'vw'},
   ]
