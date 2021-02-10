@@ -2,7 +2,8 @@
 import React, {
   useEffect,
   useState,
-  useRef
+  useRef,
+  useContext
 } from 'react'
 import {
   motion,
@@ -11,12 +12,14 @@ import {
 } from 'framer-motion'
 import getScrubValues from '../utils/getScrubValues'
 import { animations } from '../utils/animList'
+import { Cursor } from './Layout'
 
 
-const Cursor = ({ size=200, yPercent }) => {
+const RAFCursor = ({ size=200, yPercent }) => {
   const [paintPos, setPaintPos] = useState({x:0,y:0})
   const ticking = useRef(false)
   const ePos = useRef({x:0,y:0})
+  const showCursor = useContext(Cursor)
 
   const lightRadiusScrub = useMotionValue(`${size/1.5}px`)
   const onPurple = useMotionTemplate`radial-gradient(#5257F7AA,#5257F703,#5257F700 ${lightRadiusScrub})`
@@ -62,7 +65,8 @@ const Cursor = ({ size=200, yPercent }) => {
         pointerEvents:'none',
         zIndex:1000,
       }}>
-      <motion.div className="cursor"
+      <motion.div
+        id='cursor'
         style={{
           backgroundImage:yPercent <= .30 || yPercent >= .99 ? onPurple : yPercent > .30 && yPercent <= .65 ? onTeal : onRed
         }}
@@ -76,7 +80,7 @@ const Cursor = ({ size=200, yPercent }) => {
           top:`${paintPos.y-size/2}px`,
         }}>
       </motion.div>
-      <div
+      {!showCursor && <div
         sx={{
           width: `${size/10}px`,
           height:`${size/10}px`,
@@ -87,9 +91,9 @@ const Cursor = ({ size=200, yPercent }) => {
           opacity:1,
           position:'fixed',
         }}>
-      </div>
+      </div>}
     </div>
   )
 }
 
-export default Cursor
+export default RAFCursor

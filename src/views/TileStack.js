@@ -7,6 +7,7 @@ import {
 } from 'framer-motion'
 import getScrubValues from '../utils/getScrubValues'
 import { animations } from '../utils/animList'
+import TileContent from './TileContent'
 
 
 export default function TileStack({ yPercent, type }) {
@@ -64,7 +65,7 @@ export default function TileStack({ yPercent, type }) {
     {val:borderBottomLeftRadiusScrub, from:30, to:20, unit:'px'},
     {val:borderBottomRightRadiusScrub, from:30, to:20, unit:'px'},
     {val:tileWidthScrub, from:1, to:55, unit:'vw'},
-    {val:lightWidthScrub, from:1, to:100, unit:'vw'},
+    {val:lightWidthScrub, from:1, to:110, unit:'vw'},
     {val:tileHeightScrub, from:1, to:40, unit:'vw'},
     {val:lightHeightScrub, from:1, to:110, unit:'vw'},
   ]
@@ -104,11 +105,11 @@ export default function TileStack({ yPercent, type }) {
           }}
           sx={{
             mixBlendMode:'soft-light',
-            height:'200%',
-            width:'200%',
+            height:'175%',
+            width:'175%',
             position:'absolute',
-            top:'-50%',
-            left:'-50%',
+            top:'-37.5%',
+            left:'-37.5%',
             zIndex:10,
             transformOrigin:'center top',
           }}>
@@ -146,8 +147,10 @@ export default function TileStack({ yPercent, type }) {
               cursor:'pointer',
               transformOrigin:'center top',
               mixBlendMode:'normal',
-              zIndex:104
+              zIndex:104,
+              overflow:'hidden'
             }}>
+            <TileContent yPercent={yPercent} id='one' type={type}/>
           </motion.div>
           <motion.div
             id='tile-two'

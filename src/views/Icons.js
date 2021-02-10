@@ -6,11 +6,13 @@ import linkedIn from '../assets/LI-In-Bug.png'
 import info from '../assets/help-24px.svg'
 
 
-export default function Icons({ scrollTo }) {
+export default function Icons({ scrollTo, showCursor }) {
   return (
     <>
     <div
       id='bibliography'
+      onMouseEnter={() => showCursor(true)}
+      onMouseLeave={() => showCursor(false)}
       sx={{
         position:'absolute',
         left:'5vw',
@@ -32,6 +34,8 @@ export default function Icons({ scrollTo }) {
     </div>
     <div
       id='contact-logos'
+      onMouseEnter={() => showCursor(true)}
+      onMouseLeave={() => showCursor(false)}
       sx={{
         position:'absolute',
         right:'5vw',
@@ -40,7 +44,8 @@ export default function Icons({ scrollTo }) {
         height:'4vmin',
         opacity:0.5,
         display:'flex',
-        justifyContent:'space-between'
+        justifyContent:'space-between',
+        cursor:'pointer'
       }}>
       <a
         href='https://github.com/1aurend'
