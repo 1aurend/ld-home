@@ -13,12 +13,17 @@ import {
 import getScrubValues from '../utils/getScrubValues'
 import { animations } from '../utils/animList'
 import { Cursor } from './Layout'
+import useDebouncedWindowSize from '../hooks/useDebounceWindowSize'
 
 
-const RAFCursor = ({ size=200, yPercent }) => {
-  const [paintPos, setPaintPos] = useState({x:0,y:0})
+const RAFCursor = ({ size=200, yPercent, touch }) => {
+  const windowSize = useDebouncedWindowSize()
+  // TODO: use a div to calculate these values?
+  const initX = windowSize.width*.33
+  const initY = windowSize.height*.60
+  const [paintPos, setPaintPos] = useState({x:initX,y:initY})
   const ticking = useRef(false)
-  const ePos = useRef({x:0,y:0})
+  const ePos = useRef({x:initX,y:initY})
   const showCursor = useContext(Cursor)
 
   const lightRadiusScrub = useMotionValue(`${size/1.5}px`)
@@ -54,6 +59,14 @@ const RAFCursor = ({ size=200, yPercent }) => {
     const onMouseMove = e => {
       ePos.current = {x: e.clientX, y:e.clientY}
       requestTick()
+    }
+    const onTouchMove = e => {
+      ePos.current = {x: e.changedTouches[0].clientX, y:e.changedTouches[0].clientY}
+      requestTick()
+    }
+    if (touch) {
+      window.addEventListener('touchmove', onTouchMove)
+      return () => window.removeEventListener('touchmove', onTouchMove)
     }
     window.addEventListener('mousemove', onMouseMove)
     return () => window.removeEventListener('mousemove', onMouseMove)

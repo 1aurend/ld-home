@@ -37,9 +37,10 @@ const Slider = props => {
   const hY = useRef()
   const sliderRef = useRef()
   const toY = useRef()
-  const startX = animations.SLIDER[type].landscape.x.from
-  const endX = animations.SLIDER[type].landscape.x.to
-  const endY = animations.SLIDER[type].landscape.y.to
+  const startX = animations.SLIDER[type].portrait.x.from
+  const startY = animations.SLIDER[type].portrait.y.from
+  const endX = animations.SLIDER[type].portrait.x.to
+  const endY = animations.SLIDER[type].portrait.y.to
   const opacityD = useMotionValue(1)
   const opacityE = useMotionValue(1)
   const opacityP = useMotionValue(1)
@@ -61,13 +62,14 @@ const Slider = props => {
       const rect = sliderRef.current.getBoundingClientRect()
       hX.current = rect.left
       hY.current = rect.top
-      toY.current = type === 'educator' ? (rect.top-(size.height*.16))/2+(size.height*.16) : type === 'philosopher' ? rect.top : size.height*0.16
+      toY.current = size.height*.1
     }
   }, [size, type, yPercent])
 
+  const toX = type === 'philosopher' ? size.width*.1 : type === 'educator' ? size.width*.44 : size.width*.73
 
   const sliderX = [
-    {val:x, from:hX.current, to:size.width*0.8, unit:'px'},
+    {val:x, from:hX.current, to:toX, unit:'px'},
   ]
   const sliderY = [
     {val:y, from:hY.current, to:toY.current, unit:'px'},
@@ -84,7 +86,7 @@ const Slider = props => {
     {val:opacityP, from:1, to:0, unit:''}
   ]
   getScrubValues(yPercent, startX, endX, sliderX)
-  getScrubValues(yPercent, endX, endY, sliderY)
+  getScrubValues(yPercent, startY, endY, sliderY)
   getScrubValues(yPercent, animations.DTOE.from, animations.DTOE.to, dToE)
   getScrubValues(yPercent, animations.ETOP.from, animations.ETOP.to, eToP)
   getScrubValues(yPercent, animations.PHILOSOPHER.line.shrink.from, animations.PHILOSOPHER.line.shrink.to, pFade)
@@ -104,9 +106,10 @@ const Slider = props => {
         height:'auto',
         width:'auto',
         fontFamily:'heading',
-        fontSize:'min(max(1rem, 2vw), 25px)',
+        fontSize:'4vmin',
         color:'Orange1',
-        animation:yPercent === 0 ? `${pulse} 1.5s ease-in-out` : 'none'
+        animation:yPercent === 0 ? `${pulse} 1.5s ease-in-out` : 'none',
+        textAlign:'center'
       }}>
       {type}
     </motion.div>

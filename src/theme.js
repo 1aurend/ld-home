@@ -17,7 +17,7 @@ export default {
       'colossal': '12vmin',
     },
   fontWeights: {
-  body: 400,
+  body: 500,
   heading: 700,
   },
   colors: {

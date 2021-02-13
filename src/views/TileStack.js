@@ -150,7 +150,7 @@ export default function TileStack({ yPercent, type }) {
               zIndex:104,
               overflow:'hidden'
             }}>
-            <TileContent yPercent={yPercent} id='one' type={type}/>
+            {false && <TileContent yPercent={yPercent} id='one' type={type}/>}
           </motion.div>
           <motion.div
             id='tile-two'
@@ -212,7 +212,7 @@ export default function TileStack({ yPercent, type }) {
           position:'absolute',
           height:'3px',
           bg:'light',
-          opacity:0.75,
+          opacity:1,
           mt:'6vh',
           zIndex:50,
           top:'12vh',

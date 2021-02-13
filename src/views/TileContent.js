@@ -19,11 +19,13 @@ export default function TileContent({ yPercent, id, type }) {
         p:'5%',
         justifyContent:'center',
         flexDirection:'column',
-        height:'100%'
+        height:'100%',
+        display:yPercent > animations[type].tile.grow.from ? '' : 'none'
       }}>
       {id==='one' && <p
         sx={{
           fontFamily:'body',
+          fontWeight:'body',
           color:'Purple'
         }}>
         {content[type].header}

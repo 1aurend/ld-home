@@ -9,16 +9,34 @@ export const animations = {
   },
   SLIDER: {
     philosopher:{
-      x:{from:.01,to:.05},
-      y:{from:.05,to:.05},
+      landscape: {
+        x:{from:.01,to:.05},
+        y:{from:.05,to:.05},
+      },
+      portrait: {
+        x:{from:.025,to:.05},
+        y:{from:.01,to:.025},
+      }
     },
     educator:{
-      x:{from:.01,to:.035},
-      y:{from:.035,to:.05},
+      landscape: {
+        x:{from:.01,to:.035},
+        y:{from:.035,to:.05},
+      },
+      portrait: {
+        x:{from:0.035,to:.05},
+        y:{from:.01,to:.035},
+      }
     },
     developer:{
-      x:{from:.01,to:.02},
-      y:{from:.02,to:.05}
+      landscape: {
+        x:{from:.01,to:.02},
+        y:{from:.02,to:.05}
+      },
+      portrait: {
+        x:{from:.045,to:.05},
+        y:{from:.01,to:.045}
+      }
     }
   },
   DEVELOPER: {

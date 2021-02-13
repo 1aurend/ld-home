@@ -11,7 +11,7 @@ import getScrubValues from '../utils/getScrubValues'
 import { animations, yMultiplier } from '../utils/animList'
 
 
-export default function TextBackground({ children, yPos, yPercent }) {
+export default function TextBackground({ children, yPos, yPercent, touch }) {
   const red = useMotionValue(19)
   const green = useMotionValue(20)
   const blue = useMotionValue(56)
@@ -76,7 +76,7 @@ export default function TextBackground({ children, yPos, yPercent }) {
           {peirce}
           {peirce}
         </motion.div>
-        <Cursor yPercent={yPercent}/>
+        <Cursor yPercent={yPercent} touch={touch}/>
         {children}
       </div>
     </motion.div>
