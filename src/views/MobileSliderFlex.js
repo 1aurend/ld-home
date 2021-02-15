@@ -67,7 +67,7 @@ const Slider = props => {
     }
   }, [size, type, yPercent])
 
-  const toX = type === 'philosopher' ? size.width*.1 : type === 'educator' ? size.width*.44 : size.width*.728
+  const toX = type === 'philosopher' ? size.width*.1 : type === 'educator' ? size.width*.44 : size.width*.73
 
   const sliderX = [
     {val:x, from:hX.current, to:toX, unit:'px'},
@@ -96,11 +96,8 @@ const Slider = props => {
   return (
     <motion.div
       ref={getPos}
-      id={type}
+      id={`${type}-flex`}
       style={{
-        left:yPercent !== 0 ? x : '',
-        top:yPercent !== 0 ? y : '',
-        position:yPercent !== 0 ? 'fixed' : '',
         opacity:type === 'developer' ? opacityD : type === 'educator' ? opacityE : opacityP
       }}
       sx={{

@@ -7,6 +7,7 @@ import Name from './Name'
 import MobileName from './MobileName'
 import Slider from './Slider'
 import MobileSlider from './MobileSlider'
+import MobileSliderFlex from './MobileSliderFlex'
 import Icons from './Icons'
 import { isMobile } from 'react-device-detect'
 
@@ -22,10 +23,10 @@ const Layout = ({ globalYPos, size, scrollTo }) => {
   }
   const mediaVals = useMediaQueries(mQs)
 
-  if (mediaVals.or || isMobile) {
+  if (mediaVals.or) {
     return (
       <Cursor.Provider value={showCursor}>
-        <Background yPos={globalYPos} yPercent={globalYPercent} touch>
+        <Background yPos={globalYPos} yPercent={globalYPercent} touch={isMobile}>
           <section
             id='splash'
             sx={{
@@ -52,6 +53,21 @@ const Layout = ({ globalYPos, size, scrollTo }) => {
               }}
               >
               <MobileName yPercent={globalYPercent}/>
+              <div
+                id='sliders-flex'
+                sx={{
+                  width:'80vw',
+                  display:globalYPercent >= .05 ? 'flex' : 'none',
+                  justifyContent:'space-between',
+                  position:'absolute',
+                  top:'10vh',
+                  left:'10vw'
+                }}
+                >
+                <MobileSliderFlex type='philosopher' yPercent={globalYPercent} size={size} color={'Teal1'}/>
+                <MobileSliderFlex type='educator' yPercent={globalYPercent} size={size} color={'Teal1'}/>
+                <MobileSliderFlex type='developer' yPercent={globalYPercent} size={size} color={'Teal1'}/>
+              </div>
               <div
                 id='sliders'
                 sx={{
