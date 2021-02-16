@@ -8,6 +8,7 @@ import MobileName from './MobileName'
 import Slider from './Slider'
 import MobileSlider from './MobileSlider'
 import MobileSliderFlex from './MobileSliderFlex'
+import DrawingLight from './SectionHeader'
 import Icons from './Icons'
 import { isMobile } from 'react-device-detect'
 
@@ -84,6 +85,7 @@ const Layout = ({ globalYPos, size, scrollTo }) => {
               </div>
             </div>
           </section>
+          {globalYPercent >= .05 && <SectionHeader type='DEVELOPER' yPercent={globalYPercent}/>}
           {globalYPercent >= .05 && <TileStack type='DEVELOPER' yPercent={globalYPercent}/>}
           {globalYPercent >= .40 && <TileStack type='EDUCATOR' yPercent={globalYPercent}/>}
           {globalYPercent >= .75 && <TileStack type='PHILOSOPHER' yPercent={globalYPercent}/>}
