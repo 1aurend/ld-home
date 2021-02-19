@@ -2,7 +2,7 @@
 import React from 'react'
 import email from '../assets/mail.svg'
 import github from '../assets/GitHub-Mark-Light-64px.png'
-import linkedIn from '../assets/LI-In-Bug.png'
+import linkedIn from '../assets/In-White-72.png'
 import info from '../assets/help-24px.svg'
 
 

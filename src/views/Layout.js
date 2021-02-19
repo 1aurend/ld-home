@@ -85,7 +85,7 @@ const Layout = ({ globalYPos, size, scrollTo }) => {
               </div>
             </div>
           </section>
-          {globalYPercent >= .05 && <SectionHeader type='DEVELOPER' yPercent={globalYPercent}/>}
+          {globalYPercent >= .05 && <DrawingLight type='DEVELOPER' yPercent={globalYPercent}/>}
           {globalYPercent >= .05 && <TileStack type='DEVELOPER' yPercent={globalYPercent}/>}
           {globalYPercent >= .40 && <TileStack type='EDUCATOR' yPercent={globalYPercent}/>}
           {globalYPercent >= .75 && <TileStack type='PHILOSOPHER' yPercent={globalYPercent}/>}

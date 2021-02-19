@@ -47,6 +47,7 @@ const Slider = props => {
   const opacityP = useMotionValue(1)
   // TODO: anything that has a starting value has to reset on resize
 
+  //fix this on swap between horizontal and vertical
   const getPos = useCallback(el => {
     sliderRef.current = el
     const rect = el.getBoundingClientRect()
