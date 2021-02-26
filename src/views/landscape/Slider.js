@@ -10,6 +10,7 @@ import useScrub from '../../hooks/use-scrub'
 import useSize from '../../hooks/use-debounced-window-size'
 import { Y } from '../Controller'
 
+
 const pulse = keyframes({
   '0%': {
     transform: `scale3d(1, 1, 1)`
@@ -22,7 +23,6 @@ const pulse = keyframes({
   }
 })
 
-
 const Slider = ({ type }) => {
   const yPer = useContext(Y)
   const size = useSize()
@@ -32,7 +32,6 @@ const Slider = ({ type }) => {
   const hY = useRef(0)
   const vY = useRef(0)
 
-  // QUESTION: do things with a starting value need a special on resize now? YES
   const xKfs = {
     1: `${hX.current}px`,
     2: type === 'developer' ? `${size.width*0.8}px` : '',
@@ -60,17 +59,6 @@ const Slider = ({ type }) => {
     100: type === 'philosopher' ? 0 : ''
   }
   const opacity = useScrub(opacityKfs, yPer)
-
-  // const getPos = useCallback(el => {
-  //   sliderRef.current = el
-  //   const rect = el.getBoundingClientRect()
-  //   hX.current = rect.left
-  //   hY.current = rect.top
-  //   if (!x.current) {
-  //     x.set(rect.left)
-  //     y.set(rect.top)
-  //   }
-  // }, [x, y])
 
   useEffect(() => {
     if (sliderRef.current && yPer === 0) {
