@@ -9,8 +9,8 @@ import {
   motion,
   useMotionValue,
 } from 'framer-motion'
-import getScrubValues from '../utils/getScrubValues'
-import { animations } from '../utils/animList'
+import getScrubValues from '../../utils/getScrubValues'
+import { animations } from '../../assets/animList'
 
 const pulse = keyframes({
   '0%': {

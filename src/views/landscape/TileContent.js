@@ -5,9 +5,9 @@ import {
   useMotionValue,
   useMotionTemplate
 } from 'framer-motion'
-import getScrubValues from '../utils/getScrubValues'
-import { animations } from '../utils/animList'
-import { content } from '../assets/content'
+import getScrubValues from '../../utils/getScrubValues'
+import { animations } from '../../assets/animList'
+import { content } from '../../assets/content'
 
 
 export default function TileContent({ yPercent, id, type }) {

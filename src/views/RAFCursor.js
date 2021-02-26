@@ -1,5 +1,5 @@
 /** @jsxImportSource theme-ui */
-import {
+import React, {
   useEffect,
   useState,
   useRef,

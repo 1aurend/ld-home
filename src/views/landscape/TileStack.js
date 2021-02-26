@@ -5,8 +5,8 @@ import {
   useMotionValue,
   useMotionTemplate
 } from 'framer-motion'
-import getScrubValues from '../utils/getScrubValues'
-import { animations } from '../utils/animList'
+import getScrubValues from '../../utils/getScrubValues'
+import { animations } from '../../assets/animList'
 import TileContent from './TileContent'
 
 

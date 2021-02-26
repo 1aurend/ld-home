@@ -1,5 +1,5 @@
 /** @jsxImportSource theme-ui */
-import {
+import React, {
   useRef,
   useEffect,
   useContext
@@ -8,7 +8,7 @@ import { keyframes } from '@emotion/react'
 import { motion } from 'framer-motion'
 import useScrub from '../../hooks/use-scrub'
 import useSize from '../../hooks/use-debounced-window-size'
-import Y from '../Controller'
+import { Y } from '../Controller'
 
 const pulse = keyframes({
   '0%': {
@@ -23,7 +23,7 @@ const pulse = keyframes({
 })
 
 
-const Slider = type => {
+const Slider = ({ type }) => {
   const yPer = useContext(Y)
   const size = useSize()
 
@@ -35,17 +35,20 @@ const Slider = type => {
   // QUESTION: do things with a starting value need a special on resize now?
   const xKfs = {
     1: `${hX.current}px`,
+    2: type === 'developer' ? `${size.width*0.8}px` : '',
+    3: type === 'educator' ? `${size.width*0.8}px` : '',
     5: `${size.width*0.8}px`
   }
   const yKfs = {
     2: type === 'developer' ? `${hY.current}px` : '',
-    3.5: type === 'educator' ? `${hY.current}px` : '',
+    3: type === 'educator' ? `${hY.current}px` : '',
     5: `${vY.current}px`,
     29: `${vY.current}px`,
     39: type === 'philosopher' ? `${(hY.current-(size.height*.16))/2+(size.height*.16)}px` : type === 'educator' ? `${size.height*0.16}px` : '0px',
     63: type === 'philosopher' ? `${(hY.current-(size.height*.16))/2+(size.height*.16)}px` : type === 'educator' ? `${size.height*0.16}px` : '0px',
     73: type === 'philosopher' ? `${size.height*0.16}px` : '0px'
   }
+  console.log(yKfs)
   const x = useScrub(xKfs, yPer)
   const y = useScrub(yKfs, yPer)
 

@@ -5,9 +5,9 @@ import {
   useMotionValue,
   useMotionTemplate
 } from 'framer-motion'
-import getScrubValues from '../utils/getScrubValues'
-import { animations } from '../utils/animList'
-import TileContent from './TileContent'
+import getScrubValues from '../../utils/getScrubValues'
+import { animations } from '../../assets/animList'
+
 
 export default function DrawingLight({ type, yPercent }) {
   const borderRadiusScrub = useMotionValue(30)

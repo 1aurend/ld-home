@@ -4,8 +4,8 @@ import {
   motion,
   useMotionTemplate
 } from 'framer-motion'
-import useScrub from 'use-scrub'
-import Y from '../Controller'
+import useScrub from '../../hooks/use-scrub'
+import { Y } from '../Controller'
 
 const Name = () => {
   const y = useContext(Y)

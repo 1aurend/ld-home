@@ -1,7 +1,10 @@
 /** @jsxImportSource theme-ui */
-import { useContext } from 'react'
+import {
+  useContext,
+  createContext
+} from 'react'
 import Cursor from './RAFCursor'
-import peirce from '../assets/fixationOfBelief'
+import peirce from '../assets/texts/fixationOfBelief'
 import { motion } from 'framer-motion'
 import { yMultiplier } from '../assets/sceneList'
 import { Y } from './Controller'
@@ -12,6 +15,7 @@ import scenes from '../assets/sceneList'
 
 export default function TextBackground({ children }) {
   const y = useContext(Y)
+  console.log(y)
 
   //this needs to be adjusted when all the text goes in
   const bgKfs = {
@@ -37,9 +41,9 @@ export default function TextBackground({ children }) {
   const dToE = useInterval(scenes[3])
   const eToP = useInterval(scenes[5])
   const pToC = useInterval(scenes[7])
-  const currentInt = y < .39 ? dToE : y < .73 ? eToP : pToC
+  const relY = y < .39 ? dToE : y < .73 ? eToP : pToC
   const currentKfs = y < .39 ? toTealKfs : y < .73 ? toRedKfs : toPurpleKfs
-  const bgColor = useScrub(currentKfs, y, currentInt)
+  const bgColor = useScrub(currentKfs, relY)
 
 
   return (
@@ -57,7 +61,10 @@ export default function TextBackground({ children }) {
           isolation:'isolate',
         }}>
         <motion.div
-          style={{color:bgColor}}
+          style={{
+            color:bgColor,
+            top:top
+          }}
           sx={{
             height:`${(100*yMultiplier)+100}vh`,
             width:'100%',
@@ -66,7 +73,6 @@ export default function TextBackground({ children }) {
             zIndex:'-100',
             overflow:'hidden',
             position:'absolute',
-            top:top
           }}>
           {peirce}
           {peirce}

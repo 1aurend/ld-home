@@ -1,11 +1,12 @@
 /** @jsxImportSource theme-ui */
-import { useContext } from 'react'
+import React from 'react'
 import {
   motion,
+  useMotionValue,
   useMotionTemplate
 } from 'framer-motion'
-import useScrub from '../hooks/use-scrub'
-import Y from './Co'
+import getScrubValues from '../../utils/getScrubValues'
+import { animations } from '../../assets/animList'
 
 
 const Name = ({ yPercent }) => {
@@ -31,7 +32,7 @@ const Name = ({ yPercent }) => {
         gridArea:'name',
         justifySelf:'center',
         alignSelf:'center',
-        lineHeight:'15vmin',
+        lineHeight:'12vmin',
         width: 'auto',
         pb:'5vmin',
         display:'flex',
