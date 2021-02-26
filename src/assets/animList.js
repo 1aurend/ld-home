@@ -4,14 +4,14 @@ export const wheelMultiplier = 1.15
 
 export const animations = {
   NAME: {
-    out:{from:.01,to:.05},
-    in:{from:.99, to:1.0}
+    out:{from:.01,to:.05}, //kf 0:from, 100:to
+    in:{from:.99, to:1.0} //kf 0:from, 100:to
   },
   SLIDER: {
     philosopher:{
       landscape: {
-        x:{from:.01,to:.05},
-        y:{from:.05,to:.05},
+        x:{from:.01,to:.05}, //kf 0:from, 100:to
+        y:{from:.05,to:.05}, //0:to, 100:to
       },
       portrait: {
         x:{from:.025,to:.05},
@@ -20,8 +20,8 @@ export const animations = {
     },
     educator:{
       landscape: {
-        x:{from:.01,to:.035},
-        y:{from:.035,to:.05},
+        x:{from:.01,to:.035}, //0:from, 70:to
+        y:{from:.035,to:.05}, //70:from, 100:to
       },
       portrait: {
         x:{from:0.035,to:.05},
@@ -30,8 +30,8 @@ export const animations = {
     },
     developer:{
       landscape: {
-        x:{from:.01,to:.02},
-        y:{from:.02,to:.05}
+        x:{from:.01,to:.02}, //0:from, 40:to
+        y:{from:.02,to:.05} //40:from, 100:to
       },
       portrait: {
         x:{from:.045,to:.05},
@@ -46,7 +46,7 @@ export const animations = {
     },
     tile:{
       topRadius:{from:.09,to:.095},
-      grow:{from:.09,to:.17}
+      grow:{from:.09,to:.17} // 8-16
     },
     flips:{
       one:{from:.18,to:.20},
@@ -62,7 +62,7 @@ export const animations = {
     },
     tile:{
       topRadius:{from:.44,to:.445},
-      grow:{from:.44,to:.52}
+      grow:{from:.44,to:.52} //43-51
     },
     flips:{
       one:{from:.53,to:.55},
@@ -78,7 +78,7 @@ export const animations = {
     },
     tile:{
       topRadius:{from:.79,to:.795},
-      grow:{from:.79,to:.87}
+      grow:{from:.79,to:.87} //77-85
     },
     flips:{
       one:{from:.88,to:.90},

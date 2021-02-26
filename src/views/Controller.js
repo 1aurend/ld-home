@@ -1,18 +1,20 @@
 import {
   useState,
   useEffect,
-  useRef
+  useRef,
+  createContext
 } from 'react'
-import useDebounceWindowSize from '../hooks/useDebounceWindowSize'
+import useSize from '../hooks/use-debounced-window-size'
 import Layout from './Layout'
-import { yMultiplier, wheelMultiplier } from '../utils/animList'
+import { yMultiplier, wheelMultiplier } from '../assets/sceneList'
+
+export const Y = createContext()
 
 
 export default function Controller() {
-  const size = useDebounceWindowSize()
+  const size = useSize()
   const prevSize = useRef({width:window.innerWidth,height: window.innerHeight})
   const ticking = useRef(false)
-  const tickingScrollTo = useRef(false)
   const resize = useRef(false)
   const eDelta = useRef(0)
   const prevY = useRef(0)
@@ -54,6 +56,7 @@ export default function Controller() {
     return () => window.removeEventListener('wheel', handleWheel)
   },[])
 
+  //make this take a target?
   useEffect(() => {
     if (size.height !== prevSize.current.height || size.width !== prevSize.current.width) {
       prevSize.current = size
@@ -73,11 +76,16 @@ export default function Controller() {
       requestAnimationFrame(() => interpolateScroll(target))
     }
   }
+  // TODO: make this work for scrolling up also!
   const scrollTo = target => {
     if (prevYPercent.current < target) {
       requestAnimationFrame(() => interpolateScroll(target))
     }
   }
 
-  return <Layout globalYPos={yPos} size={prevSize.current} scrollTo={scrollTo} />
+  return (
+    <Y.Provider value={yPos.percent}>
+      <Layout size={prevSize.current} scrollTo={scrollTo} />
+    </Y.Provider>
+  )
 }

@@ -1,16 +1,17 @@
 /** @jsxImportSource theme-ui */
-import React, {
+import {
   useRef,
   useEffect,
-  useCallback
+  useCallback,
+  useContext
 } from 'react'
 import { keyframes } from '@emotion/react'
-import {
-  motion,
-  useMotionValue,
-} from 'framer-motion'
-import getScrubValues from '../utils/getScrubValues'
-import { animations } from '../utils/animList'
+import { motion } from 'framer-motion'
+import useScrub from '../../hooks/use-scrub'
+import useInterval from '../../hooks/use-interval'
+import useSize from '../../hooks/use-debounced-window-size'
+import scenes from '../../assets/sceneList'
+import Y from '../Controller'
 
 const pulse = keyframes({
   '0%': {
@@ -25,17 +26,18 @@ const pulse = keyframes({
 })
 
 
-const Slider = props => {
-  const {
-    type,
-    yPercent,
-    size
-  } = props
-  const x = useMotionValue()
-  const y = useMotionValue()
+const Slider = type => {
+  const yPer = useContext(Y)
+  const size = useSize()
+
+  const sliderRef = useRef()
   const hX = useRef()
   const hY = useRef()
-  const sliderRef = useRef()
+
+
+  const x = useScrub(x)
+  const y = useScrub()
+
   const toY = useRef()
   const startX = animations.SLIDER[type].landscape.x.from
   const endX = animations.SLIDER[type].landscape.x.to
@@ -57,13 +59,13 @@ const Slider = props => {
   }, [x, y])
 
   useEffect(() => {
-    if (sliderRef.current && yPercent === 0) {
+    if (sliderRef.current && yPer === 0) {
       const rect = sliderRef.current.getBoundingClientRect()
       hX.current = rect.left
       hY.current = rect.top
       toY.current = type === 'educator' ? (rect.top-(size.height*.16))/2+(size.height*.16) : type === 'philosopher' ? rect.top : size.height*0.16
     }
-  }, [size, type, yPercent])
+  }, [size, type, yPer])
 
 
   const sliderX = [
@@ -83,11 +85,11 @@ const Slider = props => {
   const pFade = [
     {val:opacityP, from:1, to:0, unit:''}
   ]
-  getScrubValues(yPercent, startX, endX, sliderX)
-  getScrubValues(yPercent, endX, endY, sliderY)
-  getScrubValues(yPercent, animations.DTOE.from, animations.DTOE.to, dToE)
-  getScrubValues(yPercent, animations.ETOP.from, animations.ETOP.to, eToP)
-  getScrubValues(yPercent, animations.PHILOSOPHER.line.shrink.from, animations.PHILOSOPHER.line.shrink.to, pFade)
+  getScrubValues(yPer, startX, endX, sliderX)
+  getScrubValues(yPer, endX, endY, sliderY)
+  getScrubValues(yPer, animations.DTOE.from, animations.DTOE.to, dToE)
+  getScrubValues(yPer, animations.ETOP.from, animations.ETOP.to, eToP)
+  getScrubValues(yPer, animations.PHILOSOPHER.line.shrink.from, animations.PHILOSOPHER.line.shrink.to, pFade)
 
 
   return (
@@ -95,9 +97,9 @@ const Slider = props => {
       ref={getPos}
       id={type}
       style={{
-        left:yPercent !== 0 ? x : '',
-        top:yPercent !== 0 ? y : '',
-        position:yPercent !== 0 ? 'fixed' : '',
+        left:yPer !== 0 ? x : '',
+        top:yPer !== 0 ? y : '',
+        position:yPer !== 0 ? 'fixed' : '',
         opacity:type === 'developer' ? opacityD : type === 'educator' ? opacityE : opacityP
       }}
       sx={{
@@ -106,7 +108,7 @@ const Slider = props => {
         fontFamily:'heading',
         fontSize:'min(max(1rem, 2vw), 25px)',
         color:'Orange1',
-        animation:yPercent === 0 ? `${pulse} 1.5s ease-in-out` : 'none'
+        animation:yPer === 0 ? `${pulse} 1.5s ease-in-out` : 'none'
       }}>
       {type}
     </motion.div>

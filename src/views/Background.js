@@ -1,41 +1,45 @@
 /** @jsxImportSource theme-ui */
-import React from 'react'
+import { useContext } from 'react'
 import Cursor from './RAFCursor'
 import peirce from '../assets/fixationOfBelief'
-import {
-  motion,
-  useMotionValue,
-  useMotionTemplate
-} from 'framer-motion'
-import getScrubValues from '../utils/getScrubValues'
-import { animations, yMultiplier } from '../utils/animList'
+import { motion } from 'framer-motion'
+import { yMultiplier } from '../assets/sceneList'
+import { Y } from './Controller'
+import useScrub from '../hooks/use-scrub'
+import useInterval from '../hooks/use-interval'
+import scenes from '../assets/sceneList'
 
 
-export default function TextBackground({ children, yPos, yPercent, touch }) {
-  const red = useMotionValue(19)
-  const green = useMotionValue(20)
-  const blue = useMotionValue(56)
-  const bgColor = useMotionTemplate`rgb(${red},${green},${blue})`
+export default function TextBackground({ children }) {
+  const y = useContext(Y)
 
-  const eVals = [
-    {val:red, from:19, to:6, unit:''},
-    {val:green, from:20, to:75, unit:''},
-    {val:blue, from:56, to:72, unit:''}
-  ]
-  const pVals = [
-    {val:red, from:6, to:98, unit:''},
-    {val:green, from:75, to:23, unit:''},
-    {val:blue, from:72, to:46, unit:''}
-  ]
-  const endVals = [
-    {val:red, from:98, to:19, unit:''},
-    {val:green, from:23, to:20, unit:''},
-    {val:blue, from:46, to:56, unit:''}
-  ]
+  //this needs to be adjusted when all the text goes in
+  const bgKfs = {
+    1: '0vh',
+    5: '-1000vh',
+    96: '-1000vh',
+    100: '0vh'
+  }
+  const top = useScrub(bgKfs, y)
 
-  getScrubValues(yPercent, animations.DTOE.from, animations.DTOE.to, eVals)
-  getScrubValues(yPercent, animations.ETOP.from, animations.ETOP.to, pVals)
-  getScrubValues(yPercent, animations.PTOEND.from, animations.PTOEND.to, endVals)
+  const toTealKfs = {
+    0: 'rgb(19,20,56)',
+    100: 'rgb(6,75,72)'
+  }
+  const toRedKfs = {
+    0: 'rgb(6,75,72)',
+    100: 'rgb(98,23,46)'
+  }
+  const toPurpleKfs = {
+    0: 'rgb(98,23,46)',
+    100: 'rgb(19,20,56)'
+  }
+  const dToE = useInterval(scenes[3])
+  const eToP = useInterval(scenes[5])
+  const pToC = useInterval(scenes[7])
+  const currentInt = y < .39 ? dToE : y < .73 ? eToP : pToC
+  const currentKfs = y < .39 ? toTealKfs : y < .73 ? toRedKfs : toPurpleKfs
+  const bgColor = useScrub(currentKfs, y, currentInt)
 
 
   return (
@@ -62,7 +66,7 @@ export default function TextBackground({ children, yPos, yPercent, touch }) {
             zIndex:'-100',
             overflow:'hidden',
             position:'absolute',
-            top:`${-yPos.px}px` //make this a motion value
+            top:top
           }}>
           {peirce}
           {peirce}
@@ -76,16 +80,9 @@ export default function TextBackground({ children, yPos, yPercent, touch }) {
           {peirce}
           {peirce}
         </motion.div>
-        <Cursor yPercent={yPercent} touch={touch}/>
+        <Cursor/>
         {children}
       </div>
     </motion.div>
   )
 }
-
-
-// {yPercent <= 0.05 && peirce}
-// {(yPercent > 0.05 && yPercent <= .30) && peirce}
-// {(yPercent > 0.40 && yPercent <= .65) && peirce}
-// {(yPercent > 0.75 && yPercent <= .98) && peirce}
-// {yPercent > 0.99 && peirce}

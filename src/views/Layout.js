@@ -1,22 +1,26 @@
 /** @jsxImportSource theme-ui */
-import React, { useState } from 'react'
+import {
+  useState,
+  createContext,
+  useContext
+} from 'react'
 import TileStack from './TileStack'
-import useMediaQueries from '../hooks/useMediaQueries'
+import useMediaQueries from '../hooks/use-media-queries'
 import Background from './Background'
-import Name from './Name'
-import MobileName from './MobileName'
-import Slider from './Slider'
-import MobileSlider from './MobileSlider'
-import MobileSliderFlex from './MobileSliderFlex'
-import DrawingLight from './SectionHeader'
+import Name from './landscape/Name'
+import MobileName from './portrait/Name'
+import Slider from './landscape/Slider'
+import MobileSlider from './portrait/Slider'
+import MobileSliderFlex from './portrait/SliderFlex'
+import DrawingLight from './portrait/Light'
 import Icons from './Icons'
-import { isMobile } from 'react-device-detect'
+import { Y } from './Controller'
 
-export const Cursor = React.createContext()
+export const Cursor = createContext()
 
 
-const Layout = ({ globalYPos, size, scrollTo }) => {
-  const globalYPercent = globalYPos.percent
+const Layout = ({ size, scrollTo }) => {
+  const yPercent = useContext(Y)
   const [showCursor, setShowCursor] = useState(false)
 
   const mQs = {
@@ -27,7 +31,7 @@ const Layout = ({ globalYPos, size, scrollTo }) => {
   if (mediaVals.or) {
     return (
       <Cursor.Provider value={showCursor}>
-        <Background yPos={globalYPos} yPercent={globalYPercent} touch={isMobile}>
+        <Background>
           <section
             id='splash'
             sx={{
@@ -53,21 +57,21 @@ const Layout = ({ globalYPos, size, scrollTo }) => {
                 height:'100vh',
               }}
               >
-              <MobileName yPercent={globalYPercent}/>
+              <MobileName />
               <div
                 id='sliders-flex'
                 sx={{
                   width:'80vw',
-                  display:globalYPercent >= .05 ? 'flex' : 'none',
+                  display:yPercent >= .05 ? 'flex' : 'none',
                   justifyContent:'space-between',
                   position:'absolute',
                   top:'10vh',
                   left:'10vw'
                 }}
                 >
-                <MobileSliderFlex type='philosopher' yPercent={globalYPercent} size={size} color={'Teal1'}/>
-                <MobileSliderFlex type='educator' yPercent={globalYPercent} size={size} color={'Teal1'}/>
-                <MobileSliderFlex type='developer' yPercent={globalYPercent} size={size} color={'Teal1'}/>
+                <MobileSliderFlex type='philosopher' size={size} color={'Teal1'}/>
+                <MobileSliderFlex type='educator' size={size} color={'Teal1'}/>
+                <MobileSliderFlex type='developer' size={size} color={'Teal1'}/>
               </div>
               <div
                 id='sliders'
@@ -79,16 +83,16 @@ const Layout = ({ globalYPos, size, scrollTo }) => {
                   height:'30vmin'
                 }}
                 >
-                <MobileSlider type='philosopher' yPercent={globalYPercent} size={size}/>
-                <MobileSlider type='educator' yPercent={globalYPercent} size={size}/>
-                <MobileSlider type='developer' yPercent={globalYPercent} size={size}/>
+                <MobileSlider type='philosopher' size={size}/>
+                <MobileSlider type='educator' size={size}/>
+                <MobileSlider type='developer' size={size}/>
               </div>
             </div>
           </section>
-          {globalYPercent >= .05 && <DrawingLight type='DEVELOPER' yPercent={globalYPercent}/>}
-          {globalYPercent >= .05 && <TileStack type='DEVELOPER' yPercent={globalYPercent}/>}
-          {globalYPercent >= .40 && <TileStack type='EDUCATOR' yPercent={globalYPercent}/>}
-          {globalYPercent >= .75 && <TileStack type='PHILOSOPHER' yPercent={globalYPercent}/>}
+          {yPercent >= .05 && <DrawingLight type='DEVELOPER'/>}
+          {yPercent >= .05 && <TileStack type='DEVELOPER'/>}
+          {yPercent >= .40 && <TileStack type='EDUCATOR'/>}
+          {yPercent >= .75 && <TileStack type='PHILOSOPHER'/>}
           <Icons scrollTo={scrollTo} showCursor={setShowCursor}/>
         </Background>
       </Cursor.Provider>
@@ -97,7 +101,7 @@ const Layout = ({ globalYPos, size, scrollTo }) => {
 
   return (
     <Cursor.Provider value={showCursor}>
-      <Background yPos={globalYPos} yPercent={globalYPercent}>
+      <Background>
         <section
           id='splash'
           sx={{
@@ -123,7 +127,7 @@ const Layout = ({ globalYPos, size, scrollTo }) => {
               height:'100vh',
             }}
             >
-            <Name yPercent={globalYPercent}/>
+            <Name />
             <div
               id='sliders'
               sx={{
@@ -131,15 +135,15 @@ const Layout = ({ globalYPos, size, scrollTo }) => {
                 justifyContent:'space-between',
               }}
               >
-              <Slider type='philosopher' yPercent={globalYPercent} size={size}/>
-              <Slider type='educator' yPercent={globalYPercent} size={size}/>
-              <Slider type='developer' yPercent={globalYPercent} size={size}/>
+              <Slider type='philosopher' size={size}/>
+              <Slider type='educator' size={size}/>
+              <Slider type='developer' size={size}/>
             </div>
           </div>
         </section>
-        {globalYPercent >= .05 && <TileStack type='DEVELOPER' yPercent={globalYPercent}/>}
-        {globalYPercent >= .40 && <TileStack type='EDUCATOR' yPercent={globalYPercent}/>}
-        {globalYPercent >= .75 && <TileStack type='PHILOSOPHER' yPercent={globalYPercent}/>}
+        {yPercent >= .05 && <TileStack type='DEVELOPER'/>}
+        {yPercent >= .40 && <TileStack type='EDUCATOR'/>}
+        {yPercent >= .75 && <TileStack type='PHILOSOPHER'/>}
         <Icons scrollTo={scrollTo} showCursor={setShowCursor}/>
       </Background>
     </Cursor.Provider>
