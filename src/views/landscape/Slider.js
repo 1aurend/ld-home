@@ -2,15 +2,12 @@
 import {
   useRef,
   useEffect,
-  useCallback,
   useContext
 } from 'react'
 import { keyframes } from '@emotion/react'
 import { motion } from 'framer-motion'
 import useScrub from '../../hooks/use-scrub'
-import useInterval from '../../hooks/use-interval'
 import useSize from '../../hooks/use-debounced-window-size'
-import scenes from '../../assets/sceneList'
 import Y from '../Controller'
 
 const pulse = keyframes({
@@ -31,76 +28,66 @@ const Slider = type => {
   const size = useSize()
 
   const sliderRef = useRef()
-  const hX = useRef()
-  const hY = useRef()
+  const hX = useRef(0)
+  const hY = useRef(0)
+  const vY = useRef(0)
 
+  // QUESTION: do things with a starting value need a special on resize now?
+  const xKfs = {
+    1: `${hX.current}px`,
+    5: `${size.width*0.8}px`
+  }
+  const yKfs = {
+    2: type === 'developer' ? `${hY.current}px` : '',
+    3.5: type === 'educator' ? `${hY.current}px` : '',
+    5: `${vY.current}px`,
+    29: `${vY.current}px`,
+    39: type === 'philosopher' ? `${(hY.current-(size.height*.16))/2+(size.height*.16)}px` : type === 'educator' ? `${size.height*0.16}px` : '0px',
+    63: type === 'philosopher' ? `${(hY.current-(size.height*.16))/2+(size.height*.16)}px` : type === 'educator' ? `${size.height*0.16}px` : '0px',
+    73: type === 'philosopher' ? `${size.height*0.16}px` : '0px'
+  }
+  const x = useScrub(xKfs, yPer)
+  const y = useScrub(yKfs, yPer)
 
-  const x = useScrub(x)
-  const y = useScrub()
+  const opacityKfs = {
+    29: 1,
+    39: type === 'developer' ? 0 : 1,
+    63: type === 'developer' ? 0 : 1,
+    73: type === 'philosopher' ? 1 : 0,
+    96: type === 'philosopher' ? 1 : 0,
+    100: 0
+  }
+  const opacity = useScrub(opacityKfs, yPer)
 
-  const toY = useRef()
-  const startX = animations.SLIDER[type].landscape.x.from
-  const endX = animations.SLIDER[type].landscape.x.to
-  const endY = animations.SLIDER[type].landscape.y.to
-  const opacityD = useMotionValue(1)
-  const opacityE = useMotionValue(1)
-  const opacityP = useMotionValue(1)
-  // TODO: anything that has a starting value has to reset on resize
-
-  const getPos = useCallback(el => {
-    sliderRef.current = el
-    const rect = el.getBoundingClientRect()
-    hX.current = rect.left
-    hY.current = rect.top
-    if (!x.current) {
-      x.set(rect.left)
-      y.set(rect.top)
-    }
-  }, [x, y])
+  // const getPos = useCallback(el => {
+  //   sliderRef.current = el
+  //   const rect = el.getBoundingClientRect()
+  //   hX.current = rect.left
+  //   hY.current = rect.top
+  //   if (!x.current) {
+  //     x.set(rect.left)
+  //     y.set(rect.top)
+  //   }
+  // }, [x, y])
 
   useEffect(() => {
     if (sliderRef.current && yPer === 0) {
       const rect = sliderRef.current.getBoundingClientRect()
       hX.current = rect.left
       hY.current = rect.top
-      toY.current = type === 'educator' ? (rect.top-(size.height*.16))/2+(size.height*.16) : type === 'philosopher' ? rect.top : size.height*0.16
+      vY.current = type === 'educator' ? (rect.top-(size.height*.16))/2+(size.height*.16) : type === 'philosopher' ? rect.top : size.height*0.16
     }
   }, [size, type, yPer])
 
-
-  const sliderX = [
-    {val:x, from:hX.current, to:size.width*0.8, unit:'px'},
-  ]
-  const sliderY = [
-    {val:y, from:hY.current, to:toY.current, unit:'px'},
-  ]
-  const dToE = [
-    {val:y, from:toY.current, to: type === 'philosopher' ? (hY.current-(size.height*.16))/2+(size.height*.16) : type === 'educator' ? size.height*0.16 : 0, unit:'px'},
-    {val:opacityD, from:1, to:0, unit:''}
-  ]
-  const eToP = [
-    {val:y, from:type === 'philosopher' ? (hY.current-(size.height*.16))/2+(size.height*.16) : type === 'educator' ? size.height*0.16 : 0, to: type === 'philosopher' ? size.height*0.16 : 0, unit:'px'},
-    {val:opacityE, from:1, to:0, unit:''}
-  ]
-  const pFade = [
-    {val:opacityP, from:1, to:0, unit:''}
-  ]
-  getScrubValues(yPer, startX, endX, sliderX)
-  getScrubValues(yPer, endX, endY, sliderY)
-  getScrubValues(yPer, animations.DTOE.from, animations.DTOE.to, dToE)
-  getScrubValues(yPer, animations.ETOP.from, animations.ETOP.to, eToP)
-  getScrubValues(yPer, animations.PHILOSOPHER.line.shrink.from, animations.PHILOSOPHER.line.shrink.to, pFade)
-
-
   return (
     <motion.div
-      ref={getPos}
+      ref={sliderRef}
       id={type}
       style={{
         left:yPer !== 0 ? x : '',
         top:yPer !== 0 ? y : '',
         position:yPer !== 0 ? 'fixed' : '',
-        opacity:type === 'developer' ? opacityD : type === 'educator' ? opacityE : opacityP
+        opacity:opacity
       }}
       sx={{
         height:'auto',

@@ -1,9 +1,8 @@
 /** @jsxImportSource theme-ui */
-import React from 'react'
-import email from '../assets/mail.svg'
-import github from '../assets/GitHub-Mark-Light-64px.png'
-import linkedIn from '../assets/In-White-72.png'
-import info from '../assets/help-24px.svg'
+import email from '../assets/images/mail.svg'
+import github from '../assets/images/GitHub-Mark-Light-64px.png'
+import linkedIn from '../assets/images/In-White-72.png'
+import info from '../assets/images/help-24px.svg'
 
 
 export default function Icons({ scrollTo, showCursor }) {
