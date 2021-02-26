@@ -9,7 +9,7 @@ const typeFilter = (keyframes, type) => {
 
 const emptyFilter = keyframes => {
   return Object.keys(keyframes)
-    .filter(key => keyframes[key])
+    .filter(key => keyframes[key] !== '')
     .reduce((acc, key) => Object.assign(acc, { [key]: keyframes[key] }), {})
 }
 
@@ -55,12 +55,12 @@ export default function useScrub(params, globalCurrent, interval=null) {
   const keyframes = params.keyframes || params
 
   const validKfs = type ? typeFilter(keyframes, type) : emptyFilter(keyframes)
+  console.log(validKfs)
   const currentIndex = Object.keys(validKfs)
     .indexOf(
       Object.keys(validKfs)
         .filter(kf => current * 100 <= kf)[0]
     )
-  console.log(currentIndex)
   const currentSegment = currentIndex > 0
     ? kfToSeg(currentIndex, validKfs)
     : currentIndex === 0
@@ -71,7 +71,6 @@ export default function useScrub(params, globalCurrent, interval=null) {
   const val = useMotionValue(init)
 
   useLayoutEffect(() => {
-    console.log('layout effect')
     const getScrubPercent = (current, start, end) => {
       const delta = end - start
       const currentPercent = (current - start) / delta
@@ -97,9 +96,6 @@ export default function useScrub(params, globalCurrent, interval=null) {
     }
 
     const setScrubMotionValue = () => {
-      console.log('setter')
-      console.log(current)
-      console.log(currentSegment)
       if (current < currentSegment.start) {
         if (currentSegment.start - current > buffer) {
           return
@@ -120,6 +116,5 @@ export default function useScrub(params, globalCurrent, interval=null) {
     setScrubMotionValue()
   }, [buffer, current, val, currentSegment])
 
-  console.log('here')
   return val
 }

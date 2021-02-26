@@ -1,7 +1,6 @@
 /** @jsxImportSource theme-ui */
 import {
   useContext,
-  createContext
 } from 'react'
 import Cursor from './RAFCursor'
 import peirce from '../assets/texts/fixationOfBelief'
@@ -15,7 +14,6 @@ import scenes from '../assets/sceneList'
 
 export default function TextBackground({ children }) {
   const y = useContext(Y)
-  console.log(y)
 
   //this needs to be adjusted when all the text goes in
   const bgKfs = {
@@ -38,9 +36,9 @@ export default function TextBackground({ children }) {
     0: 'rgb(98,23,46)',
     100: 'rgb(19,20,56)'
   }
-  const dToE = useInterval(scenes[3])
-  const eToP = useInterval(scenes[5])
-  const pToC = useInterval(scenes[7])
+  const dToE = useInterval(scenes[3], y)
+  const eToP = useInterval(scenes[5], y)
+  const pToC = useInterval(scenes[7], y)
   const relY = y < .39 ? dToE : y < .73 ? eToP : pToC
   const currentKfs = y < .39 ? toTealKfs : y < .73 ? toRedKfs : toPurpleKfs
   const bgColor = useScrub(currentKfs, relY)

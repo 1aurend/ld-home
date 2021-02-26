@@ -32,7 +32,7 @@ const Slider = ({ type }) => {
   const hY = useRef(0)
   const vY = useRef(0)
 
-  // QUESTION: do things with a starting value need a special on resize now?
+  // QUESTION: do things with a starting value need a special on resize now? YES
   const xKfs = {
     1: `${hX.current}px`,
     2: type === 'developer' ? `${size.width*0.8}px` : '',
@@ -45,20 +45,19 @@ const Slider = ({ type }) => {
     5: `${vY.current}px`,
     29: `${vY.current}px`,
     39: type === 'philosopher' ? `${(hY.current-(size.height*.16))/2+(size.height*.16)}px` : type === 'educator' ? `${size.height*0.16}px` : '0px',
-    63: type === 'philosopher' ? `${(hY.current-(size.height*.16))/2+(size.height*.16)}px` : type === 'educator' ? `${size.height*0.16}px` : '0px',
-    73: type === 'philosopher' ? `${size.height*0.16}px` : '0px'
+    63: type === 'philosopher' ? `${(hY.current-(size.height*.16))/2+(size.height*.16)}px` : type === 'educator' ? `${size.height*0.16}px` : '',
+    73: type === 'philosopher' ? `${size.height*0.16}px` : type === 'educator' ? '0px' : ''
   }
-  console.log(yKfs)
   const x = useScrub(xKfs, yPer)
   const y = useScrub(yKfs, yPer)
 
   const opacityKfs = {
+    0: 1,
     29: 1,
     39: type === 'developer' ? 0 : 1,
-    63: type === 'developer' ? 0 : 1,
-    73: type === 'philosopher' ? 1 : 0,
-    96: type === 'philosopher' ? 1 : 0,
-    100: 0
+    63: type === 'developer' ? '' : 1,
+    73: type === 'educator' ? 0 : type === 'developer' ? '' : 1,
+    100: type === 'philosopher' ? 0 : ''
   }
   const opacity = useScrub(opacityKfs, yPer)
 
