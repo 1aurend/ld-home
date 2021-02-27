@@ -77,11 +77,26 @@ export default function Controller() {
       requestAnimationFrame(() => interpolateScroll(target))
     }
   }
+  const interpolateScrollUp = (target,step=200) => {
+    console.log('here')
+    const yMax = yMultiplier*prevSize.current.height
+    const nextY = prevY.current + step
+    prevY.current = nextY
+    prevYPercent.current = -nextY/(yMax)
+    setYPos({px:-nextY,percent:-nextY/(yMax)})
+    console.log(prevYPercent.current)
+    console.log(target+.01)
+    if (prevYPercent.current > target+.01) {
+      requestAnimationFrame(() => interpolateScrollUp(target))
+    }
+  }
   // TODO: make this work for scrolling up also!
   const scrollTo = target => {
     if (prevYPercent.current < target) {
       requestAnimationFrame(() => interpolateScroll(target))
+      return
     }
+    requestAnimationFrame(() => interpolateScrollUp(target))
   }
 
   return (

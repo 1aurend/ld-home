@@ -62,7 +62,8 @@ const Slider = ({ type, scrollTo, showCursor }) => {
     39: type === 'developer' ? 0 : 1,
     63: type === 'developer' ? '' : 1,
     73: type === 'educator' ? 0 : type === 'developer' ? '' : 1,
-    100: type === 'philosopher' ? 0 : ''
+    96: type === 'philosopher' ? 1 : '',
+    98: type === 'philosopher' ? 0 : ''
   }
   const opacity = useScrub(opacityKfs, yPer)
 
@@ -95,7 +96,8 @@ const Slider = ({ type, scrollTo, showCursor }) => {
         fontSize:'min(max(1rem, 2vw), 25px)',
         color:'Orange1',
         animation:yPer === 0 ? `${pulse} 1.5s ease-in-out` : 'none',
-        cursor:'pointer'
+        cursor:'pointer',
+        zIndex:1001
       }}>
       {type}
     </motion.div>

@@ -15,7 +15,7 @@ const scene = {
 }
 
 
-export default function TileContent({ id, type }) {
+export default function BannerText({ id, type }) {
   const y = useContext(Y)
   const relY = useInterval(scene[type], y)
   const width = useSize().width
@@ -63,6 +63,8 @@ export default function TileContent({ id, type }) {
         fontSize:fontSize
       }}
       sx={{
+        bg:'Grey',
+        border: '3px solid #EEFAFF',
         p:'3%',
         justifyContent:'center',
         flexDirection:'column',

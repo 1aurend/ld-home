@@ -5,6 +5,7 @@ import {
   useContext
 } from 'react'
 import Banner from './landscape/Banner'
+import Tiles from './landscape/Tiles'
 import useMediaQueries from '../hooks/use-media-queries'
 import Background from './Background'
 import Name from './landscape/Name'
@@ -151,9 +152,24 @@ const Layout = ({ size, scrollTo }) => {
             </div>
           </div>
         </section>
-        {yPercent >= .05 && <Banner type='developer'/>}
-        {yPercent >= .39 && <Banner type='educator'/>}
-        {yPercent >= .73 && <Banner type='philosopher'/>}
+        {yPercent >= .05 &&
+          <section>
+            <Tiles type='developer'/>
+            <Banner type='developer'/>
+          </section>
+        }
+        {yPercent >= .39 &&
+          <section>
+            <Tiles type='educator'/>
+            <Banner type='educator'/>
+          </section>
+        }
+        {yPercent >= .73 &&
+          <section>
+            <Tiles type='philosopher'/>
+            <Banner type='philosopher'/>
+          </section>
+        }
         <Icons scrollTo={scrollTo} showCursor={setShowCursor}/>
       </Background>
     </Cursor.Provider>

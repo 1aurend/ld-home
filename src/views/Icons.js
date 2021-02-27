@@ -20,7 +20,8 @@ export default function Icons({ scrollTo, showCursor }) {
         height:'4vmin',
         opacity:0.5,
         display:'flex',
-        justifyContent:'space-between'
+        justifyContent:'space-between',
+        zIndex:1001
       }}>
       <img
         src={info}
@@ -44,7 +45,8 @@ export default function Icons({ scrollTo, showCursor }) {
         opacity:0.5,
         display:'flex',
         justifyContent:'space-between',
-        cursor:'pointer'
+        cursor:'pointer',
+        zIndex:1001,
       }}>
       <a
         href='https://github.com/1aurend'
@@ -84,6 +86,20 @@ export default function Icons({ scrollTo, showCursor }) {
         alt='contact me'
         height='100%'
         sx={{cursor:'pointer'}}/>
+    </div>
+    <div
+      onClick={() => scrollTo(0)}
+      sx={{
+        position:'absolute',
+        top:0,
+        left:0,
+        width:'20px',
+        height:'20px',
+        bg:'light',
+        cursor:'pointer',
+        zIndex:1001
+      }}>
+      top
     </div>
     </>
   )

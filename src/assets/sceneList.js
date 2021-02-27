@@ -1,4 +1,4 @@
-export const yMultiplier = 10
+export const yMultiplier = 15
 export const wheelMultiplier = 1.15
 
 const scenes = {

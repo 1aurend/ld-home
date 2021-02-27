@@ -5,7 +5,7 @@ import {
   useMotionTemplate
 } from 'framer-motion'
 import { Y } from '../Controller'
-import TileContent from './TileContent'
+import BannerText from './BannerText'
 import useScrub from '../../hooks/use-scrub'
 import useInterval from '../../hooks/use-interval'
 import scenes from '../../assets/sceneList'
@@ -198,7 +198,7 @@ export default function Banner({ type }) {
               zIndex:104,
               overflow:'hidden'
             }}>
-            {true && <TileContent yPercent={y} id='one' type={type}/>}
+            <BannerText yPercent={y} id='one' type={type}/>
           </motion.div>
         </div>
       </motion.div>
