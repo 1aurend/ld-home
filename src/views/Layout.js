@@ -4,7 +4,7 @@ import {
   createContext,
   useContext
 } from 'react'
-import TileStack from './landscape/TileStack'
+import Banner from './landscape/Banner'
 import useMediaQueries from '../hooks/use-media-queries'
 import Background from './Background'
 import Name from './landscape/Name'
@@ -136,15 +136,24 @@ const Layout = ({ size, scrollTo }) => {
                 justifyContent:'space-between',
               }}
               >
-              <Slider type='philosopher'/>
-              <Slider type='educator'/>
-              <Slider type='developer'/>
+              <Slider
+                type='philosopher'
+                scrollTo={scrollTo}
+                showCursor={setShowCursor}/>
+              <Slider
+                type='educator'
+                scrollTo={scrollTo}
+                showCursor={setShowCursor}/>
+              <Slider
+                type='developer'
+                scrollTo={scrollTo}
+                showCursor={setShowCursor}/>
             </div>
           </div>
         </section>
-        {yPercent >= .05 && <TileStack type='DEVELOPER'/>}
-        {yPercent >= .40 && <TileStack type='EDUCATOR'/>}
-        {yPercent >= .75 && <TileStack type='PHILOSOPHER'/>}
+        {yPercent >= .05 && <Banner type='developer'/>}
+        {yPercent >= .39 && <Banner type='educator'/>}
+        {yPercent >= .73 && <Banner type='philosopher'/>}
         <Icons scrollTo={scrollTo} showCursor={setShowCursor}/>
       </Background>
     </Cursor.Provider>

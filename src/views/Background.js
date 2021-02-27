@@ -40,8 +40,8 @@ export default function TextBackground({ children }) {
   const eToP = useInterval(scenes[5], y)
   const pToC = useInterval(scenes[7], y)
   const relY = y < .39 ? dToE : y < .73 ? eToP : pToC
-  const currentKfs = y < .39 ? toTealKfs : y < .73 ? toRedKfs : toPurpleKfs
-  const bgColor = useScrub(currentKfs, relY)
+  const relKfs = y < .39 ? toTealKfs : y < .73 ? toRedKfs : toPurpleKfs
+  const bgColor = useScrub(relKfs, relY)
 
 
   return (

@@ -23,7 +23,13 @@ const pulse = keyframes({
   }
 })
 
-const Slider = ({ type }) => {
+const scrollToPoint = {
+  philosopher: .73,
+  educator: .39,
+  developer: .05
+}
+
+const Slider = ({ type, scrollTo, showCursor }) => {
   const yPer = useContext(Y)
   const size = useSize()
 
@@ -43,9 +49,9 @@ const Slider = ({ type }) => {
     3: type === 'educator' ? `${hY.current}px` : '',
     5: `${vY.current}px`,
     29: `${vY.current}px`,
-    39: type === 'philosopher' ? `${(hY.current-(size.height*.16))/2+(size.height*.16)}px` : type === 'educator' ? `${size.height*0.16}px` : '0px',
-    63: type === 'philosopher' ? `${(hY.current-(size.height*.16))/2+(size.height*.16)}px` : type === 'educator' ? `${size.height*0.16}px` : '',
-    73: type === 'philosopher' ? `${size.height*0.16}px` : type === 'educator' ? '0px' : ''
+    39: type === 'philosopher' ? `${(hY.current-(size.height*.12))/2+(size.height*.12)}px` : type === 'educator' ? `${size.height*0.12}px` : '0px',
+    63: type === 'philosopher' ? `${(hY.current-(size.height*.12))/2+(size.height*.12)}px` : type === 'educator' ? `${size.height*0.12}px` : '',
+    73: type === 'philosopher' ? `${size.height*0.12}px` : type === 'educator' ? '0px' : ''
   }
   const x = useScrub(xKfs, yPer)
   const y = useScrub(yKfs, yPer)
@@ -65,7 +71,7 @@ const Slider = ({ type }) => {
       const rect = sliderRef.current.getBoundingClientRect()
       hX.current = rect.left
       hY.current = rect.top
-      vY.current = type === 'educator' ? (rect.top-(size.height*.16))/2+(size.height*.16) : type === 'philosopher' ? rect.top : size.height*0.16
+      vY.current = type === 'educator' ? (rect.top-(size.height*.12))/2+(size.height*.12) : type === 'philosopher' ? rect.top : size.height*0.12
     }
   }, [size, type, yPer])
 
@@ -73,6 +79,9 @@ const Slider = ({ type }) => {
     <motion.div
       ref={sliderRef}
       id={type}
+      onClick={() => scrollTo(scrollToPoint[type])}
+      onMouseEnter={() => showCursor(true)}
+      onMouseLeave={() => showCursor(false)}
       style={{
         left:yPer !== 0 ? x : '',
         top:yPer !== 0 ? y : '',
@@ -85,7 +94,8 @@ const Slider = ({ type }) => {
         fontFamily:'heading',
         fontSize:'min(max(1rem, 2vw), 25px)',
         color:'Orange1',
-        animation:yPer === 0 ? `${pulse} 1.5s ease-in-out` : 'none'
+        animation:yPer === 0 ? `${pulse} 1.5s ease-in-out` : 'none',
+        cursor:'pointer'
       }}>
       {type}
     </motion.div>

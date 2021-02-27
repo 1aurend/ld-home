@@ -55,7 +55,6 @@ export default function useScrub(params, globalCurrent, interval=null) {
   const keyframes = params.keyframes || params
 
   const validKfs = type ? typeFilter(keyframes, type) : emptyFilter(keyframes)
-  console.log(validKfs)
   const currentIndex = Object.keys(validKfs)
     .indexOf(
       Object.keys(validKfs)

@@ -15,28 +15,31 @@ export default function TileContent({ yPercent, id, type }) {
   return (
     <section
       sx={{
+        bg:'Grey',
+        border: '3px solid white',
+        borderBottomLeftRadius: '20px',
+        borderBottomRightRadius: '20px',
         display:'flex',
-        p:'5%',
+        p:'3%',
         justifyContent:'center',
         flexDirection:'column',
+        alignItems: 'center',
         height:'100%',
-        display:yPercent > animations[type].tile.grow.from ? '' : 'none'
+        display:yPercent > animations['DEVELOPER'].tile.grow.from ? '' : 'none'
       }}>
       {id==='one' && <p
         sx={{
-          fontFamily:'body',
+          m:0,
+          textAlign:'center',
+          fontFamily:'monospace',
           fontWeight:'body',
-          color:'Purple'
+          color:'Orange1',
+          fontSize:'small',
+          // '-webkit-text-stroke': '.2px #3D4849',
+          // textShadow: '1px 1px 2px #3D4849'
         }}>
-        {content[type].header}
+        {content['DEVELOPER'].header}
       </p>}
-      <iframe
-        sx={{
-          width:'50%',
-          height:'50%',
-        }}
-        id='Chord Crusher'
-        src={content[type].tiles.[id].url}>test</iframe>
     </section>
   )
 }

@@ -66,6 +66,7 @@ export default function Controller() {
     }
   }, [size])
 
+  //TODO: precissify these bounds
   const interpolateScroll = (target,step=200) => {
     const yMax = yMultiplier*prevSize.current.height
     const nextY = prevY.current - step

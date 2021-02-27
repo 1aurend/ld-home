@@ -29,6 +29,7 @@ export default {
     Purple: '#5257F7',
     Teal1: '#03cea4',
     Teal2: '#45F7A4',
+    Teal3: 'rgb(6,75,72)',
     Orange1: '#F7986A',
     Orange2: '#F7562D',
     Marigold: '#F7D239',
