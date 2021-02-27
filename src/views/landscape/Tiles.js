@@ -30,6 +30,11 @@ const darkBg = {
 export default function Tiles({ type }) {
   const y = useContext(Y)
   const relY = useInterval(scene[type], y)
+  const thresholds = {
+    one: .59,
+    two: .69,
+  }
+  const id = relY < thresholds.one ? 'one' : relY < thresholds.two ? 'two' : 'three'
   const width = useSize().width
   const factor = 1200/width
 
@@ -68,31 +73,6 @@ export default function Tiles({ type }) {
     52: {
       bg: 'rgb(255, 255, 255, 0)'
     },
-    // 53: {
-    //   width: '60vw',
-    //   height: `${40*factor}vw`,
-    //   borderRadius: '10px'
-    // },
-    // 57: {
-    //   width: '1vw',
-    //   height: '1vw',
-    //   borderRadius: '30px'
-    // },
-    // 64: {
-    //   width: '60vw',
-    //   height: `${40*factor}vw`,
-    //   borderRadius: '10px'
-    // },
-    // 66: {
-    //   width: '60vw',
-    //   height: `${40*factor}vw`,
-    //   borderRadius: '10px'
-    // },
-    // 70: {
-    //   width: '1vw',
-    //   height: '1vw',
-    //   borderRadius: '30px'
-    // },
     75: {
       opacity: 1
     },
@@ -122,18 +102,11 @@ export default function Tiles({ type }) {
   const tileLeft = `${38.5-(tileWidth.current.slice(0,-2)/2)}vw`
   const tileBgParams = {keyframes: tileKfs, type: 'bg'}
   const bgColor = useScrub(tileBgParams, relY)
-  console.log(bgColor)
 
   const glowKfs = {
     35: '400%',
     44: '400%',
     51: '200%',
-    // 53: '200%',
-    // 57: '400%',
-    // 64: '200%',
-    // 66: '200%',
-    // 70: '400%',
-    // 76: '200%',
   }
   const glowSize = useScrub(glowKfs, relY)
 
@@ -210,7 +183,7 @@ export default function Tiles({ type }) {
             zIndex:104,
             overflow:'hidden',
           }}>
-          <TileContent type={type} id={'one'}/>
+          <TileContent type={type} id={id}/>
         </motion.div>
       </div>
     </motion.div>

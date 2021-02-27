@@ -27,45 +27,53 @@ export default function TileContent({ id, type }) {
   //adjust this for large screens and portrait layout
   const factor = Math.min(1,width/1100)
 
-  const kfs = {
-    0: {
-      borderTop: '30px',
-      borderBottom: '30px',
-      font: '.5vmin'
-    },
-    16: {
-      borderTop: '30px',
-      borderBottom: '30px',
-      font: '.5vmin',
-      fall: '90deg'
-    },
-    18: {
-      borderTop: '0px',
-    },
-    32: {
-      borderBottom: '20px',
-      font: `${2*factor}vmin`,
-      fall: '0deg'
-    }
+  const oneKfs = {
+    51: '0deg',
+    57: '0deg',
+    59: '90deg'
   }
-  const borderTopParams = {keyframes: kfs, type: 'borderTop'}
-  const borderTop = useScrub(borderTopParams, relY)
-  const borderBottomParams = {keyframes: kfs, type: 'borderBottom'}
-  const borderBottom = useScrub(borderBottomParams, relY)
-  const fontParams = {keyframes: kfs, type: 'font'}
-  const fontSize = useScrub(fontParams, relY)
-  const fallParams = {keyframes: kfs, type: 'fall'}
-  const textFall = useScrub(fallParams, relY)
-  const fall = useMotionTemplate`rotateX(${textFall})`
+  const twoKfs = {
+    59: '-90deg',
+    61: '0deg',
+    67: '0deg',
+    69: '90deg'
+  }
+  const threeKfs = {
+    69: '-90deg',
+    71: '0deg',
+    77: '0deg'
+  }
+  const kfs = id === 'one' ? oneKfs : id === 'two' ? twoKfs : threeKfs
+  const tileSpin = useScrub(kfs, relY)
+  const spin = useMotionTemplate`rotateY(${tileSpin})`
+
+  const fontKfs = {
+    44: '.5vmin',
+    45: '1vmin',
+    47: '2vmin',
+    51: '4vmin'
+  }
+  const titleSize = useScrub(fontKfs, relY)
+  const captionKfs = {
+    44: '.25vmin',
+    45: '.5vmin',
+    47: '1vmin',
+    51: '2vmin'
+  }
+  const captionSize = useScrub(captionKfs, relY)
+  const lineHeightKfs = {
+    44: '.5vmin',
+    45: '.75vmin',
+    47: '1.5vmin',
+    51: '3vmin'
+  }
+  const lineHeight = useScrub(lineHeightKfs, relY)
+
 
   return (
     <motion.section
       style={{
-        borderBottomLeftRadius:borderBottom,
-        borderBottomRightRadius:borderBottom,
-        borderTopLeftRadius:borderTop,
-        borderTopRightRadius:borderTop,
-        fontSize:fontSize
+        transform:spin
       }}
       sx={{
         p:0,
@@ -73,31 +81,36 @@ export default function TileContent({ id, type }) {
         flexDirection:'column',
         alignItems: 'center',
         height:'100%',
-        display:relY >= .46 ? 'flex' : 'none',
+        display:relY >= .44 ? 'flex' : 'none',
         perspective:'20vw',
-        overflow:'hidden'
+        overflow:'hidden',
+        transformOrigin:'center'
       }}>
-      <h2
+      <motion.h2
+        style={{fontSize:titleSize}}
         sx={{
           fontFamily:'heading',
           color:type === 'developer' ? 'Teal2' : type === 'philosopher' ? 'Purple2' : 'Pink3',
-          fontSize:'medium',
           m:0,
-          pb:'5%',
+          pb:'4%',
           textShadow:'0px 0px 5px black',
+          overflow:'hidden'
         }}>
         {content['developer'].tiles[id].title}
-      </h2>
+      </motion.h2>
       <img
         src={content['developer'].tiles[id].img}
         alt='fix this'
         sx={{
-          width:'70%',
-          height:'auto',
+          width:'auto',
+          height:'70%',
           pb:'3%'
         }}/>
       <motion.p
-        style={{transform:fall}}
+        style={{
+          fontSize:captionSize,
+          lineHeight:lineHeight
+        }}
         sx={{
           m:0,
           textAlign:'justify',
@@ -105,10 +118,9 @@ export default function TileContent({ id, type }) {
           fontWeight:'heading',
           color:type === 'developer' ? 'Teal2' : type === 'philosopher' ? 'Purple2' : 'Pink3',
           transformOrigin:'center',
-          fontSize:'tiny',
           textShadow:'0px 0px 7px black',
-          lineHeight:'3vmin',
-          width:'90%'
+          width:'80%',
+          overflow:'hidden'
         }}>
         {content['developer'].tiles[id].text}
       </motion.p>
