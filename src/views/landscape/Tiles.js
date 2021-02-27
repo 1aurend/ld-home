@@ -21,6 +21,11 @@ const bg = {
   developer: 'rgb(19,20,56)',
   philosopher: 'rgb(98,23,46)'
 }
+const darkBg = {
+  educator: 'rgb(4,51,49)',
+  developer: 'rgb(25,27,77)',
+  philosopher: 'rgb(77,18,36)'
+}
 
 export default function Tiles({ type }) {
   const y = useContext(Y)
@@ -40,7 +45,7 @@ export default function Tiles({ type }) {
       opacity: 1,
     },
     40: {
-      bg: 'rgb(238, 250, 255)'
+      bg: 'rgb(238, 250, 255, 1)'
     },
     44: {
       top: '35vh',
@@ -48,14 +53,20 @@ export default function Tiles({ type }) {
       height: '2vw',
       borderRadius: '30px',
     },
+    45: {
+      bg: 'rgb(238, 250, 255, 0)'
+    },
     48: {
-      bg: 'rgb(238, 250, 255)'
+      bg: 'rgb(238, 250, 255, 0)'
     },
     51: {
       width: '60vw',
       height: `${40*factor}vw`,
       borderRadius: '10px',
-      bg: bg[type]
+      bg: 'rgb(255, 255, 255, 0)'
+    },
+    52: {
+      bg: 'rgb(255, 255, 255, 0)'
     },
     // 53: {
     //   width: '60vw',
@@ -111,6 +122,7 @@ export default function Tiles({ type }) {
   const tileLeft = `${38.5-(tileWidth.current.slice(0,-2)/2)}vw`
   const tileBgParams = {keyframes: tileKfs, type: 'bg'}
   const bgColor = useScrub(tileBgParams, relY)
+  console.log(bgColor)
 
   const glowKfs = {
     35: '400%',
@@ -126,8 +138,8 @@ export default function Tiles({ type }) {
   const glowSize = useScrub(glowKfs, relY)
 
   const purpleGradient = useMotionTemplate`radial-gradient(ellipse at center, #5257F7CC 10%,#5257F703 70%,#5257F700 75%, transparent 100vw)`
-  const tealGradient = useMotionTemplate`radial-gradient(ellipse at center, #7FF0D9CC 10%,#7FF0D903 70%,#7FF0D900 75%, transparent 100vw)`
-  const redGradient = useMotionTemplate`radial-gradient(ellipse at center, #EEACCFCC 10%,#EEACCF03 70%,#EEACCF00 75%, transparent 100vw)`
+  const tealGradient = useMotionTemplate`radial-gradient(ellipse at center, #0ca89bCC 10%,#0ca89b03 70%,#0ca89b00 75%, transparent 100vw)`
+  const redGradient = useMotionTemplate`radial-gradient(ellipse at center, #bd5585CC 10%,#bd558503 70%,#bd558500 75%, transparent 100vw)`
   const color = y <= .29 || y >= .96
     ? 'purple'
     : y > .29 && y <= .63
@@ -198,7 +210,7 @@ export default function Tiles({ type }) {
             zIndex:104,
             overflow:'hidden',
           }}>
-          <TileContent type={type}/>
+          <TileContent type={type} id={'one'}/>
         </motion.div>
       </div>
     </motion.div>

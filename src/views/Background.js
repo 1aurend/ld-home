@@ -43,6 +43,9 @@ export default function TextBackground({ children }) {
   const relKfs = y < .39 ? toTealKfs : y < .73 ? toRedKfs : toPurpleKfs
   const bgColor = useScrub(relKfs, relY)
 
+  const scene = y < .39 ? 2 : y < .73 ? 4 : 6
+  const tileY = useInterval(scenes[scene], y)
+
 
   return (
     <motion.div
@@ -71,6 +74,7 @@ export default function TextBackground({ children }) {
             zIndex:'-100',
             overflow:'hidden',
             position:'absolute',
+            opacity:tileY >= .35 && tileY <= .76 ? .25 : 1
           }}>
           {peirce}
           {peirce}

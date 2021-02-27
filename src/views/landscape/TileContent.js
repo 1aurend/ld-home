@@ -13,6 +13,11 @@ const scene = {
   educator: scenes[4],
   developer: scenes[2]
 }
+const darkBg = {
+  educator: 'rgb(4,51,49)',
+  developer: 'rgb(25,27,77)',
+  philosopher: 'rgb(77,18,36)'
+}
 
 
 export default function TileContent({ id, type }) {
@@ -63,25 +68,49 @@ export default function TileContent({ id, type }) {
         fontSize:fontSize
       }}
       sx={{
-        p:'3%',
-        justifyContent:'center',
+        p:0,
+        justifyContent:'flex-start',
         flexDirection:'column',
         alignItems: 'center',
         height:'100%',
-        display:relY >= .16 ? 'flex' : 'none',
-        perspective:'20vw'
+        display:relY >= .46 ? 'flex' : 'none',
+        perspective:'20vw',
+        overflow:'hidden'
       }}>
+      <h2
+        sx={{
+          fontFamily:'heading',
+          color:type === 'developer' ? 'Teal2' : type === 'philosopher' ? 'Purple2' : 'Pink3',
+          fontSize:'medium',
+          m:0,
+          pb:'5%',
+          textShadow:'0px 0px 5px black',
+        }}>
+        {content['developer'].tiles[id].title}
+      </h2>
+      <img
+        src={content['developer'].tiles[id].img}
+        alt='fix this'
+        sx={{
+          width:'70%',
+          height:'auto',
+          pb:'3%'
+        }}/>
       <motion.p
         style={{transform:fall}}
         sx={{
           m:0,
           textAlign:'justify',
           fontFamily:'monospace',
-          fontWeight:'body',
-          color:'Orange1',
-          transformOrigin:'center'
+          fontWeight:'heading',
+          color:type === 'developer' ? 'Teal2' : type === 'philosopher' ? 'Purple2' : 'Pink3',
+          transformOrigin:'center',
+          fontSize:'tiny',
+          textShadow:'0px 0px 7px black',
+          lineHeight:'3vmin',
+          width:'90%'
         }}>
-        {content[type].header}
+        {content['developer'].tiles[id].text}
       </motion.p>
     </motion.section>
   )

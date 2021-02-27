@@ -25,7 +25,8 @@ const Name = () => {
       sx={{
         fontSize:'9vmin',
         fontFamily:'heading',
-        color:'Teal1', textAlign:'right',
+        color:'Teal2',
+        textAlign:'right',
         gridArea:'name',
         justifySelf:'center',
         alignSelf:'center',

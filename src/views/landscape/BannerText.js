@@ -13,6 +13,11 @@ const scene = {
   educator: scenes[4],
   developer: scenes[2]
 }
+const darkBg = {
+  educator: 'rgb(4,51,49)',
+  developer: 'rgb(25,27,77)',
+  philosopher: 'rgb(77,18,36)'
+}
 
 
 export default function BannerText({ id, type }) {
@@ -63,7 +68,7 @@ export default function BannerText({ id, type }) {
         fontSize:fontSize
       }}
       sx={{
-        bg:'Grey',
+        bg:darkBg[type],
         border: '3px solid #EEFAFF',
         p:'3%',
         justifyContent:'center',
