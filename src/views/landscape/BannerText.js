@@ -14,9 +14,9 @@ const scene = {
   developer: scenes[2]
 }
 const darkBg = {
-  educator: 'rgb(4,51,49)',
+  educator: 'rgb(6,76,73)',
   developer: 'rgb(25,27,77)',
-  philosopher: 'rgb(77,18,36)'
+  philosopher: 'rgb(100,23,47)'
 }
 
 
@@ -44,7 +44,7 @@ export default function BannerText({ type }) {
     },
     28: {
       borderBottom: '20px',
-      font: `${2*factor}vmin`,
+      font: `${2.75*factor}vmin`,
       fall: '0deg'
     }
   }
@@ -86,10 +86,11 @@ export default function BannerText({ type }) {
         sx={{
           m:0,
           textAlign:'justify',
-          fontFamily:'monospace',
-          fontWeight:'body',
+          fontFamily:'harmattan',
+          fontWeight:'400',
           color:'Orange1',
-          transformOrigin:'center'
+          transformOrigin:'center',
+          lineHeight:'3vmin'
         }}>
         {content[type].header}
       </motion.p>

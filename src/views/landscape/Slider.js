@@ -94,7 +94,7 @@ const Slider = ({ type, scrollTo, showCursor }) => {
     <motion.div
       ref={sliderRef}
       id={type}
-      onClick={() => scrollTo(scrollToPoint[type],null,0)}
+      onClick={() => scrollTo(scrollToPoint[type],100,0)}
       onMouseEnter={() => showCursor(true)}
       onMouseLeave={() => showCursor(false)}
       style={{

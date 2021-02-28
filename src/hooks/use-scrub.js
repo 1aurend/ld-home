@@ -3,13 +3,13 @@ import { useLayoutEffect } from 'react'
 
 const typeFilter = (keyframes, type) => {
   return Object.keys(keyframes)
-    .filter(key => keyframes[key][type] !== undefined)
+    .filter(key => keyframes[key][type] || keyframes[key][type] === 0)
     .reduce((acc, key) => Object.assign(acc, { [key]: keyframes[key][type] }), {})
 }
 
 const emptyFilter = keyframes => {
   return Object.keys(keyframes)
-    .filter(key => keyframes[key] !== '')
+    .filter(key => keyframes[key] || keyframes[key] === 0)
     .reduce((acc, key) => Object.assign(acc, { [key]: keyframes[key] }), {})
 }
 

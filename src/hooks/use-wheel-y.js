@@ -72,7 +72,7 @@ export default function useWheelY(yMultiplier=10, wheelMultiplier=1, size, targe
     }
     setYPos({px:-nextY,percent:parseFloat((-nextY/(yMax)).toFixed(4))})
     if (prevYPercent.current < target+buffer) {
-      requestAnimationFrame(() => interpolateScrollDown(target))
+      requestAnimationFrame(() => interpolateScrollDown(target, step, buffer))
     }
   }
   const interpolateScrollUp = (target,step=200,buffer=.01) => {
@@ -87,15 +87,15 @@ export default function useWheelY(yMultiplier=10, wheelMultiplier=1, size, targe
     }
     setYPos({px:-nextY,percent:parseFloat((-nextY/(yMax)).toFixed(4))})
     if (prevYPercent.current > target-buffer) {
-      requestAnimationFrame(() => interpolateScrollUp(target))
+      requestAnimationFrame(() => interpolateScrollUp(target, step, buffer))
     }
   }
-  const scrollTo = target => {
+  const scrollTo = (target, step, buffer) => {
     if (prevYPercent.current < target) {
-      requestAnimationFrame(() => interpolateScrollDown(target))
+      requestAnimationFrame(() => interpolateScrollDown(target, step, buffer))
       return
     }
-    requestAnimationFrame(() => interpolateScrollUp(target))
+    requestAnimationFrame(() => interpolateScrollUp(target, step, buffer))
   }
 
   return { y, scrollTo }

@@ -59,7 +59,7 @@ export default function TileContent({ id, type }) {
     40: '.25vmin',
     41: '.5vmin',
     43: '1vmin',
-    46: '2vmin'
+    46: `${2.5*factor}vmin`
   }
   const captionSize = useScrub(captionKfs, relY)
   const lineHeightKfs = {
@@ -107,7 +107,7 @@ export default function TileContent({ id, type }) {
           height:'70%',
           pb:'3%'
         }}/>
-      <motion.p
+      <motion.caption
         style={{
           fontSize:captionSize,
           lineHeight:lineHeight
@@ -115,7 +115,7 @@ export default function TileContent({ id, type }) {
         sx={{
           m:0,
           textAlign:'justify',
-          fontFamily:'monospace',
+          fontFamily:'harmattan',
           fontWeight:'heading',
           color:type === 'developer' ? 'Teal2' : type === 'philosopher' ? 'Purple2' : 'Pink3',
           transformOrigin:'center',
@@ -124,7 +124,7 @@ export default function TileContent({ id, type }) {
           overflow:'hidden'
         }}>
         {content[type].tiles[id].text}
-      </motion.p>
+      </motion.caption>
     </motion.section>
   )
 }

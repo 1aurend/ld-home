@@ -40,7 +40,8 @@ export default function Tiles({ type }) {
 
   const tileKfs = {
     0: {
-      opacity: 1
+      opacity: 1,
+      width: '2vw'
     },
     35: {
       borderRadius: '30px',
@@ -53,7 +54,7 @@ export default function Tiles({ type }) {
       bg: 'rgb(238, 250, 255, 1)'
     },
     40: {
-      top: '30vh',
+      top: '32vh',
       width: '2vw',
       height: '2vw',
       borderRadius: '30px',
@@ -87,7 +88,7 @@ export default function Tiles({ type }) {
   const tileHeight = useScrub(tileHeightParams, relY)
   const tileOpacityParams = {keyframes: tileKfs, type: 'opacity'}
   const tileOpacity = useScrub(tileOpacityParams, relY)
-  const tileLeft = `${38.5-(tileWidth.current.slice(0,-2)/2)}vw`
+  const tileLeft = `${41-(tileWidth.current.slice(0,-2)/2)}vw`
   const tileBgParams = {keyframes: tileKfs, type: 'bg'}
   const bgColor = useScrub(tileBgParams, relY)
 

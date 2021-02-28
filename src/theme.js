@@ -4,6 +4,11 @@ const theme = {
     heading: 'Della Respira, serif',
     fatserif: 'Suez One, serif',
     monospace: 'Roboto Slab, monospace',
+    harmattan: 'Harmattan, sans-serif',
+    sanserif: 'Montserrat, sans-serif',
+    courgette: 'Courgette, serif',
+    goudy: 'Sorts Mill Goudy, serif',
+    book: 'Gentium Book Basic, serif'
   },
   fontSizes: {
       'microscopic': '1.1vmin',

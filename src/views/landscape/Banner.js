@@ -68,8 +68,8 @@ export default function Banner({ type }) {
     },
     28: {
       borderBottom: '20px',
-      width: '55vw',
-      height: `${12*factor}vw`,
+      width: '60vw',
+      height: `${11*factor}vw`,
     },
     80: {
       flip: '0deg',
@@ -196,7 +196,8 @@ export default function Banner({ type }) {
               transformOrigin:'center top',
               mixBlendMode:'normal',
               zIndex:104,
-              overflow:'hidden'
+              overflow:'hidden',
+              filter:'drop-shadow(2px 2px 5px #EEFAFF)'
             }}>
             <BannerText type={type}/>
           </motion.div>
