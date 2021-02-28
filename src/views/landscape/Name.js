@@ -11,9 +11,9 @@ const Name = () => {
   const y = useContext(Y)
 
   const kfs = {
-    1: '0vh',
-    5: '-60vh',
-    96: '-60vh',
+    0: '0vh',
+    2: '-60vh',
+    99: '-60vh',
     100: '-20vh'
   }
   const top = useScrub(kfs, y)

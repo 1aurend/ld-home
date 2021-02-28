@@ -29,12 +29,12 @@ export default function Banner({ type }) {
       right: '20.5vw',
       left: '79.5vw'
     },
-    16: {
+    12: {
       width: '68vw',
       right: '20.5vw',
       left: '11vw'
     },
-    84: {
+    88: {
       width: '68vw',
     },
     100: {
@@ -51,31 +51,31 @@ export default function Banner({ type }) {
     0: {
       borderTop: '30px',
       borderBottom: '30px',
-      margin: '13.5vh',
+      margin: '9.5vh',
       width: '1vw',
       height: '1vw',
     },
-    16: {
+    12: {
       borderTop: '30px',
       borderBottom: '30px',
-      margin: '13.5vh',
+      margin: '9.5vh',
       width: '1vw',
       height: '1vw',
     },
-    18: {
+    14: {
       borderTop: '0px',
-      margin: '14vh',
+      margin: '10vh',
     },
-    32: {
+    28: {
       borderBottom: '20px',
       width: '55vw',
       height: `${12*factor}vw`,
     },
-    76: {
+    80: {
       flip: '0deg',
       opacity: 1,
     },
-    84: {
+    88: {
       opacity: 0,
       flip: '180deg'
     },
@@ -101,7 +101,7 @@ export default function Banner({ type }) {
   const tileOpacity = useScrub(tileOpacityParams, relY)
 
   const glowKfs = {
-    32: {
+    30: {
       size: '175%',
       pos: '-37.5%'
     },
@@ -116,11 +116,11 @@ export default function Banner({ type }) {
   const glowPos = useScrub(glowPosParams, relY)
 
   const purpleGradient = useMotionTemplate`radial-gradient(ellipse at center, #5257F7CC 10%,#5257F703 70%,#5257F700 75%, transparent 100vw)`
-  const tealGradient = useMotionTemplate`radial-gradient(ellipse at center, #7FF0D9CC 10%,#7FF0D903 70%,#7FF0D900 75%, transparent 100vw)`
-  const redGradient = useMotionTemplate`radial-gradient(ellipse at center, #EEACCFCC 10%,#EEACCF03 70%,#EEACCF00 75%, transparent 100vw)`
-  const color = y <= .29 || y >= .96
+  const tealGradient = useMotionTemplate`radial-gradient(ellipse at center, #0ca89bCC 10%,#0ca89b03 70%,#0ca89b00 75%, transparent 100vw)`
+  const redGradient = useMotionTemplate`radial-gradient(ellipse at center, #bd5585CC 10%,#bd558503 70%,#bd558500 75%, transparent 100vw)`
+  const color = y <= .31 || y >= .99
     ? 'purple'
-    : y > .29 && y <= .63
+    : y > .31 && y <= .65
       ? 'teal'
       : 'red'
   const gradients = {
@@ -198,7 +198,7 @@ export default function Banner({ type }) {
               zIndex:104,
               overflow:'hidden'
             }}>
-            <BannerText yPercent={y} id='one' type={type}/>
+            <BannerText type={type}/>
           </motion.div>
         </div>
       </motion.div>
@@ -215,7 +215,7 @@ export default function Banner({ type }) {
           opacity:1,
           mt:'6vh',
           zIndex:50,
-          top:'8vh',
+          top:'4vh',
         }}>
       </motion.div>
     </>

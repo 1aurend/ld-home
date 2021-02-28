@@ -27,45 +27,46 @@ export default function TileContent({ id, type }) {
   //adjust this for large screens and portrait layout
   const factor = Math.min(1,width/1100)
 
+  //adjust timing if these become lotties
   const oneKfs = {
-    51: '0deg',
-    57: '0deg',
-    59: '90deg'
+    46: '0deg',
+    52: '0deg',
+    56: '90deg'
   }
   const twoKfs = {
-    59: '-90deg',
-    61: '0deg',
-    67: '0deg',
-    69: '90deg'
+    56: '-90deg',
+    60: '0deg',
+    66: '0deg',
+    70: '90deg'
   }
   const threeKfs = {
-    69: '-90deg',
-    71: '0deg',
-    77: '0deg'
+    70: '-90deg',
+    74: '0deg',
+    81: '0deg'
   }
   const kfs = id === 'one' ? oneKfs : id === 'two' ? twoKfs : threeKfs
   const tileSpin = useScrub(kfs, relY)
   const spin = useMotionTemplate`rotateY(${tileSpin})`
 
   const fontKfs = {
-    44: '.5vmin',
-    45: '1vmin',
-    47: '2vmin',
-    51: '4vmin'
+    40: '.5vmin',
+    41: '1vmin',
+    43: '2vmin',
+    46: '4vmin'
   }
   const titleSize = useScrub(fontKfs, relY)
   const captionKfs = {
-    44: '.25vmin',
-    45: '.5vmin',
-    47: '1vmin',
-    51: '2vmin'
+    40: '.25vmin',
+    41: '.5vmin',
+    43: '1vmin',
+    46: '2vmin'
   }
   const captionSize = useScrub(captionKfs, relY)
   const lineHeightKfs = {
-    44: '.5vmin',
-    45: '.75vmin',
-    47: '1.5vmin',
-    51: '3vmin'
+    40: '.5vmin',
+    41: '.75vmin',
+    43: '1.5vmin',
+    46: '3vmin'
   }
   const lineHeight = useScrub(lineHeightKfs, relY)
 
@@ -81,7 +82,7 @@ export default function TileContent({ id, type }) {
         flexDirection:'column',
         alignItems: 'center',
         height:'100%',
-        display:relY >= .44 ? 'flex' : 'none',
+        display:relY >= .40 ? 'flex' : 'none',
         perspective:'20vw',
         overflow:'hidden',
         transformOrigin:'center'
@@ -96,10 +97,10 @@ export default function TileContent({ id, type }) {
           textShadow:'0px 0px 5px black',
           overflow:'hidden'
         }}>
-        {content['developer'].tiles[id].title}
+        {content[type].tiles[id].title}
       </motion.h2>
       <img
-        src={content['developer'].tiles[id].img}
+        src={content[type].tiles[id].img}
         alt='fix this'
         sx={{
           width:'auto',
@@ -122,7 +123,7 @@ export default function TileContent({ id, type }) {
           width:'80%',
           overflow:'hidden'
         }}>
-        {content['developer'].tiles[id].text}
+        {content[type].tiles[id].text}
       </motion.p>
     </motion.section>
   )

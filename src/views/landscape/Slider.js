@@ -9,6 +9,8 @@ import { motion } from 'framer-motion'
 import useScrub from '../../hooks/use-scrub'
 import useSize from '../../hooks/use-debounced-window-size'
 import { Y } from '../Controller'
+import useInterval from '../../hooks/use-interval'
+import scenes from '../../assets/sceneList'
 
 
 const pulse = keyframes({
@@ -24,9 +26,9 @@ const pulse = keyframes({
 })
 
 const scrollToPoint = {
-  philosopher: .73,
-  educator: .39,
-  developer: .05
+  philosopher: .70,
+  educator: .36,
+  developer: .02
 }
 
 const Slider = ({ type, scrollTo, showCursor }) => {
@@ -39,31 +41,43 @@ const Slider = ({ type, scrollTo, showCursor }) => {
   const vY = useRef(0)
 
   const xKfs = {
-    1: `${hX.current}px`,
-    2: type === 'developer' ? `${size.width*0.8}px` : '',
-    3: type === 'educator' ? `${size.width*0.8}px` : '',
-    5: `${size.width*0.8}px`
+    0: `${hX.current}px`,
+    40: type === 'developer' ? `${size.width*0.8}px` : '',
+    60: type === 'educator' ? `${size.width*0.8}px` : '',
+    100: `${size.width*0.8}px`
   }
-  const yKfs = {
-    2: type === 'developer' ? `${hY.current}px` : '',
-    3: type === 'educator' ? `${hY.current}px` : '',
-    5: `${vY.current}px`,
-    29: `${vY.current}px`,
-    39: type === 'philosopher' ? `${(hY.current-(size.height*.12))/2+(size.height*.12)}px` : type === 'educator' ? `${size.height*0.12}px` : '0px',
-    63: type === 'philosopher' ? `${(hY.current-(size.height*.12))/2+(size.height*.12)}px` : type === 'educator' ? `${size.height*0.12}px` : '',
-    73: type === 'philosopher' ? `${size.height*0.12}px` : type === 'educator' ? '0px' : ''
+  const splashKfs = {
+    0: `${hY.current}px`,
+    40: type === 'developer' ? `${hY.current}px` : '',
+    60: type === 'educator' ? `${hY.current}px` : '',
+    100: `${vY.current}px`
   }
-  const x = useScrub(xKfs, yPer)
-  const y = useScrub(yKfs, yPer)
+  const dEKfs = {
+    0: `${vY.current}px`,
+    100: type === 'philosopher' ? `${(hY.current-(size.height*.08))/2+(size.height*.08)}px` : type === 'educator' ? `${size.height*0.08}px` : '0px',
+  }
+  const ePKfs = {
+    0: type === 'philosopher' ? `${(hY.current-(size.height*.08))/2+(size.height*.08)}px` : type === 'educator' ? `${size.height*0.08}px` : '',
+    100: type === 'philosopher' ? `${size.height*0.08}px` : type === 'educator' ? '0px' : ''
+  }
+  const splash = useInterval(scenes[1], yPer)
+  const dToE = useInterval(scenes[3], yPer)
+  const eToP = useInterval(scenes[5], yPer)
+  // const pToC = useInterval(scenes[7], yPer)
+  const relY =  yPer <= .02 ? splash : yPer <= .36 ? dToE : eToP
+  const relKfs = yPer <= .02 ? splashKfs : yPer <= .36 ? dEKfs : ePKfs
+  const x = useScrub(xKfs, splash)
+  const y = useScrub(relKfs, relY)
 
+  //use scenes here so sliders can fade out before 100?
   const opacityKfs = {
     0: 1,
-    29: 1,
-    39: type === 'developer' ? 0 : 1,
-    63: type === 'developer' ? '' : 1,
-    73: type === 'educator' ? 0 : type === 'developer' ? '' : 1,
-    96: type === 'philosopher' ? 1 : '',
-    98: type === 'philosopher' ? 0 : ''
+    31: 1,
+    36: type === 'developer' ? 0 : 1,
+    65: type === 'developer' ? '' : 1,
+    70: type === 'educator' ? 0 : type === 'developer' ? '' : 1,
+    99: type === 'philosopher' ? 1 : '',
+    100: type === 'philosopher' ? 0 : ''
   }
   const opacity = useScrub(opacityKfs, yPer)
 
@@ -72,7 +86,7 @@ const Slider = ({ type, scrollTo, showCursor }) => {
       const rect = sliderRef.current.getBoundingClientRect()
       hX.current = rect.left
       hY.current = rect.top
-      vY.current = type === 'educator' ? (rect.top-(size.height*.12))/2+(size.height*.12) : type === 'philosopher' ? rect.top : size.height*0.12
+      vY.current = type === 'educator' ? (rect.top-(size.height*.08))/2+(size.height*.08) : type === 'philosopher' ? rect.top : size.height*0.08
     }
   }, [size, type, yPer])
 
@@ -80,7 +94,7 @@ const Slider = ({ type, scrollTo, showCursor }) => {
     <motion.div
       ref={sliderRef}
       id={type}
-      onClick={() => scrollTo(scrollToPoint[type])}
+      onClick={() => scrollTo(scrollToPoint[type],null,0)}
       onMouseEnter={() => showCursor(true)}
       onMouseLeave={() => showCursor(false)}
       style={{

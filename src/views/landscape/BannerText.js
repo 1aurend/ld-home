@@ -20,7 +20,7 @@ const darkBg = {
 }
 
 
-export default function BannerText({ id, type }) {
+export default function BannerText({ type }) {
   const y = useContext(Y)
   const relY = useInterval(scene[type], y)
   const width = useSize().width
@@ -33,16 +33,16 @@ export default function BannerText({ id, type }) {
       borderBottom: '30px',
       font: '.5vmin'
     },
-    16: {
+    12: {
       borderTop: '30px',
       borderBottom: '30px',
       font: '.5vmin',
       fall: '90deg'
     },
-    18: {
+    14: {
       borderTop: '0px',
     },
-    32: {
+    28: {
       borderBottom: '20px',
       font: `${2*factor}vmin`,
       fall: '0deg'
@@ -59,7 +59,8 @@ export default function BannerText({ id, type }) {
   const fall = useMotionTemplate`rotateX(${textFall})`
 
   return (
-    <motion.section
+    <motion.header
+      id='banner-content'
       style={{
         borderBottomLeftRadius:borderBottom,
         borderBottomRightRadius:borderBottom,
@@ -69,16 +70,18 @@ export default function BannerText({ id, type }) {
       }}
       sx={{
         bg:darkBg[type],
-        border: '3px solid #EEFAFF',
+        border: '1px solid #EEFAFF',
+        borderTop: '3px solid #EEFAFF',
         p:'3%',
         justifyContent:'center',
         flexDirection:'column',
         alignItems: 'center',
         height:'100%',
-        display:relY >= .16 ? 'flex' : 'none',
+        display:relY >= .12 ? 'flex' : 'none',
         perspective:'20vw'
       }}>
       <motion.p
+        id='section-header'
         style={{transform:fall}}
         sx={{
           m:0,
@@ -90,6 +93,6 @@ export default function BannerText({ id, type }) {
         }}>
         {content[type].header}
       </motion.p>
-    </motion.section>
+    </motion.header>
   )
 }

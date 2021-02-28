@@ -21,7 +21,7 @@ export const Cursor = createContext()
 export const Test = createContext()
 
 
-const Layout = ({ size, scrollTo }) => {
+const Layout = ({ scrollTo }) => {
   const yPercent = useContext(Y)
   const [showCursor, setShowCursor] = useState(false)
 
@@ -152,19 +152,19 @@ const Layout = ({ size, scrollTo }) => {
             </div>
           </div>
         </section>
-        {yPercent >= .05 &&
+        {yPercent >= .02 &&
           <section>
             <Tiles type='developer'/>
             <Banner type='developer'/>
           </section>
         }
-        {yPercent >= .39 &&
+        {yPercent >= .36 &&
           <section>
             <Tiles type='educator'/>
             <Banner type='educator'/>
           </section>
         }
-        {yPercent >= .73 &&
+        {yPercent >= .70 &&
           <section>
             <Tiles type='philosopher'/>
             <Banner type='philosopher'/>

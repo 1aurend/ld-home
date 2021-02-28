@@ -31,8 +31,8 @@ export default function Tiles({ type }) {
   const y = useContext(Y)
   const relY = useInterval(scene[type], y)
   const thresholds = {
-    one: .59,
-    two: .69,
+    one: .56,
+    two: .70,
   }
   const id = relY < thresholds.one ? 'one' : relY < thresholds.two ? 'two' : 'three'
   const width = useSize().width
@@ -46,43 +46,31 @@ export default function Tiles({ type }) {
       borderRadius: '30px',
       width: '2vw',
       height: '2vw',
-      top: '30vh',
+      top: '25vh',
       opacity: 1,
     },
-    40: {
+    38: {
       bg: 'rgb(238, 250, 255, 1)'
     },
-    44: {
-      top: '35vh',
+    40: {
+      top: '30vh',
       width: '2vw',
       height: '2vw',
       borderRadius: '30px',
     },
-    45: {
+    41: {
       bg: 'rgb(238, 250, 255, 0)'
     },
-    48: {
-      bg: 'rgb(238, 250, 255, 0)'
-    },
-    51: {
+    46: {
       width: '60vw',
       height: `${40*factor}vw`,
       borderRadius: '10px',
-      bg: 'rgb(255, 255, 255, 0)'
+      bg: 'rgb(238, 250, 255, 0)'
     },
-    52: {
-      bg: 'rgb(255, 255, 255, 0)'
-    },
-    75: {
-      opacity: 1
-    },
-    76: {
-      width: '60vw',
-      height: `${40*factor}vw`,
-      borderRadius: '10px',
+    80: {
       opacity: 1,
     },
-    84: {
+    88: {
       opacity: 0,
     },
     100: {
@@ -105,17 +93,17 @@ export default function Tiles({ type }) {
 
   const glowKfs = {
     35: '400%',
-    44: '400%',
-    51: '200%',
+    40: '400%',
+    46: '200%',
   }
   const glowSize = useScrub(glowKfs, relY)
 
   const purpleGradient = useMotionTemplate`radial-gradient(ellipse at center, #5257F7CC 10%,#5257F703 70%,#5257F700 75%, transparent 100vw)`
   const tealGradient = useMotionTemplate`radial-gradient(ellipse at center, #0ca89bCC 10%,#0ca89b03 70%,#0ca89b00 75%, transparent 100vw)`
   const redGradient = useMotionTemplate`radial-gradient(ellipse at center, #bd5585CC 10%,#bd558503 70%,#bd558500 75%, transparent 100vw)`
-  const color = y <= .29 || y >= .96
+  const color = y <= .31 || y >= .99
     ? 'purple'
-    : y > .29 && y <= .63
+    : y > .31 && y <= .65
       ? 'teal'
       : 'red'
   const gradients = {

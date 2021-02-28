@@ -26,23 +26,23 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile }) => {
 
   const kfs = {
     0: `${maxRadius/1.5}px`,
-    8: `${maxRadius/1.5}px`,
+    3: `${maxRadius/1.5}px`,
     16: '0px',
-    25: '0px',
-    29: `${maxRadius/1.5}px`,
-    43: `${maxRadius/1.5}px`,
-    51: '0px',
-    63: '0px',
-    73: `${maxRadius/1.5}px`,
-    77: `${maxRadius/1.5}px`,
-    85: '0px',
-    96: '0px',
-    100: `${maxRadius/1.5}px`,
+    24: '0px',
+    30: `${maxRadius/1.5}px`,
+    37: `${maxRadius/1.5}px`,
+    50: '0px',
+    58: '0px',
+    64: `${maxRadius/1.5}px`,
+    71: `${maxRadius/1.5}px`,
+    84: '0px',
+    92: '0px',
+    99: `${maxRadius/1.5}px`,
   }
   const lightRadius = useScrub(kfs, y)
   const onPurple = useMotionTemplate`radial-gradient(#5257F7AA,#5257F703,#5257F700 ${lightRadius})`
-  const onTeal = useMotionTemplate`radial-gradient(#7FF0D9AA,#7FF0D903,#7FF0D900 ${lightRadius})`
-  const onRed = useMotionTemplate`radial-gradient(#EEACCFAA,#EEACCF03,#EEACCF00 ${lightRadius})`
+  const onTeal = useMotionTemplate`radial-gradient(#0ca89bAA,#0ca89b03,#0ca89b00 ${lightRadius})`
+  const onRed = useMotionTemplate`radial-gradient(#bd5585AA,#bd558503,#bd558500 ${lightRadius})`
 
   const ticking = useRef(false)
   const ePos = useRef({x:initX,y:initY})
@@ -82,7 +82,7 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile }) => {
       <motion.div
         id='cursor'
         style={{
-          backgroundImage:y <= .30 || y >= .99 ? onPurple : y > .30 && y <= .65 ? onTeal : onRed
+          backgroundImage:y <= .33 || y >= .995 ? onPurple : y > .33 && y <= .67 ? onTeal : onRed
         }}
         sx={{
           width: `${maxRadius}px`,

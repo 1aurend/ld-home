@@ -20,6 +20,8 @@ export default function Controller() {
   const prevY = useRef(0)
   const prevYPercent = useRef(0)
   const [yPos, setYPos] = useState({px:0,percent:0})
+  console.log(eDelta.current)
+  console.log(yPos)
 
   useEffect(()=>{
     const calculateScroll = () => {
@@ -39,8 +41,8 @@ export default function Controller() {
       }
       const nextY = prevY.current - eDelta.current
       prevY.current = nextY
-      prevYPercent.current = -nextY/(yMax)
-      setYPos({px:-nextY,percent:-nextY/(yMax)})
+      prevYPercent.current = parseFloat((-nextY/(yMax)).toFixed(4))
+      setYPos({px:-nextY,percent:parseFloat((-nextY/(yMax)).toFixed(4))})
     }
     const requestTick = () => {
       if (!ticking.current && !resize.current) {
@@ -49,7 +51,7 @@ export default function Controller() {
       ticking.current = true
     }
     const handleWheel = e => {
-      eDelta.current = e.deltaY * wheelMultiplier
+      eDelta.current = parseFloat((e.deltaY * wheelMultiplier).toFixed(4))
       requestTick()
     }
     window.addEventListener('wheel', handleWheel)
@@ -66,34 +68,41 @@ export default function Controller() {
     }
   }, [size])
 
-  //TODO: precissify these bounds
-  const interpolateScroll = (target,step=200) => {
+  const interpolateScrollDown = (target,step=200,buffer=.01) => {
     const yMax = yMultiplier*prevSize.current.height
     const nextY = prevY.current - step
     prevY.current = nextY
-    prevYPercent.current = -nextY/(yMax)
-    setYPos({px:-nextY,percent:-nextY/(yMax)})
-    if (prevYPercent.current < target+.01) {
-      requestAnimationFrame(() => interpolateScroll(target))
+    prevYPercent.current = parseFloat((-nextY/(yMax)).toFixed(4))
+    if (prevYPercent.current > target+buffer) {
+      prevY.current = -target*yMax
+      prevYPercent.current = target
+      setYPos({px:-target*yMax,percent:target})
+      return
+    }
+    setYPos({px:-nextY,percent:parseFloat((-nextY/(yMax)).toFixed(4))})
+    if (prevYPercent.current < target+buffer) {
+      requestAnimationFrame(() => interpolateScrollDown(target))
     }
   }
-  const interpolateScrollUp = (target,step=200) => {
-    console.log('here')
+  const interpolateScrollUp = (target,step=200,buffer=.01) => {
     const yMax = yMultiplier*prevSize.current.height
     const nextY = prevY.current + step
     prevY.current = nextY
-    prevYPercent.current = -nextY/(yMax)
-    setYPos({px:-nextY,percent:-nextY/(yMax)})
-    console.log(prevYPercent.current)
-    console.log(target+.01)
-    if (prevYPercent.current > target+.01) {
+    prevYPercent.current = parseFloat((-nextY/(yMax)).toFixed(4))
+    if (prevYPercent.current < target-buffer) {
+      prevY.current = -target*yMax
+      prevYPercent.current = target
+      setYPos({px:-target*yMax,percent:target})
+      return
+    }
+    setYPos({px:-nextY,percent:parseFloat((-nextY/(yMax)).toFixed(4))})
+    if (prevYPercent.current > target-buffer) {
       requestAnimationFrame(() => interpolateScrollUp(target))
     }
   }
-  // TODO: make this work for scrolling up also!
   const scrollTo = target => {
     if (prevYPercent.current < target) {
-      requestAnimationFrame(() => interpolateScroll(target))
+      requestAnimationFrame(() => interpolateScrollDown(target))
       return
     }
     requestAnimationFrame(() => interpolateScrollUp(target))

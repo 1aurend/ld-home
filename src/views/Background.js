@@ -15,12 +15,17 @@ import scenes from '../assets/sceneList'
 export default function TextBackground({ children }) {
   const y = useContext(Y)
 
-  //this needs to be adjusted when all the text goes in
+  //this needs to move only during transitions :)
+  //not sure what the right increments are
   const bgKfs = {
-    1: '0vh',
-    5: '-1000vh',
-    96: '-1000vh',
-    100: '0vh'
+    0: '0vh',
+    2: '-500vh',
+    31: '-500vh',
+    36: '-1000vh',
+    65: '-1000vh',
+    70: '-1500vh',
+    99: '-1500vh',
+    100: '-1000vh'
   }
   const top = useScrub(bgKfs, y)
 
@@ -39,12 +44,13 @@ export default function TextBackground({ children }) {
   const dToE = useInterval(scenes[3], y)
   const eToP = useInterval(scenes[5], y)
   const pToC = useInterval(scenes[7], y)
-  const relY = y < .39 ? dToE : y < .73 ? eToP : pToC
-  const relKfs = y < .39 ? toTealKfs : y < .73 ? toRedKfs : toPurpleKfs
+  const relY = y < .36 ? dToE : y < .70 ? eToP : pToC
+  const relKfs = y < .36 ? toTealKfs : y < .70 ? toRedKfs : toPurpleKfs
   const bgColor = useScrub(relKfs, relY)
 
-  const scene = y < .39 ? 2 : y < .73 ? 4 : 6
+  const scene = y < .36 ? 2 : y < .70 ? 4 : 6
   const tileY = useInterval(scenes[scene], y)
+  const opacity = tileY >= .35 && tileY <= .80 ? .25 : 1
 
 
   return (
@@ -74,7 +80,7 @@ export default function TextBackground({ children }) {
             zIndex:'-100',
             overflow:'hidden',
             position:'absolute',
-            opacity:tileY >= .35 && tileY <= .76 ? .25 : 1
+            opacity:opacity
           }}>
           {peirce}
           {peirce}
