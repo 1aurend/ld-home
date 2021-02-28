@@ -40,11 +40,12 @@ const Slider = ({ type, scrollTo, showCursor }) => {
   const hY = useRef(0)
   const vY = useRef(0)
 
+  const vX = `${size.width*0.8}px`
   const xKfs = {
     0: `${hX.current}px`,
-    40: type === 'developer' ? `${size.width*0.8}px` : '',
-    60: type === 'educator' ? `${size.width*0.8}px` : '',
-    100: `${size.width*0.8}px`
+    40: type === 'developer' ? vX : '',
+    60: type === 'educator' ? vX : '',
+    100: vX
   }
   const splashKfs = {
     0: `${hY.current}px`,
@@ -52,13 +53,21 @@ const Slider = ({ type, scrollTo, showCursor }) => {
     60: type === 'educator' ? `${hY.current}px` : '',
     100: `${vY.current}px`
   }
+
+  const top = `${size.height*0.08}px`
+  const middle = `${(hY.current-(size.height*.08))/2+(size.height*.08)}px`
+  const bottom = `${hY.current}px`
   const dEKfs = {
     0: `${vY.current}px`,
-    100: type === 'philosopher' ? `${(hY.current-(size.height*.08))/2+(size.height*.08)}px` : type === 'educator' ? `${size.height*0.08}px` : '0px',
+    80: type === 'developer' ? '0px' : '',
+    95: type === 'developer' ? bottom : '',
+    100: type === 'philosopher' ? middle : type === 'educator' ? top : bottom,
   }
   const ePKfs = {
-    0: type === 'philosopher' ? `${(hY.current-(size.height*.08))/2+(size.height*.08)}px` : type === 'educator' ? `${size.height*0.08}px` : '',
-    100: type === 'philosopher' ? `${size.height*0.08}px` : type === 'educator' ? '0px' : ''
+    0: type === 'philosopher' ? middle : type === 'educator' ? top : bottom,
+    80: type === 'educator' ? '0px' : '',
+    95: type === 'educator' ? bottom : '',
+    100: type === 'philosopher' ? top : type === 'educator' ? bottom : middle
   }
   const splash = useInterval(scenes[1], yPer)
   const dToE = useInterval(scenes[3], yPer)
@@ -72,12 +81,16 @@ const Slider = ({ type, scrollTo, showCursor }) => {
   //use scenes here so sliders can fade out before 100?
   const opacityKfs = {
     0: 1,
+    2: 1,
+    3: type === 'developer' ? 1 : .5,
     31: 1,
     36: type === 'developer' ? 0 : 1,
-    65: type === 'developer' ? '' : 1,
-    70: type === 'educator' ? 0 : type === 'developer' ? '' : 1,
-    99: type === 'philosopher' ? 1 : '',
-    100: type === 'philosopher' ? 0 : ''
+    37: type === 'educator' ? 1 : .5,
+    65: 1,
+    70: type === 'educator' ? 0 : 1,
+    71: type === 'philosopher' ? 1 : .5,
+    99: type === 'philosopher' ? 1 : .5,
+    100: 0
   }
   const opacity = useScrub(opacityKfs, yPer)
 
