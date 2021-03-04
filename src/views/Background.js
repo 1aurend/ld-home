@@ -12,7 +12,7 @@ import useInterval from '../hooks/use-interval'
 import scenes from '../assets/sceneList'
 
 
-export default function TextBackground({ children }) {
+export default function TextBackground({ children, showInfo, setShowInfo }) {
   const y = useContext(Y)
 
   //this needs to move only during transitions :)
@@ -52,9 +52,12 @@ export default function TextBackground({ children }) {
   const tileY = useInterval(scenes[scene], y)
   const opacity = tileY >= .35 && tileY <= .80 ? .25 : 1
 
+  //figure out how to do a non-scrub animation for the info block!
 
   return (
     <motion.div
+      id='solid-bg'
+      onClick={() => setShowInfo(false)}
       style={{backgroundColor:bgColor}}
       sx={{
         height: '100vh',
@@ -62,12 +65,16 @@ export default function TextBackground({ children }) {
         overflow:'hidden',
       }}>
       <div
+        id='isolate'
         sx={{
-          height:'max-content',
+          height:'100vh',
           width:'100vw',
           isolation:'isolate',
+          zIndex:0,
+          position:'absolute'
         }}>
         <motion.div
+          id='bg-text'
           style={{
             color:bgColor,
             top:top
@@ -77,10 +84,11 @@ export default function TextBackground({ children }) {
             width:'100%',
             fontFamily:'heading',
             fontSize:'teensy',
-            zIndex:'-100',
+            zIndex:-100,
             overflow:'hidden',
             position:'absolute',
-            opacity:opacity
+            opacity:opacity,
+            bg:'none'
           }}>
           {peirce}
           {peirce}
@@ -94,8 +102,30 @@ export default function TextBackground({ children }) {
           {peirce}
           {peirce}
         </motion.div>
-        <Cursor/>
+        <Cursor showInfo={showInfo}/>
         {children}
+        <motion.div
+          id='about-text'
+          style={{
+            backgroundColor:showInfo? '#EEFAFF': bgColor,
+            color:bgColor,
+          }}
+          sx={{
+            position:'absolute',
+            left:'5vw',
+            bottom:'10vh',
+            height:'30vmin',
+            width:'30vmin',
+            p:'10%',
+            opacity:.8,
+            zIndex:-50,
+            fontFamily:'body',
+            fontSize:'tiny',
+            borderRadius:'5%',
+            visibility:showInfo? 'visible' : 'hidden'
+          }}>
+          Thanks go here!
+        </motion.div>
       </div>
     </motion.div>
   )

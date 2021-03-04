@@ -24,6 +24,8 @@ export const Test = createContext()
 const Layout = ({ scrollTo }) => {
   const yPercent = useContext(Y)
   const [showCursor, setShowCursor] = useState(false)
+  const [showInfo, setShowInfo] = useState(false)
+
 
   const mQs = {
     or: '(orientation: portrait)',
@@ -103,7 +105,7 @@ const Layout = ({ scrollTo }) => {
 
   return (
     <Cursor.Provider value={showCursor}>
-      <Background>
+      <Background showInfo={showInfo} setShowInfo={setShowInfo}>
         <section
           id='splash'
           sx={{
@@ -170,7 +172,11 @@ const Layout = ({ scrollTo }) => {
             <Banner type='philosopher'/>
           </section>
         }
-        <Icons scrollTo={scrollTo} showCursor={setShowCursor}/>
+        <Icons
+          scrollTo={scrollTo}
+          showCursor={setShowCursor}
+          setShowInfo={setShowInfo}
+          showInfo={showInfo}/>
       </Background>
     </Cursor.Provider>
   )

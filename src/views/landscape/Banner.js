@@ -21,7 +21,8 @@ export default function Banner({ type }) {
   const y = useContext(Y)
   const relY = useInterval(scene[type], y)
   const width = useSize().width
-  const factor = 1200/width
+  const factor = Math.min(1100/width,1.5)
+  console.log(factor)
 
   const lineKfs = {
     0: {
@@ -69,7 +70,7 @@ export default function Banner({ type }) {
     28: {
       borderBottom: '20px',
       width: '60vw',
-      height: `${11*factor}vw`,
+      height: `${12*factor}vw`,
     },
     80: {
       flip: '0deg',

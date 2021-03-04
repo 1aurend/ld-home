@@ -59,40 +59,70 @@ const Slider = ({ type, scrollTo, showCursor }) => {
   const bottom = `${hY.current}px`
   const dEKfs = {
     0: `${vY.current}px`,
-    80: type === 'developer' ? '0px' : '',
-    95: type === 'developer' ? bottom : '',
+    80: type === 'developer' ? `${size.height*0.01}px` : '',
+    90: type === 'developer' ? bottom : '',
     100: type === 'philosopher' ? middle : type === 'educator' ? top : bottom,
   }
   const ePKfs = {
     0: type === 'philosopher' ? middle : type === 'educator' ? top : bottom,
-    80: type === 'educator' ? '0px' : '',
-    95: type === 'educator' ? bottom : '',
+    80: type === 'educator' ? `${size.height*0.01}px` : '',
+    90: type === 'educator' ? bottom : '',
     100: type === 'philosopher' ? top : type === 'educator' ? bottom : middle
   }
   const splash = useInterval(scenes[1], yPer)
+  const dev = useInterval(scenes[2], yPer)
   const dToE = useInterval(scenes[3], yPer)
+  const edu = useInterval(scenes[4], yPer)
   const eToP = useInterval(scenes[5], yPer)
-  // const pToC = useInterval(scenes[7], yPer)
+  const phil = useInterval(scenes[6], yPer)
+  const pToC = useInterval(scenes[7], yPer)
   const relY =  yPer <= .02 ? splash : yPer <= .36 ? dToE : eToP
   const relKfs = yPer <= .02 ? splashKfs : yPer <= .36 ? dEKfs : ePKfs
   const x = useScrub(xKfs, splash)
   const y = useScrub(relKfs, relY)
 
   //use scenes here so sliders can fade out before 100?
-  const opacityKfs = {
+  const splashOpacityKfs = {
     0: 1,
-    2: 1,
-    3: type === 'developer' ? 1 : .5,
-    31: 1,
-    36: type === 'developer' ? 0 : 1,
-    37: type === 'educator' ? 1 : .5,
-    65: 1,
-    70: type === 'educator' ? 0 : 1,
-    71: type === 'philosopher' ? 1 : .5,
-    99: type === 'philosopher' ? 1 : .5,
+    100: 1,
+  }
+  const devOpacityKfs = {
+    0: 1,
+    5: type === 'developer' ? 1 : .5,
+    95: type === 'developer' ? 1 : .5,
+    100: 1,
+  }
+  const dToEOpacityKfs = {
+    0: 1,
+    80: type === 'developer' ? 0 : 1,
+    90: type === 'developer' ? 0 : 1,
+    100: 1
+  }
+  const eduOpacityKfs = {
+    0: 1,
+    5: type === 'educator' ? 1 : .5,
+    95: type === 'educator' ? 1 : .5,
+    100: 1,
+  }
+  const eToPOpacityKfs = {
+    0: 1,
+    80: type === 'educator' ? 0 : 1,
+    90: type === 'educator' ? 0 : 1,
+    100: 1
+  }
+  const philOpacityKfs = {
+    0: 1,
+    5: type === 'philosopher' ? 1 : .5,
+    95: type === 'philosopher' ? 1 : .5,
+  }
+  const pToCOpacityKfs = {
+    0: type === 'philosopher' ? 1 : .5,
+    25: 0,
     100: 0
   }
-  const opacity = useScrub(opacityKfs, yPer)
+  const oRelY =  yPer <= .02 ? splash : yPer <= .31 ? dev : yPer <= .36 ? dToE : yPer <= .65 ? edu : yPer <= .70 ? eToP : yPer <= .99 ? phil : pToC
+  const oRelKfs = yPer <= .02 ? splashOpacityKfs : yPer <= .31 ? devOpacityKfs : yPer <= .36 ? dToEOpacityKfs : yPer <= .65 ? eduOpacityKfs : yPer <= .70 ? eToPOpacityKfs : yPer <= .99 ? philOpacityKfs : pToCOpacityKfs
+  const opacity = useScrub(oRelKfs, oRelY)
 
   useEffect(() => {
     if (sliderRef.current && yPer === 0) {
@@ -107,7 +137,7 @@ const Slider = ({ type, scrollTo, showCursor }) => {
     <motion.div
       ref={sliderRef}
       id={type}
-      onClick={() => scrollTo(scrollToPoint[type],100,0)}
+      onClick={() => scrollTo(scrollToPoint[type],size.height/2.5,0)}
       onMouseEnter={() => showCursor(true)}
       onMouseLeave={() => showCursor(false)}
       style={{

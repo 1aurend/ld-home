@@ -3,15 +3,19 @@ import email from '../assets/images/mail.svg'
 import github from '../assets/images/GitHub-Mark-Light-64px.png'
 import linkedIn from '../assets/images/In-White-72.png'
 import info from '../assets/images/help-24px.svg'
+import useSize from '../hooks/use-debounced-window-size'
 
 
-export default function Icons({ scrollTo, showCursor }) {
+export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
+  const size = useSize()
+  const step = size.height/2.5
   return (
     <>
     <div
-      id='bibliography'
+      id='about'
       onMouseEnter={() => showCursor(true)}
       onMouseLeave={() => showCursor(false)}
+      onClick={e => {e.stopPropagation();setShowInfo(!showInfo)}}
       sx={{
         position:'absolute',
         left:'5vw',
@@ -81,14 +85,14 @@ export default function Icons({ scrollTo, showCursor }) {
           }}/>
       </a>
       <img
-        onClick={() => scrollTo(1)}
+        onClick={() => scrollTo(1, step)}
         src={email}
         alt='contact me'
         height='100%'
         sx={{cursor:'pointer'}}/>
     </div>
     <div
-      onClick={() => scrollTo(0)}
+      onClick={() => scrollTo(0, step)}
       sx={{
         position:'absolute',
         top:0,

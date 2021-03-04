@@ -13,7 +13,7 @@ import useSize from '../hooks/use-debounced-window-size'
 import useScrub from '../hooks/use-scrub'
 
 
-const RAFCursor = ({ maxRadius=200, touch=isMobile }) => {
+const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
   const windowSize = useSize()
   const y = useContext(Y)
   const showCursor = useContext(Cursor)
