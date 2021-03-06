@@ -144,11 +144,11 @@ const Layout = ({ scrollTo }) => {
                 scrollTo={scrollTo}
                 showCursor={setShowCursor}/>
               <Slider
-                type='educator'
+                type='developer'
                 scrollTo={scrollTo}
                 showCursor={setShowCursor}/>
               <Slider
-                type='developer'
+                type='educator'
                 scrollTo={scrollTo}
                 showCursor={setShowCursor}/>
             </div>

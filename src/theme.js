@@ -8,7 +8,9 @@ const theme = {
     sanserif: 'Montserrat, sans-serif',
     courgette: 'Courgette, serif',
     goudy: 'Sorts Mill Goudy, serif',
-    book: 'Gentium Book Basic, serif'
+    book: 'Gentium Book Basic, serif',
+    barlow: 'Barlow, sans-serif',
+    inter: 'Inter, sans-serif'
   },
   fontSizes: {
       'microscopic': '1.1vmin',

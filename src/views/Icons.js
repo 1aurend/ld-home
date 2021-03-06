@@ -2,7 +2,7 @@
 import email from '../assets/images/mail.svg'
 import github from '../assets/images/GitHub-Mark-Light-64px.png'
 import linkedIn from '../assets/images/In-White-72.png'
-import info from '../assets/images/help-24px.svg'
+import arrow from '../assets/images/arrow2.svg'
 import useSize from '../hooks/use-debounced-window-size'
 
 
@@ -20,20 +20,47 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         position:'absolute',
         left:'5vw',
         bottom:'5vh',
-        width:'20vmin',
-        height:'4vmin',
-        opacity:0.5,
+        width:'5vmin',
+        height:'5vmin',
+        opacity:1,
         display:'flex',
-        justifyContent:'space-between',
+        justifyContent:'flex-start',
+        alignItems:'flex-end',
+        zIndex:1001
+      }}>
+      <h2
+        height='100%'
+        sx={{
+          cursor:'pointer',
+          fontFamily:'heading',
+          fontWeight:'bold',
+          color:'Orange1',
+          m:0
+        }}>
+        ?
+      </h2>
+    </div>
+    <div
+      id='arrow-container'
+      sx={{
+        position:'absolute',
+        left:'47.5vw',
+        bottom:'5vh',
+        width:'3vw',
+        height:'3vw',
+        opacity:1,
+        display:'flex',
+        justifyContent:'center',
+        alignItems:'flex-end',
         zIndex:1001
       }}>
       <img
-        src={info}
-        alt='bibliography'
-        height='100%'
+        id='arrow'
+        src={arrow}
+        alt='scroll down'
         sx={{
-          width:'4vmin',
-          cursor:'pointer'
+          width:'70%',
+          height:'70%'
         }}/>
     </div>
     <div
@@ -43,9 +70,9 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
       sx={{
         position:'absolute',
         right:'5vw',
-        bottom:'5vh',
-        width:'20vmin',
-        height:'4vmin',
+        top:'5vh',
+        width:'15vmin',
+        height:'3vmin',
         opacity:0.5,
         display:'flex',
         justifyContent:'space-between',
@@ -63,7 +90,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
           alt='github'
           height='100%'
           sx={{
-            width:'4vmin',
+            width:'3vmin',
             cursor:'pointer'
           }}/>
       </a>
@@ -72,7 +99,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         target='_blank'
         rel='noopener noreferrer'
         sx={{
-          width:'4vmin',
+          width:'3vmin',
           cursor:'pointer'
         }}>
         <img
@@ -97,13 +124,11 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         position:'absolute',
         top:0,
         left:0,
-        width:'20px',
-        height:'20px',
-        bg:'light',
+        width:'3vmin',
+        height:'3vmin',
         cursor:'pointer',
         zIndex:1001
       }}>
-      top
     </div>
     </>
   )

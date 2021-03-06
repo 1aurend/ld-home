@@ -11,6 +11,7 @@ import useSize from '../../hooks/use-debounced-window-size'
 import { Y } from '../Controller'
 import useInterval from '../../hooks/use-interval'
 import scenes from '../../assets/sceneList'
+import useScenes from '../../hooks/use-scenes'
 
 
 const pulse = keyframes({
@@ -76,12 +77,53 @@ const Slider = ({ type, scrollTo, showCursor }) => {
   const eToP = useInterval(scenes[5], yPer)
   const phil = useInterval(scenes[6], yPer)
   const pToC = useInterval(scenes[7], yPer)
-  const relY =  yPer <= .02 ? splash : yPer <= .36 ? dToE : eToP
+  const [ posRelY, posCurrent ] = useScenes(scenes, [1,3,5], yPer)
+  const relYa =  yPer <= .02 ? splash : yPer <= .36 ? dToE : eToP
   const relKfs = yPer <= .02 ? splashKfs : yPer <= .36 ? dEKfs : ePKfs
   const x = useScrub(xKfs, splash)
-  const y = useScrub(relKfs, relY)
+  const y = useScrub(relKfs, posRelY)
 
-  //use scenes here so sliders can fade out before 100?
+
+  const opacityKfs = {
+    1: {
+      0: 1,
+      100: 1,
+    },
+    2: {
+      0: 1,
+      5: type === 'developer' ? 1 : .5,
+      95: type === 'developer' ? 1 : .5,
+      100: 1,
+    },
+    3: {
+      0: 1,
+      80: type === 'developer' ? 0 : 1,
+      90: type === 'developer' ? 0 : 1,
+      100: 1
+    },
+    4: {
+      0: 1,
+      5: type === 'educator' ? 1 : .5,
+      95: type === 'educator' ? 1 : .5,
+      100: 1,
+    },
+    5: {
+      0: 1,
+      80: type === 'educator' ? 0 : 1,
+      90: type === 'educator' ? 0 : 1,
+      100: 1
+    },
+    6: {
+      0: 1,
+      5: type === 'philosopher' ? 1 : .5,
+      95: type === 'philosopher' ? 1 : .5,
+    },
+    7: {
+      0: type === 'philosopher' ? 1 : .5,
+      25: 0,
+      100: 0
+    }
+  }
   const splashOpacityKfs = {
     0: 1,
     100: 1,
@@ -122,7 +164,8 @@ const Slider = ({ type, scrollTo, showCursor }) => {
   }
   const oRelY =  yPer <= .02 ? splash : yPer <= .31 ? dev : yPer <= .36 ? dToE : yPer <= .65 ? edu : yPer <= .70 ? eToP : yPer <= .99 ? phil : pToC
   const oRelKfs = yPer <= .02 ? splashOpacityKfs : yPer <= .31 ? devOpacityKfs : yPer <= .36 ? dToEOpacityKfs : yPer <= .65 ? eduOpacityKfs : yPer <= .70 ? eToPOpacityKfs : yPer <= .99 ? philOpacityKfs : pToCOpacityKfs
-  const opacity = useScrub(oRelKfs, oRelY)
+  const [ opRelY, opCurrent ] = useScenes(scenes, [1,2,3,4,5,6,7], yPer)
+  const opacity = useScrub(opacityKfs[opCurrent], opRelY)
 
   useEffect(() => {
     if (sliderRef.current && yPer === 0) {

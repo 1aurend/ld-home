@@ -44,7 +44,7 @@ export default function BannerText({ type }) {
     },
     28: {
       borderBottom: '20px',
-      font: `${2.75*factor}vmin`,
+      font: `${2*factor}vmin`,
       fall: '0deg'
     }
   }
@@ -86,7 +86,7 @@ export default function BannerText({ type }) {
         sx={{
           m:0,
           textAlign:'justify',
-          fontFamily:'harmattan',
+          fontFamily:'heading',
           fontWeight:'400',
           color:'Orange1',
           transformOrigin:'center',

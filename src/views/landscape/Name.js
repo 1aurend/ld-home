@@ -23,14 +23,14 @@ const Name = () => {
     <motion.div
       style={{transform:translate}}
       sx={{
-        fontSize:'9vmin',
+        fontSize:'10vmin',
         fontFamily:'heading',
         color:'Teal2',
         textAlign:'right',
         gridArea:'name',
         justifySelf:'center',
         alignSelf:'center',
-        lineHeight:'9vmin',
+        lineHeight:'10vmin',
         width: 'auto',
         pb:'5vmin',
       }}>
