@@ -9,9 +9,11 @@ export default function useScenes(sceneList, activeScenes, globalY) {
 
   if (activeScenes.indexOf(currentScene) === -1) {
     const animStart = sceneList[activeScenes[0]][0]
-    const edge = globalY <= animStart ? 0 : 1
+    if (globalY <= animStart) {
+      return [ 0, activeScenes[0] ]
+    }
     const reverse = globalY < prevY.current ? -1 : 0
-    return [ edge, activeScenes[lastActive.current+reverse] ]
+    return [ 1, activeScenes[lastActive.current+reverse] ]
   }
 
   const getLocalScrubPercent = (globalState, localStart, localEnd) => {

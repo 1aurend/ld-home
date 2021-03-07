@@ -7,11 +7,15 @@ import {
   forwardRef
 } from 'react'
 import { keyframes } from '@emotion/react'
-import { motion } from 'framer-motion'
+import { motion, useMotionTemplate } from 'framer-motion'
 import useScrub from '../../hooks/use-scrub'
 import useSize from '../../hooks/use-debounced-window-size'
 import { Y } from '../Controller'
-import scenes from '../../assets/sceneList'
+import sceneList, {
+  scrollToPoints,
+  scenes,
+  colors
+} from '../../assets/sceneList'
 import useScenes from '../../hooks/use-scenes'
 
 
@@ -27,13 +31,7 @@ const pulse = keyframes({
   }
 })
 
-const scrollToPoint = {
-  philosopher: .70,
-  educator: .36,
-  developer: .02
-}
-
-const Slider = forwardRef(({ type, scrollTo, showCursor, x }, ref) => {
+const Slider = forwardRef(({ type, scrollTo, showCursor, carouselX }, ref) => {
   const yPer = useContext(Y)
   const size = useSize()
 
@@ -41,7 +39,16 @@ const Slider = forwardRef(({ type, scrollTo, showCursor, x }, ref) => {
   const [hX, setHX] = useState(0)
   const [hY, setHY] = useState(0)
 
-  const newYKfs = {
+  useEffect(() => {
+    if (sliderRef.current && yPer === 0) {
+      const rect = sliderRef.current.getBoundingClientRect()
+      setHX(rect.left)
+      setHY(rect.top)
+      ref.current = rect.width
+    }
+  }, [size, type, yPer, ref])
+
+  const yKfs = {
     0: `${hY || 0}px`,
     2: `${hY || 0}px`,
     50: `${size.height*0.3}px`,
@@ -49,28 +56,27 @@ const Slider = forwardRef(({ type, scrollTo, showCursor, x }, ref) => {
     95: `${size.height*0.09}px`,
     100: `${size.height*0.09}px`
   }
-  const newY = useScrub(newYKfs, yPer, scenes[1])
+  const y = useScrub(yKfs, yPer, sceneList[1])
 
-  const newXKfs = {
+  const xKfs = {
     1: {
       0: `${hX || 0}px`,
       95: `${hX || 0}px`,
-      100: `${x.one}px`,
+      100: `${carouselX.one}px`,
     },
     3: {
-      0: `${x.one}px`,
-      90: type === 'philosopher' ? `${x.three}px` : '',
-      100: `${x.three}px`,
+      0: `${carouselX.one}px`,
+      90: type === 'philosopher' ? `${carouselX.three}px` : '',
+      100: `${carouselX.three}px`,
     },
     5: {
-      0: `${x.three}px`,
-      90: type === 'developer' ? `${x.five}px` : '',
-      100: `${x.five}px`,
+      0: `${carouselX.three}px`,
+      90: type === 'developer' ? `${carouselX.five}px` : '',
+      100: `${carouselX.five}px`,
     }
   }
-  const [ posRelY, posCurrent ] = useScenes(scenes, [1,3,5], yPer)
-  const newX = useScrub(newXKfs[posCurrent], posRelY)
-
+  const [ posRelY, posCurrent ] = useScenes(sceneList, [1,3,5], yPer)
+  const x = useScrub(xKfs[posCurrent], posRelY)
 
   const opacityKfs = {
     1: {
@@ -112,29 +118,49 @@ const Slider = forwardRef(({ type, scrollTo, showCursor, x }, ref) => {
       100: 0
     }
   }
-  const [ opRelY, opCurrent ] = useScenes(scenes, [1,2,3,4,5,6,7], yPer)
+  const [ opRelY, opCurrent ] = useScenes(sceneList, [1,2,3,4,5,6,7], yPer)
   const opacity = useScrub(opacityKfs[opCurrent], opRelY)
 
-  useEffect(() => {
-    if (sliderRef.current && yPer === 0) {
-      const rect = sliderRef.current.getBoundingClientRect()
-      setHX(rect.left)
-      setHY(rect.top)
-      ref.current = rect.width
-    }
-  }, [size, type, yPer, ref])
+  const glowKfs = {
+    0: '0%',
+    5: '0%',
+    15: '250%',
+    20: '250%',
+    25: '0%'
+  }
+  const glowSize = useScrub(glowKfs, yPer, scenes[type])
+
+  const purpleGradient = useMotionTemplate`radial-gradient(ellipse at center, #5257F7CC 10%,#5257F703 70%,#5257F700 75%, transparent 100vw)`
+  const tealGradient = useMotionTemplate`radial-gradient(ellipse at center, #0ca89bCC 10%,#0ca89b03 70%,#0ca89b00 75%, transparent 100vw)`
+  const redGradient = useMotionTemplate`radial-gradient(ellipse at center, #bd5585CC 10%,#bd558503 70%,#bd558500 75%, transparent 100vw)`
+  const gradients = {
+    purple: purpleGradient,
+    teal: tealGradient,
+    red: redGradient
+  }
+  const radialGradient = gradients[colors[type]]
+
+  const scaleKfs = {
+    0: 1,
+    5: 1,
+    15: 1.15,
+    95: 1.15,
+    100: 1
+  }
+  const scale = useScrub(scaleKfs, yPer, scenes[type])
+  const grow = useMotionTemplate`scale(${scale})`
 
   return (
     <motion.div
       ref={sliderRef}
       id={type}
-      onClick={() => scrollTo(scrollToPoint[type],size.height/2.5,0)}
+      onClick={() => scrollTo(scrollToPoints[type],size.height/2.5,0)}
       onMouseEnter={() => showCursor(true)}
       onMouseLeave={() => showCursor(false)}
       style={{
-        left:yPer !== 0 ? newX : '',
-        top:yPer !== 0 ? newY : '',
-        position:yPer !== 0 ? 'fixed' : '',
+        left:yPer !== 0 ? x : '',
+        top:yPer !== 0 ? y : '',
+        position:yPer !== 0 ? 'absolute' : '',
         opacity:opacity
       }}
       sx={{
@@ -145,9 +171,30 @@ const Slider = forwardRef(({ type, scrollTo, showCursor, x }, ref) => {
         color:'Orange1',
         animation:yPer === 0 ? `${pulse} 1.5s ease-in-out` : 'none',
         cursor:'pointer',
-        zIndex:1001
+        display:'flex',
+        justifyContent:'center',
+        alignItems:'center'
       }}>
-      {type}
+      <motion.div
+        id={`${type}-glow`}
+        style={{
+          backgroundImage:radialGradient,
+          height:glowSize,
+          width:glowSize,
+        }}
+        sx={{
+          mixBlendMode:'soft-light',
+          position:'absolute',
+          zIndex:10,
+        }}>
+      </motion.div>
+      <motion.div
+        style={{
+          transform:grow,
+          zIndex:1001
+        }}>
+        {type}
+      </motion.div>
     </motion.div>
   )
 })

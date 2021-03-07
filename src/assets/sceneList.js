@@ -1,28 +1,31 @@
 export const yMultiplier = 30
 export const wheelMultiplier = 1.25
 
-const old = {
-  1: [.01,.05], //SPLASH
-  2: [.05,.29], //DEV
-  3: [.29,.39], //DTOE
-  4: [.39,.63], //EDU
-  5: [.63,.73], //ETOP
-  6: [.73,.96], //PHIL
-  7: [.96,1], //PTOC
-}
-
-const scenes = {
+const sceneList = {
   1: [0,.03], //SPLASH
-  2: [.02,.31], //DEV
-  3: [.31,.36], //DTOE
-  4: [.36,.65], //EDU
-  5: [.65,.70], //ETOP
-  6: [.70,.97], //PHIL
+  2: [.03,.32], //DEV
+  3: [.32,.37], //DTOE
+  4: [.37,.66], //EDU
+  5: [.66,.71], //ETOP
+  6: [.71,.97], //PHIL
   7: [.97,1], //PTOC
 }
 
+export const scrollToPoints = {
+  philosopher: .70,
+  educator: .36,
+  developer: .02
+}
+export const scenes = {
+  philosopher: sceneList[6],
+  educator: sceneList[4],
+  developer: sceneList[2]
+}
+export const colors = {
+  philosopher: 'red',
+  educator: 'teal',
+  developer: 'purple'
+}
 
-export default scenes
 
-
-//4+4
+export default sceneList

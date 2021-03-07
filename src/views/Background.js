@@ -11,7 +11,7 @@ import useScrub from '../hooks/use-scrub'
 import useInterval from '../hooks/use-interval'
 import scenes from '../assets/sceneList'
 
-
+//update to useScenes
 export default function TextBackground({ children, showInfo, setShowInfo }) {
   const y = useContext(Y)
 

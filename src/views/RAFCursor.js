@@ -11,6 +11,8 @@ import { Cursor } from './Layout'
 import { Y } from './Controller'
 import useSize from '../hooks/use-debounced-window-size'
 import useScrub from '../hooks/use-scrub'
+import useScenes from '../hooks/use-scenes'
+import sceneList from '../assets/sceneList'
 
 
 const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
@@ -25,21 +27,30 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
   const [initPos, setInitPos] = useState({x:initX,y:initY})
 
   const kfs = {
-    0: `${maxRadius/1.5}px`,
-    3: `${maxRadius/1.5}px`,
-    16: '0px',
-    24: '0px',
-    30: `${maxRadius/1.5}px`,
-    37: `${maxRadius/1.5}px`,
-    50: '0px',
-    58: '0px',
-    64: `${maxRadius/1.5}px`,
-    71: `${maxRadius/1.5}px`,
-    84: '0px',
-    92: '0px',
-    99: `${maxRadius/1.5}px`,
+    2: {
+      0: `${maxRadius/1.5}px`,
+      5: `${maxRadius/1.5}px`,
+      15: `${maxRadius/3}px`,
+      95: `${maxRadius/3}px`,
+      100: `${maxRadius/1.5}px`,
+    },
+    4: {
+      0: `${maxRadius/1.5}px`,
+      5: `${maxRadius/1.5}px`,
+      15: `${maxRadius/3}px`,
+      95: `${maxRadius/3}px`,
+      100: `${maxRadius/1.5}px`,
+    },
+    6: {
+      0: `${maxRadius/1.5}px`,
+      5: `${maxRadius/1.5}px`,
+      15: `${maxRadius/3}px`,
+      95: `${maxRadius/3}px`,
+      100: `${maxRadius/1.5}px`,
+    }
   }
-  const lightRadius = useScrub(kfs, y)
+  const [ relY, current ] = useScenes(sceneList, [2,4,6], y)
+  const lightRadius = useScrub(kfs[current], relY)
   const onPurple = useMotionTemplate`radial-gradient(#5257F7AA,#5257F703,#5257F700 ${lightRadius})`
   const onTeal = useMotionTemplate`radial-gradient(#0ca89bAA,#0ca89b03,#0ca89b00 ${lightRadius})`
   const onRed = useMotionTemplate`radial-gradient(#bd5585AA,#bd558503,#bd558500 ${lightRadius})`

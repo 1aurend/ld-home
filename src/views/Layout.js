@@ -171,19 +171,19 @@ const Layout = ({ scrollTo }) => {
                 ref={pSlider}
                 scrollTo={scrollTo}
                 showCursor={setShowCursor}
-                x={pX}/>
+                carouselX={pX}/>
               <Slider
                 type='developer'
                 ref={dSlider}
                 scrollTo={scrollTo}
                 showCursor={setShowCursor}
-                x={dX}/>
+                carouselX={dX}/>
               <Slider
                 type='educator'
                 ref={eSlider}
                 scrollTo={scrollTo}
                 showCursor={setShowCursor}
-                x={eX}/>
+                carouselX={eX}/>
             </div>
           </div>
         </section>
