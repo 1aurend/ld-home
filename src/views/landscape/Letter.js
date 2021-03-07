@@ -23,35 +23,37 @@ const Letter = (props) => {
     1: {
       0:'0vw',
       [out]:'0vw',
-      [out+5]:'-3vw'
-    },
-    2: {
-      0:'-3vw',
-      100:'-3vw'
+      [out+5]:'-3vw',
+      100: '-3vw'
     },
     7: {
       0:'2vw',
       [back]:'2vw',
-      [back+5]:'0vw'
+      [back+7]:'0vw',
+      100: '0vw'
     }
   }
   const opacitykfs = {
     1: {
       0:1,
       [out]:1,
-      [out+5]:0
+      [out+5]:0,
+      100: 0
     },
     7: {
       0:0,
       [back]:0,
-      [back+5]:1
+      [back+7]:1,
+      100: 1
     }
   }
   const [relY, current] = useScenes(scenes, [1,7], y)
   const x = useScrub(movekfs[current], relY)
   const translate = useMotionTemplate`translateX(${x})`
   const opacity = useScrub(opacitykfs[current], relY)
-  const display = (current === 1 && relY*100 >= out+4) || (current === 7 && relY*100 < back)
+  const display = current === 1 && relY*100 >= out+4
+    ? 'none'
+    : current === 7 && relY*100 < back-1
     ? 'none'
     : 'inline-block'
 

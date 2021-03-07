@@ -2,7 +2,10 @@
 import {
   useState,
   createContext,
-  useContext
+  useContext,
+  useRef,
+  useEffect,
+  useMemo
 } from 'react'
 import Banner from './landscape/Banner'
 import Tiles from './landscape/Tiles'
@@ -16,16 +19,38 @@ import MobileSliderFlex from './portrait/SliderFlex'
 import DrawingLight from './portrait/Light'
 import Icons from './Icons'
 import { Y } from './Controller'
+import useSliderX from '../hooks/use-slider-x'
+
 
 export const Cursor = createContext()
 export const Test = createContext()
 
 
 const Layout = ({ scrollTo }) => {
-  const yPercent = useContext(Y)
+  const yPer = useContext(Y)
   const [showCursor, setShowCursor] = useState(false)
   const [showInfo, setShowInfo] = useState(false)
 
+  const pSlider = useRef(100)
+  const eSlider = useRef(200)
+  const dSlider = useRef(10)
+  const flex = useRef(null)
+  const flexW = useRef(0)
+
+  useEffect(() => {
+    if (flex.current && yPer === 0) {
+      const rect = flex.current.getBoundingClientRect()
+      flexW.current = rect.width
+    }
+  }, [yPer])
+
+  const widths = {
+    pW: pSlider.current,
+    eW: eSlider.current,
+    dW: dSlider.current,
+    flexW: flexW.current
+  }
+  const { pX, eX, dX } = useSliderX(widths, yPer)
 
   const mQs = {
     or: '(orientation: portrait)',
@@ -66,7 +91,7 @@ const Layout = ({ scrollTo }) => {
   //               id='sliders-flex'
   //               sx={{
   //                 width:'80vw',
-  //                 display:yPercent >= .05 ? 'flex' : 'none',
+  //                 display:yPer >= .05 ? 'flex' : 'none',
   //                 justifyContent:'space-between',
   //                 position:'absolute',
   //                 top:'10vh',
@@ -93,10 +118,10 @@ const Layout = ({ scrollTo }) => {
   //             </div>
   //           </div>
   //         </section>
-  //         {yPercent >= .05 && <DrawingLight type='DEVELOPER'/>}
-  //         {yPercent >= .05 && <TileStack type='DEVELOPER'/>}
-  //         {yPercent >= .40 && <TileStack type='EDUCATOR'/>}
-  //         {yPercent >= .75 && <TileStack type='PHILOSOPHER'/>}
+  //         {yPer >= .05 && <DrawingLight type='DEVELOPER'/>}
+  //         {yPer >= .05 && <TileStack type='DEVELOPER'/>}
+  //         {yPer >= .40 && <TileStack type='EDUCATOR'/>}
+  //         {yPer >= .75 && <TileStack type='PHILOSOPHER'/>}
   //         <Icons scrollTo={scrollTo} showCursor={setShowCursor}/>
   //       </Background>
   //     </Cursor.Provider>
@@ -131,42 +156,50 @@ const Layout = ({ scrollTo }) => {
               height:'100vh',
             }}
             >
-            <Name />
+            <Name scrollTo={scrollTo} showCursor={setShowCursor}/>
             <div
               id='sliders'
+              ref={flex}
               sx={{
                 display:'flex',
                 justifyContent:'space-between',
+                boxSizing:'border-box'
               }}
               >
               <Slider
                 type='philosopher'
+                ref={pSlider}
                 scrollTo={scrollTo}
-                showCursor={setShowCursor}/>
+                showCursor={setShowCursor}
+                x={pX}/>
               <Slider
                 type='developer'
+                ref={dSlider}
                 scrollTo={scrollTo}
-                showCursor={setShowCursor}/>
+                showCursor={setShowCursor}
+                x={dX}/>
               <Slider
                 type='educator'
+                ref={eSlider}
                 scrollTo={scrollTo}
-                showCursor={setShowCursor}/>
+                showCursor={setShowCursor}
+                x={eX}/>
             </div>
           </div>
         </section>
-        {yPercent >= .02 &&
+        {yPer >= 2 &&
           <section>
             <Tiles type='developer'/>
             <Banner type='developer'/>
           </section>
         }
-        {yPercent >= .36 &&
+        {yPer >= 2 &&
           <section>
             <Tiles type='educator'/>
             <Banner type='educator'/>
           </section>
         }
-        {yPercent >= .70 &&
+        {yPer >= 2 &&
           <section>
             <Tiles type='philosopher'/>
             <Banner type='philosopher'/>

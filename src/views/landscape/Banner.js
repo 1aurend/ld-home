@@ -22,7 +22,6 @@ export default function Banner({ type }) {
   const relY = useInterval(scene[type], y)
   const width = useSize().width
   const factor = Math.min(1100/width,1.5)
-  console.log(factor)
 
   const lineKfs = {
     0: {

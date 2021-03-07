@@ -1,21 +1,48 @@
 /** @jsxImportSource theme-ui */
+import { useContext } from 'react'
+import { Y } from './Controller'
 import email from '../assets/images/mail.svg'
 import github from '../assets/images/GitHub-Mark-Light-64px.png'
 import linkedIn from '../assets/images/In-White-72.png'
 import arrow from '../assets/images/arrow2.svg'
 import useSize from '../hooks/use-debounced-window-size'
+import { motion } from 'framer-motion'
+import useScenes from '../hooks/use-scenes'
+import useScrub from '../hooks/use-scrub'
+import scenes from '../assets/sceneList'
 
 
 export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
   const size = useSize()
   const step = size.height/2.5
+  const y = useContext(Y)
+
+  const opacityKfs = {
+    1: {
+      0:1,
+      20:1,
+      50:0,
+      100:0
+    },
+    7: {
+      0:0,
+      50:0,
+      70:1,
+      100:1
+    }
+  }
+  const [relY, current] = useScenes(scenes, [1,7], y)
+  const opacity = useScrub(opacityKfs[current], relY)
+
+
   return (
     <>
-    <div
+    <motion.div
       id='about'
       onMouseEnter={() => showCursor(true)}
       onMouseLeave={() => showCursor(false)}
       onClick={e => {e.stopPropagation();setShowInfo(!showInfo)}}
+      style={{opacity:opacity}}
       sx={{
         position:'absolute',
         left:'5vw',
@@ -35,13 +62,15 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
           fontFamily:'heading',
           fontWeight:'bold',
           color:'Orange1',
+          fontSize:'3vmin',
           m:0
         }}>
         ?
       </h2>
-    </div>
-    <div
+    </motion.div>
+    <motion.div
       id='arrow-container'
+      style={{opacity:opacity}}
       sx={{
         position:'absolute',
         left:'47.5vw',
@@ -60,9 +89,10 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         alt='scroll down'
         sx={{
           width:'70%',
-          height:'70%'
+          height:'70%',
+          transform:current === 7 ? 'rotateX(180deg)' : ''
         }}/>
-    </div>
+    </motion.div>
     <div
       id='contact-logos'
       onMouseEnter={() => showCursor(true)}

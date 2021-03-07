@@ -1,16 +1,16 @@
 /** @jsxImportSource theme-ui */
-import React, {
+import {
   useRef,
   useEffect,
   useContext,
-  useState
+  useState,
+  forwardRef
 } from 'react'
 import { keyframes } from '@emotion/react'
 import { motion } from 'framer-motion'
 import useScrub from '../../hooks/use-scrub'
 import useSize from '../../hooks/use-debounced-window-size'
 import { Y } from '../Controller'
-import useInterval from '../../hooks/use-interval'
 import scenes from '../../assets/sceneList'
 import useScenes from '../../hooks/use-scenes'
 
@@ -33,59 +33,44 @@ const scrollToPoint = {
   developer: .02
 }
 
-const Slider = ({ type, scrollTo, showCursor }) => {
+const Slider = forwardRef(({ type, scrollTo, showCursor, x }, ref) => {
   const yPer = useContext(Y)
   const size = useSize()
 
   const sliderRef = useRef()
   const [hX, setHX] = useState(0)
   const [hY, setHY] = useState(0)
-  const vY = useRef(0)
-
-  const vX = `${size.width*0.8}px`
-  // const xKfs = {
-  //   0: `${hX.current}px`,
-  //   40: type === 'developer' ? vX : '',
-  //   60: type === 'educator' ? vX : '',
-  //   100: vX
-  // }
-  // const x = useScrub(xKfs, yPer, scenes[1])
-
-
-  // const top = `${size.height*0.08}px`
-  // const middle = `${(hY.current-(size.height*.08))/2+(size.height*.08)}px`
-  // const bottom = `${hY.current}px`
-  // const yKfs = {
-  //   1: {
-  //     0: `${hY.current}px`,
-  //     40: type === 'developer' ? `${hY.current}px` : '',
-  //     60: type === 'educator' ? `${hY.current}px` : '',
-  //     100: `${vY.current}px`
-  //   },
-  //   3: {
-  //     0: `${vY.current}px`,
-  //     80: type === 'developer' ? `${size.height*0.01}px` : '',
-  //     90: type === 'developer' ? bottom : '',
-  //     100: type === 'philosopher' ? middle : type === 'educator' ? top : bottom,
-  //   },
-  //   5: {
-  //     0: type === 'philosopher' ? middle : type === 'educator' ? top : bottom,
-  //     80: type === 'educator' ? `${size.height*0.01}px` : '',
-  //     90: type === 'educator' ? bottom : '',
-  //     100: type === 'philosopher' ? top : type === 'educator' ? bottom : middle
-  //   }
-  // }
-  const [ posRelY, posCurrent ] = useScenes(scenes, [1,3,5], yPer)
-  // const y = useScrub(yKfs[posCurrent], posRelY)
 
   const newYKfs = {
-    1: {
-      0: `${hY || 0}px`,
-      2: `${hY || 0}px`,
-      100: `${size.height*0.09}px`
-    },
+    0: `${hY || 0}px`,
+    2: `${hY || 0}px`,
+    50: `${size.height*0.3}px`,
+    60: `${size.height*0.25}px`,
+    95: `${size.height*0.09}px`,
+    100: `${size.height*0.09}px`
   }
-  const newY = useScrub(newYKfs[posCurrent], posRelY)
+  const newY = useScrub(newYKfs, yPer, scenes[1])
+
+  const newXKfs = {
+    1: {
+      0: `${hX || 0}px`,
+      95: `${hX || 0}px`,
+      100: `${x.one}px`,
+    },
+    3: {
+      0: `${x.one}px`,
+      90: type === 'philosopher' ? `${x.three}px` : '',
+      100: `${x.three}px`,
+    },
+    5: {
+      0: `${x.three}px`,
+      90: type === 'developer' ? `${x.five}px` : '',
+      100: `${x.five}px`,
+    }
+  }
+  const [ posRelY, posCurrent ] = useScenes(scenes, [1,3,5], yPer)
+  const newX = useScrub(newXKfs[posCurrent], posRelY)
+
 
   const opacityKfs = {
     1: {
@@ -100,8 +85,8 @@ const Slider = ({ type, scrollTo, showCursor }) => {
     },
     3: {
       0: 1,
-      80: type === 'developer' ? 0 : 1,
-      90: type === 'developer' ? 0 : 1,
+      5: type === 'philosopher' ? 0 : 1,
+      90: type === 'philosopher' ? 0 : 1,
       100: 1
     },
     4: {
@@ -112,8 +97,8 @@ const Slider = ({ type, scrollTo, showCursor }) => {
     },
     5: {
       0: 1,
-      80: type === 'educator' ? 0 : 1,
-      90: type === 'educator' ? 0 : 1,
+      5: type === 'developer' ? 0 : 1,
+      90: type === 'developer' ? 0 : 1,
       100: 1
     },
     6: {
@@ -135,9 +120,9 @@ const Slider = ({ type, scrollTo, showCursor }) => {
       const rect = sliderRef.current.getBoundingClientRect()
       setHX(rect.left)
       setHY(rect.top)
-      vY.current = type === 'educator' ? (rect.top-(size.height*.08))/2+(size.height*.08) : type === 'philosopher' ? rect.top : size.height*0.08
+      ref.current = rect.width
     }
-  }, [size, type, yPer])
+  }, [size, type, yPer, ref])
 
   return (
     <motion.div
@@ -147,7 +132,7 @@ const Slider = ({ type, scrollTo, showCursor }) => {
       onMouseEnter={() => showCursor(true)}
       onMouseLeave={() => showCursor(false)}
       style={{
-        left:yPer !== 0 ? hX : '',
+        left:yPer !== 0 ? newX : '',
         top:yPer !== 0 ? newY : '',
         position:yPer !== 0 ? 'fixed' : '',
         opacity:opacity
@@ -165,6 +150,6 @@ const Slider = ({ type, scrollTo, showCursor }) => {
       {type}
     </motion.div>
   )
-}
+})
 
 export default Slider
