@@ -12,7 +12,7 @@ const old = {
 }
 
 const scenes = {
-  1: [0,.02], //SPLASH
+  1: [0,.04], //SPLASH
   2: [.02,.31], //DEV
   3: [.31,.36], //DTOE
   4: [.36,.65], //EDU

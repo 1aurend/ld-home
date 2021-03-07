@@ -48,41 +48,34 @@ const Slider = ({ type, scrollTo, showCursor }) => {
     60: type === 'educator' ? vX : '',
     100: vX
   }
-  const splashKfs = {
-    0: `${hY.current}px`,
-    40: type === 'developer' ? `${hY.current}px` : '',
-    60: type === 'educator' ? `${hY.current}px` : '',
-    100: `${vY.current}px`
-  }
+  const x = useScrub(xKfs, yPer, scenes[1])
+
 
   const top = `${size.height*0.08}px`
   const middle = `${(hY.current-(size.height*.08))/2+(size.height*.08)}px`
   const bottom = `${hY.current}px`
-  const dEKfs = {
-    0: `${vY.current}px`,
-    80: type === 'developer' ? `${size.height*0.01}px` : '',
-    90: type === 'developer' ? bottom : '',
-    100: type === 'philosopher' ? middle : type === 'educator' ? top : bottom,
+  const yKfs = {
+    1: {
+      0: `${hY.current}px`,
+      40: type === 'developer' ? `${hY.current}px` : '',
+      60: type === 'educator' ? `${hY.current}px` : '',
+      100: `${vY.current}px`
+    },
+    3: {
+      0: `${vY.current}px`,
+      80: type === 'developer' ? `${size.height*0.01}px` : '',
+      90: type === 'developer' ? bottom : '',
+      100: type === 'philosopher' ? middle : type === 'educator' ? top : bottom,
+    },
+    5: {
+      0: type === 'philosopher' ? middle : type === 'educator' ? top : bottom,
+      80: type === 'educator' ? `${size.height*0.01}px` : '',
+      90: type === 'educator' ? bottom : '',
+      100: type === 'philosopher' ? top : type === 'educator' ? bottom : middle
+    }
   }
-  const ePKfs = {
-    0: type === 'philosopher' ? middle : type === 'educator' ? top : bottom,
-    80: type === 'educator' ? `${size.height*0.01}px` : '',
-    90: type === 'educator' ? bottom : '',
-    100: type === 'philosopher' ? top : type === 'educator' ? bottom : middle
-  }
-  const splash = useInterval(scenes[1], yPer)
-  const dev = useInterval(scenes[2], yPer)
-  const dToE = useInterval(scenes[3], yPer)
-  const edu = useInterval(scenes[4], yPer)
-  const eToP = useInterval(scenes[5], yPer)
-  const phil = useInterval(scenes[6], yPer)
-  const pToC = useInterval(scenes[7], yPer)
   const [ posRelY, posCurrent ] = useScenes(scenes, [1,3,5], yPer)
-  const relYa =  yPer <= .02 ? splash : yPer <= .36 ? dToE : eToP
-  const relKfs = yPer <= .02 ? splashKfs : yPer <= .36 ? dEKfs : ePKfs
-  const x = useScrub(xKfs, splash)
-  const y = useScrub(relKfs, posRelY)
-
+  const y = useScrub(yKfs[posCurrent], posRelY)
 
   const opacityKfs = {
     1: {
@@ -124,46 +117,6 @@ const Slider = ({ type, scrollTo, showCursor }) => {
       100: 0
     }
   }
-  const splashOpacityKfs = {
-    0: 1,
-    100: 1,
-  }
-  const devOpacityKfs = {
-    0: 1,
-    5: type === 'developer' ? 1 : .5,
-    95: type === 'developer' ? 1 : .5,
-    100: 1,
-  }
-  const dToEOpacityKfs = {
-    0: 1,
-    80: type === 'developer' ? 0 : 1,
-    90: type === 'developer' ? 0 : 1,
-    100: 1
-  }
-  const eduOpacityKfs = {
-    0: 1,
-    5: type === 'educator' ? 1 : .5,
-    95: type === 'educator' ? 1 : .5,
-    100: 1,
-  }
-  const eToPOpacityKfs = {
-    0: 1,
-    80: type === 'educator' ? 0 : 1,
-    90: type === 'educator' ? 0 : 1,
-    100: 1
-  }
-  const philOpacityKfs = {
-    0: 1,
-    5: type === 'philosopher' ? 1 : .5,
-    95: type === 'philosopher' ? 1 : .5,
-  }
-  const pToCOpacityKfs = {
-    0: type === 'philosopher' ? 1 : .5,
-    25: 0,
-    100: 0
-  }
-  const oRelY =  yPer <= .02 ? splash : yPer <= .31 ? dev : yPer <= .36 ? dToE : yPer <= .65 ? edu : yPer <= .70 ? eToP : yPer <= .99 ? phil : pToC
-  const oRelKfs = yPer <= .02 ? splashOpacityKfs : yPer <= .31 ? devOpacityKfs : yPer <= .36 ? dToEOpacityKfs : yPer <= .65 ? eduOpacityKfs : yPer <= .70 ? eToPOpacityKfs : yPer <= .99 ? philOpacityKfs : pToCOpacityKfs
   const [ opRelY, opCurrent ] = useScenes(scenes, [1,2,3,4,5,6,7], yPer)
   const opacity = useScrub(opacityKfs[opCurrent], opRelY)
 
