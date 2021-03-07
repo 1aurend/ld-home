@@ -11,7 +11,7 @@ export default function useInterval(interval, current) {
     const getLocalScrubPercent = (globalState, localStart, localEnd) => {
       const delta = localEnd - localStart
       const localState = (globalState - localStart) / delta
-      return localState
+      return localState.toFixed(4)
     }
 
     const [start, end] = interval

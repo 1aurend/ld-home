@@ -25,6 +25,10 @@ const Letter = (props) => {
       [out]:'0vw',
       [out+5]:'-3vw'
     },
+    2: {
+      0:'-3vw',
+      100:'-3vw'
+    },
     7: {
       0:'2vw',
       [back]:'2vw',
@@ -47,7 +51,7 @@ const Letter = (props) => {
   const x = useScrub(movekfs[current], relY)
   const translate = useMotionTemplate`translateX(${x})`
   const opacity = useScrub(opacitykfs[current], relY)
-  const display = (current === 1 && relY*100 >= out+5) || (current === 7 && relY*100 < back)
+  const display = (current === 1 && relY*100 >= out+4) || (current === 7 && relY*100 < back)
     ? 'none'
     : 'inline-block'
 

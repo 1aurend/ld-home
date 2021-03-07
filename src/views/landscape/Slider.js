@@ -2,7 +2,8 @@
 import React, {
   useRef,
   useEffect,
-  useContext
+  useContext,
+  useState
 } from 'react'
 import { keyframes } from '@emotion/react'
 import { motion } from 'framer-motion'
@@ -37,45 +38,54 @@ const Slider = ({ type, scrollTo, showCursor }) => {
   const size = useSize()
 
   const sliderRef = useRef()
-  const hX = useRef(0)
-  const hY = useRef(0)
+  const [hX, setHX] = useState(0)
+  const [hY, setHY] = useState(0)
   const vY = useRef(0)
 
   const vX = `${size.width*0.8}px`
-  const xKfs = {
-    0: `${hX.current}px`,
-    40: type === 'developer' ? vX : '',
-    60: type === 'educator' ? vX : '',
-    100: vX
-  }
-  const x = useScrub(xKfs, yPer, scenes[1])
+  // const xKfs = {
+  //   0: `${hX.current}px`,
+  //   40: type === 'developer' ? vX : '',
+  //   60: type === 'educator' ? vX : '',
+  //   100: vX
+  // }
+  // const x = useScrub(xKfs, yPer, scenes[1])
 
 
-  const top = `${size.height*0.08}px`
-  const middle = `${(hY.current-(size.height*.08))/2+(size.height*.08)}px`
-  const bottom = `${hY.current}px`
-  const yKfs = {
-    1: {
-      0: `${hY.current}px`,
-      40: type === 'developer' ? `${hY.current}px` : '',
-      60: type === 'educator' ? `${hY.current}px` : '',
-      100: `${vY.current}px`
-    },
-    3: {
-      0: `${vY.current}px`,
-      80: type === 'developer' ? `${size.height*0.01}px` : '',
-      90: type === 'developer' ? bottom : '',
-      100: type === 'philosopher' ? middle : type === 'educator' ? top : bottom,
-    },
-    5: {
-      0: type === 'philosopher' ? middle : type === 'educator' ? top : bottom,
-      80: type === 'educator' ? `${size.height*0.01}px` : '',
-      90: type === 'educator' ? bottom : '',
-      100: type === 'philosopher' ? top : type === 'educator' ? bottom : middle
-    }
-  }
+  // const top = `${size.height*0.08}px`
+  // const middle = `${(hY.current-(size.height*.08))/2+(size.height*.08)}px`
+  // const bottom = `${hY.current}px`
+  // const yKfs = {
+  //   1: {
+  //     0: `${hY.current}px`,
+  //     40: type === 'developer' ? `${hY.current}px` : '',
+  //     60: type === 'educator' ? `${hY.current}px` : '',
+  //     100: `${vY.current}px`
+  //   },
+  //   3: {
+  //     0: `${vY.current}px`,
+  //     80: type === 'developer' ? `${size.height*0.01}px` : '',
+  //     90: type === 'developer' ? bottom : '',
+  //     100: type === 'philosopher' ? middle : type === 'educator' ? top : bottom,
+  //   },
+  //   5: {
+  //     0: type === 'philosopher' ? middle : type === 'educator' ? top : bottom,
+  //     80: type === 'educator' ? `${size.height*0.01}px` : '',
+  //     90: type === 'educator' ? bottom : '',
+  //     100: type === 'philosopher' ? top : type === 'educator' ? bottom : middle
+  //   }
+  // }
   const [ posRelY, posCurrent ] = useScenes(scenes, [1,3,5], yPer)
-  const y = useScrub(yKfs[posCurrent], posRelY)
+  // const y = useScrub(yKfs[posCurrent], posRelY)
+
+  const newYKfs = {
+    1: {
+      0: `${hY || 0}px`,
+      2: `${hY || 0}px`,
+      100: `${size.height*0.09}px`
+    },
+  }
+  const newY = useScrub(newYKfs[posCurrent], posRelY)
 
   const opacityKfs = {
     1: {
@@ -123,8 +133,8 @@ const Slider = ({ type, scrollTo, showCursor }) => {
   useEffect(() => {
     if (sliderRef.current && yPer === 0) {
       const rect = sliderRef.current.getBoundingClientRect()
-      hX.current = rect.left
-      hY.current = rect.top
+      setHX(rect.left)
+      setHY(rect.top)
       vY.current = type === 'educator' ? (rect.top-(size.height*.08))/2+(size.height*.08) : type === 'philosopher' ? rect.top : size.height*0.08
     }
   }, [size, type, yPer])
@@ -137,8 +147,8 @@ const Slider = ({ type, scrollTo, showCursor }) => {
       onMouseEnter={() => showCursor(true)}
       onMouseLeave={() => showCursor(false)}
       style={{
-        left:yPer !== 0 ? x : '',
-        top:yPer !== 0 ? y : '',
+        left:yPer !== 0 ? hX : '',
+        top:yPer !== 0 ? newY : '',
         position:yPer !== 0 ? 'fixed' : '',
         opacity:opacity
       }}

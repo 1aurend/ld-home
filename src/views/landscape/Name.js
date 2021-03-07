@@ -34,12 +34,13 @@ const Name = () => {
 
 
   const [relY, current] = useScenes(scenes, [1,7], y)
+  console.log(relY, current)
 
   const topKfs = {
     1: {
       0: `${hY || 0}px`,
       2: `${hY || 0}px`,
-      44: `${size.height*0.05}px`,
+      50: `${size.height*0.05}px`,
       100: `${size.height*0.05}px`
     }
   }
@@ -47,18 +48,26 @@ const Name = () => {
   const leftKfs = {
     1: {
       0: `${hX || 0}px`,
-      44: `${hX || 0}px`,
+      50: `${hX || 0}px`,
       95: `${size.width*0.05}px`,
       100: `${size.width*0.05}px`
+    },
+    2: {
+      0: `${size.width*0.05}px`,
+      100: `${size.width*0.05}px`
+    },
+    7: {
+      0: `${size.width*0.05}px`
     }
   }
   const left = useScrub(leftKfs[current], relY)
+  console.log(left.current)
 
   const fontKfs = {
     1: {
       0: 1,
-      22: 1,
-      44: 0.5,
+      30: 1,
+      50: 0.5,
       100: 0.5
     },
     7: {
@@ -76,8 +85,8 @@ const Name = () => {
       ref={name}
       style={{
         transform:scale,
-        left:y !== 0 ? left : '',
-        top:y !== 0 ? top : '',
+        left:left,
+        top:top,
       }}
       sx={{
         fontFamily:'heading',
@@ -85,7 +94,7 @@ const Name = () => {
         color:'Teal2',
         textAlign:'center',
         justifySelf:'center',
-        alignSelf:'left',
+        alignSelf:'center',
         lineHeight:'10vmin',
         width: 'auto',
         pb:'5vmin',
@@ -96,73 +105,73 @@ const Name = () => {
       <Letter
         val={'a'}
         z={205}
-        out={62}
+        out={85}
         back={50}
         />
       <Letter
         val={'u'}
         z={204}
-        out={59}
+        out={82}
         back={53}
         />
       <Letter
         val={'r'}
         z={203}
-        out={56}
+        out={79}
         back={56}
         />
       <Letter
         val={'e'}
         z={202}
-        out={53}
+        out={76}
         back={56}
         />
       <Letter val={'n'} z={201}
-        out={50}
+        out={73}
         back={62}
         />
-      <span sx={{display:y>.0275 ? 'none' : ''}}> </span>
+      <span sx={{display:relY >= .94 ? 'none' : ''}}> </span>
       D
       <Letter
         val={'a'}
         z={205}
-        out={62}
+        out={85}
         back={50}
         />
       <Letter
         val={'v'}
         z={204}
-        out={59}
+        out={82}
         back={53}
         />
       <Letter
         val={'i'}
         z={203}
-        out={56}
+        out={79}
         back={56}
         />
       <Letter
         val={'d'}
         z={202}
-        out={53}
+        out={76}
         back={56}
         />
       <Letter
         val={'s'}
         z={201}
-        out={50}
+        out={73}
         back={62}
         />
       <Letter
         val={'o'}
         z={203}
-        out={47}
+        out={70}
         back={65}
         />
       <Letter
         val={'n'}
         z={202}
-        out={44}
+        out={67}
         back={68}
         />
     </motion.div>

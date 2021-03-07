@@ -1,4 +1,3 @@
-import useInterval from './use-interval'
 import { useRef } from 'react'
 
 export default function useScenes(sceneList, activeScenes, globalY) {
@@ -7,13 +6,18 @@ export default function useScenes(sceneList, activeScenes, globalY) {
     .filter(num => globalY >= sceneList[num][0] && globalY <= sceneList[num][1])
     .map(Number)[0]
 
-  const relY = useInterval(sceneList[currentScene] ?? [0,1], globalY)
-
   if (activeScenes.indexOf(currentScene) === -1) {
     const animStart = sceneList[activeScenes[0]][0]
     const edge = globalY <= animStart ? 0 : 1
     return [ edge, activeScenes[lastActive.current] ]
   }
+
+  const getLocalScrubPercent = (globalState, localStart, localEnd) => {
+    const delta = localEnd - localStart
+    const localState = (globalState - localStart) / delta
+    return localState.toFixed(4)
+  }
+  const relY = getLocalScrubPercent(globalY, sceneList[currentScene][0], sceneList[currentScene][1])
 
   lastActive.current = activeScenes.indexOf(currentScene)
 
