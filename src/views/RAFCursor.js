@@ -5,50 +5,62 @@ import React, {
   useRef,
   useContext
 } from 'react'
-import {
-  motion,
-  useMotionValue,
-  useMotionTemplate
-} from 'framer-motion'
-import getScrubValues from '../utils/getScrubValues'
-import { animations } from '../utils/animList'
+import { motion, useMotionTemplate } from 'framer-motion'
+import { isMobile } from 'react-device-detect'
 import { Cursor } from './Layout'
-import useDebouncedWindowSize from '../hooks/useDebounceWindowSize'
+import { Y } from './Controller'
+import useSize from '../hooks/use-debounced-window-size'
+import useScrub from '../hooks/use-scrub'
+import useScenes from '../hooks/use-scenes'
+import sceneList from '../assets/sceneList'
 
 
-const RAFCursor = ({ size=200, yPercent, touch }) => {
-  const windowSize = useDebouncedWindowSize()
-  // TODO: use a div to calculate these values?
-  const initX = windowSize.width*.33
-  const initY = windowSize.height*.60
-  const [paintPos, setPaintPos] = useState({x:initX,y:initY})
-  const ticking = useRef(false)
-  const ePos = useRef({x:initX,y:initY})
+const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
+  const windowSize = useSize()
+  const y = useContext(Y)
   const showCursor = useContext(Cursor)
 
-  const lightRadiusScrub = useMotionValue(`${size/1.5}px`)
-  const onPurple = useMotionTemplate`radial-gradient(#5257F7AA,#5257F703,#5257F700 ${lightRadiusScrub})`
-  const onTeal = useMotionTemplate`radial-gradient(#7FF0D9AA,#7FF0D903,#7FF0D900 ${lightRadiusScrub})`
-  const onRed = useMotionTemplate`radial-gradient(#EEACCFAA,#EEACCF03,#EEACCF00 ${lightRadiusScrub})`
-  const fadeValues = [
-    {val:lightRadiusScrub, from:size/1.5, to:0, unit:'px'},
-  ]
-  const growValues = [
-    {val:lightRadiusScrub, from:0, to:size/1.5, unit:'px'},
-  ]
+  // TODO: use a div to calculate these values
+  // QUESTION: why is initPos a state?
+  const initX = windowSize.width*.33
+  const initY = windowSize.height*.60
+  const [initPos, setInitPos] = useState({x:initX,y:initY})
 
-  getScrubValues(yPercent, animations.DEVELOPER.tile.grow.from, animations.DEVELOPER.tile.grow.to, fadeValues)
-  getScrubValues(yPercent, animations.DTOE.from, animations.DTOE.to, growValues)
-  getScrubValues(yPercent, animations.EDUCATOR.tile.grow.from, animations.EDUCATOR.tile.grow.to, fadeValues)
-  getScrubValues(yPercent, animations.ETOP.from, animations.ETOP.to, growValues)
-  getScrubValues(yPercent, animations.PHILOSOPHER.tile.grow.from, animations.PHILOSOPHER.tile.grow.to, fadeValues)
-  getScrubValues(yPercent, animations.PTOEND.from, animations.PTOEND.to, growValues)
+  const kfs = {
+    2: {
+      0: `${maxRadius/1.5}px`,
+      5: `${maxRadius/1.5}px`,
+      15: `${maxRadius/3}px`,
+      95: `${maxRadius/3}px`,
+      100: `${maxRadius/1.5}px`,
+    },
+    4: {
+      0: `${maxRadius/1.5}px`,
+      5: `${maxRadius/1.5}px`,
+      15: `${maxRadius/3}px`,
+      95: `${maxRadius/3}px`,
+      100: `${maxRadius/1.5}px`,
+    },
+    6: {
+      0: `${maxRadius/1.5}px`,
+      5: `${maxRadius/1.5}px`,
+      15: `${maxRadius/3}px`,
+      95: `${maxRadius/3}px`,
+      100: `${maxRadius/1.5}px`,
+    }
+  }
+  const [ relY, current ] = useScenes(sceneList, [2,4,6], y)
+  const lightRadius = useScrub(kfs[current], relY)
+  const onPurple = useMotionTemplate`radial-gradient(#5257F7AA,#5257F703,#5257F700 ${lightRadius})`
+  const onTeal = useMotionTemplate`radial-gradient(#0ca89bAA,#0ca89b03,#0ca89b00 ${lightRadius})`
+  const onRed = useMotionTemplate`radial-gradient(#bd5585AA,#bd558503,#bd558500 ${lightRadius})`
 
-
+  const ticking = useRef(false)
+  const ePos = useRef({x:initX,y:initY})
   useEffect(()=>{
     const moveSpotlight = () => {
       ticking.current = false
-      setPaintPos(ePos.current)
+      setInitPos(ePos.current)
     }
     const requestTick = () => {
       if (!ticking.current) {
@@ -70,7 +82,7 @@ const RAFCursor = ({ size=200, yPercent, touch }) => {
     }
     window.addEventListener('mousemove', onMouseMove)
     return () => window.removeEventListener('mousemove', onMouseMove)
-  },[])
+  },[touch])
 
   return(
     <div
@@ -81,25 +93,25 @@ const RAFCursor = ({ size=200, yPercent, touch }) => {
       <motion.div
         id='cursor'
         style={{
-          backgroundImage:yPercent <= .30 || yPercent >= .99 ? onPurple : yPercent > .30 && yPercent <= .65 ? onTeal : onRed
+          backgroundImage:y <= .33 || y >= .995 ? onPurple : y > .33 && y <= .67 ? onTeal : onRed
         }}
         sx={{
-          width: `${size}px`,
-          height:`${size}px`,
+          width: `${maxRadius}px`,
+          height:`${maxRadius}px`,
           borderRadius:'100%',
           mixBlendMode:'soft-light',
           position:'fixed',
-          left:`${paintPos.x-size/2}px`,
-          top:`${paintPos.y-size/2}px`,
+          left:`${initPos.x-maxRadius/2}px`,
+          top:`${initPos.y-maxRadius/2}px`,
         }}>
       </motion.div>
       {!showCursor && <div
         sx={{
-          width: `${size/10}px`,
-          height:`${size/10}px`,
+          width: `${maxRadius/10}px`,
+          height:`${maxRadius/10}px`,
           backgroundColor:'white',
-          left:`${paintPos.x-size/20}px`,
-          top:`${paintPos.y-size/20}px`,
+          left:`${initPos.x-maxRadius/20}px`,
+          top:`${initPos.y-maxRadius/20}px`,
           borderRadius:'100%',
           opacity:1,
           position:'fixed',

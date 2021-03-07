@@ -5,8 +5,8 @@ import {
   useMotionValue,
   useMotionTemplate
 } from 'framer-motion'
-import getScrubValues from '../utils/getScrubValues'
-import { animations } from '../utils/animList'
+import getScrubValues from '../../utils/getScrubValues'
+import { animations } from '../../assets/animList'
 
 
 const Name = ({ yPercent }) => {
@@ -25,17 +25,26 @@ const Name = ({ yPercent }) => {
     <motion.div
       style={{transform:translate}}
       sx={{
-        fontSize:'9vmin',
+        fontSize:'15vmin',
         fontFamily:'heading',
-        color:'Teal1', textAlign:'right',
+        color:'Teal1',
+        textAlign:'right',
         gridArea:'name',
         justifySelf:'center',
         alignSelf:'center',
-        lineHeight:'9vmin',
+        lineHeight:'12vmin',
         width: 'auto',
         pb:'5vmin',
+        display:'flex',
+        flexDirection:'column',
+        justifyContent:'flex-start'
       }}>
-      Lauren Davidson
+        <div>
+          Lauren
+        </div>
+          Davidson
+        <div>
+        </div>
     </motion.div>
   )
 }

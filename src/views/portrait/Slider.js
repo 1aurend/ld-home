@@ -9,8 +9,8 @@ import {
   motion,
   useMotionValue,
 } from 'framer-motion'
-import getScrubValues from '../utils/getScrubValues'
-import { animations } from '../utils/animList'
+import getScrubValues from '../../utils/getScrubValues'
+import { animations } from '../../assets/animList'
 
 const pulse = keyframes({
   '0%': {
@@ -29,7 +29,8 @@ const Slider = props => {
   const {
     type,
     yPercent,
-    size
+    size,
+    color='Orange1'
   } = props
   const x = useMotionValue()
   const y = useMotionValue()
@@ -46,6 +47,7 @@ const Slider = props => {
   const opacityP = useMotionValue(1)
   // TODO: anything that has a starting value has to reset on resize
 
+  //fix this on swap between horizontal and vertical
   const getPos = useCallback(el => {
     sliderRef.current = el
     const rect = el.getBoundingClientRect()
@@ -66,7 +68,7 @@ const Slider = props => {
     }
   }, [size, type, yPercent])
 
-  const toX = type === 'philosopher' ? size.width*.1 : type === 'educator' ? size.width*.44 : size.width*.73
+  const toX = type === 'philosopher' ? size.width*.1 : type === 'educator' ? size.width*.44 : size.width*.728
 
   const sliderX = [
     {val:x, from:hX.current, to:toX, unit:'px'},
@@ -107,7 +109,7 @@ const Slider = props => {
         width:'auto',
         fontFamily:'heading',
         fontSize:'4vmin',
-        color:'Orange1',
+        color:color,
         animation:yPercent === 0 ? `${pulse} 1.5s ease-in-out` : 'none',
         textAlign:'center'
       }}>

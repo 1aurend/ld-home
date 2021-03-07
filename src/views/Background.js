@@ -1,45 +1,63 @@
 /** @jsxImportSource theme-ui */
-import React from 'react'
-import Cursor from './RAFCursor'
-import peirce from '../assets/fixationOfBelief'
 import {
-  motion,
-  useMotionValue,
-  useMotionTemplate
-} from 'framer-motion'
-import getScrubValues from '../utils/getScrubValues'
-import { animations, yMultiplier } from '../utils/animList'
+  useContext,
+} from 'react'
+import Cursor from './RAFCursor'
+import peirce from '../assets/texts/fixationOfBelief'
+import { motion } from 'framer-motion'
+import { yMultiplier } from '../assets/sceneList'
+import { Y } from './Controller'
+import useScrub from '../hooks/use-scrub'
+import useInterval from '../hooks/use-interval'
+import scenes from '../assets/sceneList'
 
+//update to useScenes
+export default function TextBackground({ children, showInfo, setShowInfo }) {
+  const y = useContext(Y)
 
-export default function TextBackground({ children, yPos, yPercent, touch }) {
-  const red = useMotionValue(19)
-  const green = useMotionValue(20)
-  const blue = useMotionValue(56)
-  const bgColor = useMotionTemplate`rgb(${red},${green},${blue})`
+  //this needs to move only during transitions :)
+  //not sure what the right increments are
+  const bgKfs = {
+    0: '0vh',
+    2: '-500vh',
+    31: '-500vh',
+    36: '-1000vh',
+    65: '-1000vh',
+    70: '-1500vh',
+    99: '-1500vh',
+    100: '-1000vh'
+  }
+  const top = useScrub(bgKfs, y)
 
-  const eVals = [
-    {val:red, from:19, to:6, unit:''},
-    {val:green, from:20, to:75, unit:''},
-    {val:blue, from:56, to:72, unit:''}
-  ]
-  const pVals = [
-    {val:red, from:6, to:98, unit:''},
-    {val:green, from:75, to:23, unit:''},
-    {val:blue, from:72, to:46, unit:''}
-  ]
-  const endVals = [
-    {val:red, from:98, to:19, unit:''},
-    {val:green, from:23, to:20, unit:''},
-    {val:blue, from:46, to:56, unit:''}
-  ]
+  const toTealKfs = {
+    0: 'rgb(19,20,56)',
+    100: 'rgb(6,75,72)'
+  }
+  const toRedKfs = {
+    0: 'rgb(6,75,72)',
+    100: 'rgb(98,23,46)'
+  }
+  const toPurpleKfs = {
+    0: 'rgb(98,23,46)',
+    100: 'rgb(19,20,56)'
+  }
+  const dToE = useInterval(scenes[3], y)
+  const eToP = useInterval(scenes[5], y)
+  const pToC = useInterval(scenes[7], y)
+  const relY = y < .36 ? dToE : y < .70 ? eToP : pToC
+  const relKfs = y < .36 ? toTealKfs : y < .70 ? toRedKfs : toPurpleKfs
+  const bgColor = useScrub(relKfs, relY)
 
-  getScrubValues(yPercent, animations.DTOE.from, animations.DTOE.to, eVals)
-  getScrubValues(yPercent, animations.ETOP.from, animations.ETOP.to, pVals)
-  getScrubValues(yPercent, animations.PTOEND.from, animations.PTOEND.to, endVals)
+  const scene = y < .36 ? 2 : y < .70 ? 4 : 6
+  const tileY = useInterval(scenes[scene], y)
+  const opacity = tileY >= .35 && tileY <= .80 ? .25 : 1
 
+  //figure out how to do a non-scrub animation for the info block!
 
   return (
     <motion.div
+      id='solid-bg'
+      onClick={() => setShowInfo(false)}
       style={{backgroundColor:bgColor}}
       sx={{
         height: '100vh',
@@ -47,22 +65,30 @@ export default function TextBackground({ children, yPos, yPercent, touch }) {
         overflow:'hidden',
       }}>
       <div
+        id='isolate'
         sx={{
-          height:'max-content',
+          height:'100vh',
           width:'100vw',
           isolation:'isolate',
+          zIndex:0,
+          position:'absolute'
         }}>
         <motion.div
-          style={{color:bgColor}}
+          id='bg-text'
+          style={{
+            color:bgColor,
+            top:top
+          }}
           sx={{
             height:`${(100*yMultiplier)+100}vh`,
             width:'100%',
             fontFamily:'heading',
             fontSize:'teensy',
-            zIndex:'-100',
+            zIndex:-100,
             overflow:'hidden',
             position:'absolute',
-            top:`${-yPos.px}px` //make this a motion value
+            opacity:opacity,
+            bg:'none'
           }}>
           {peirce}
           {peirce}
@@ -76,16 +102,31 @@ export default function TextBackground({ children, yPos, yPercent, touch }) {
           {peirce}
           {peirce}
         </motion.div>
-        <Cursor yPercent={yPercent} touch={touch}/>
+        <Cursor showInfo={showInfo}/>
         {children}
+        <motion.div
+          id='about-text'
+          style={{
+            backgroundColor:showInfo? '#EEFAFF': bgColor,
+            color:bgColor,
+          }}
+          sx={{
+            position:'absolute',
+            left:'5vw',
+            bottom:'10vh',
+            height:'30vmin',
+            width:'30vmin',
+            p:'10%',
+            opacity:.8,
+            zIndex:-50,
+            fontFamily:'body',
+            fontSize:'tiny',
+            borderRadius:'5%',
+            visibility:showInfo? 'visible' : 'hidden'
+          }}>
+          Thanks go here!
+        </motion.div>
       </div>
     </motion.div>
   )
 }
-
-
-// {yPercent <= 0.05 && peirce}
-// {(yPercent > 0.05 && yPercent <= .30) && peirce}
-// {(yPercent > 0.40 && yPercent <= .65) && peirce}
-// {(yPercent > 0.75 && yPercent <= .98) && peirce}
-// {yPercent > 0.99 && peirce}
