@@ -23,7 +23,7 @@ const Letter = (props) => {
     1: {
       0:'0vw',
       [out]:'0vw',
-      [out+5]:'-3vw',
+      [out+7]:'-3vw',
       100: '-3vw'
     },
     7: {
@@ -37,7 +37,7 @@ const Letter = (props) => {
     1: {
       0:1,
       [out]:1,
-      [out+5]:0,
+      [out+7]:0,
       100: 0
     },
     7: {
@@ -51,7 +51,7 @@ const Letter = (props) => {
   const x = useScrub(movekfs[current], relY)
   const translate = useMotionTemplate`translateX(${x})`
   const opacity = useScrub(opacitykfs[current], relY)
-  const display = current === 1 && relY*100 >= out+4
+  const display = current === 1 && relY*100 >= out+6
     ? 'none'
     : current === 7 && relY*100 < back-1
     ? 'none'

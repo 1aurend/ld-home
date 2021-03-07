@@ -8,6 +8,7 @@ import {
   useMemo
 } from 'react'
 import Banner from './landscape/Banner'
+import Subhead from './landscape/Subhead'
 import Tiles from './landscape/Tiles'
 import useMediaQueries from '../hooks/use-media-queries'
 import Background from './Background'
@@ -187,22 +188,19 @@ const Layout = ({ scrollTo }) => {
             </div>
           </div>
         </section>
-        {yPer >= 2 &&
+        {yPer >= .03 &&
           <section>
-            <Tiles type='developer'/>
-            <Banner type='developer'/>
+            <Subhead type='developer' width={flexW.current}/>
           </section>
         }
-        {yPer >= 2 &&
+        {yPer >= .37 &&
           <section>
-            <Tiles type='educator'/>
-            <Banner type='educator'/>
+            <Subhead type='educator' width={flexW.current}/>
           </section>
         }
-        {yPer >= 2 &&
+        {yPer >= .71 &&
           <section>
-            <Tiles type='philosopher'/>
-            <Banner type='philosopher'/>
+            <Subhead type='philosopher' width={flexW.current}/>
           </section>
         }
         <Icons
