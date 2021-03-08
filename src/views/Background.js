@@ -1,58 +1,59 @@
 /** @jsxImportSource theme-ui */
-import {
-  useContext,
-} from 'react'
+import { useContext } from 'react'
 import Cursor from './RAFCursor'
 import peirce from '../assets/texts/fixationOfBelief'
 import { motion } from 'framer-motion'
 import { yMultiplier } from '../assets/sceneList'
 import { Y } from './Controller'
 import useScrub from '../hooks/use-scrub'
-import useInterval from '../hooks/use-interval'
-import scenes from '../assets/sceneList'
+import sceneList from '../assets/sceneList'
+import useScenes from '../hooks/use-scenes'
 
-//update to useScenes
+
 export default function TextBackground({ children, showInfo, setShowInfo }) {
   const y = useContext(Y)
+  const [ relY, current ] = useScenes(sceneList, [1,3,5,7], y)
 
-  //this needs to move only during transitions :)
-  //not sure what the right increments are
-  const bgKfs = {
-    0: '0vh',
-    2: '-500vh',
-    31: '-500vh',
-    36: '-1000vh',
-    65: '-1000vh',
-    70: '-1500vh',
-    99: '-1500vh',
-    100: '-1000vh'
+  //adjust these increments for speed of text scroll :)
+  const scrollKfs = {
+    1: {
+      0: '0vh',
+      100: '-200vh',
+    },
+    3: {
+      0: '-200vh',
+      100: '-400vh',
+    },
+    5: {
+      0: '-400vh',
+      100: '-600vh',
+    },
+    7: {
+      0: '-600vh',
+      100: '-400vh'
+    }
   }
-  const top = useScrub(bgKfs, y)
+  const top = useScrub(scrollKfs[current], relY)
 
-  const toTealKfs = {
-    0: 'rgb(19,20,56)',
-    100: 'rgb(6,75,72)'
+  const colorKfs = {
+    1: {
+      0: 'rgb(19,20,56)',
+      100: 'rgb(19,20,56)'
+    },
+    3: {
+      0: 'rgb(19,20,56)',
+      100: 'rgb(6,75,72)'
+    },
+    5: {
+      0: 'rgb(6,75,72)',
+      100: 'rgb(98,23,46)'
+    },
+    7: {
+      0: 'rgb(98,23,46)',
+      100: 'rgb(19,20,56)'
+    }
   }
-  const toRedKfs = {
-    0: 'rgb(6,75,72)',
-    100: 'rgb(98,23,46)'
-  }
-  const toPurpleKfs = {
-    0: 'rgb(98,23,46)',
-    100: 'rgb(19,20,56)'
-  }
-  const dToE = useInterval(scenes[3], y)
-  const eToP = useInterval(scenes[5], y)
-  const pToC = useInterval(scenes[7], y)
-  const relY = y < .36 ? dToE : y < .70 ? eToP : pToC
-  const relKfs = y < .36 ? toTealKfs : y < .70 ? toRedKfs : toPurpleKfs
-  const bgColor = useScrub(relKfs, relY)
-
-  const scene = y < .36 ? 2 : y < .70 ? 4 : 6
-  const tileY = useInterval(scenes[scene], y)
-  const opacity = tileY >= .35 && tileY <= .80 ? .25 : 1
-
-  //figure out how to do a non-scrub animation for the info block!
+  const bgColor = useScrub(colorKfs[current], relY)
 
   return (
     <motion.div
@@ -87,7 +88,7 @@ export default function TextBackground({ children, showInfo, setShowInfo }) {
             zIndex:-100,
             overflow:'hidden',
             position:'absolute',
-            opacity:opacity,
+            opacity:1,
             bg:'none'
           }}>
           {peirce}
@@ -116,7 +117,7 @@ export default function TextBackground({ children, showInfo, setShowInfo }) {
             bottom:'10vh',
             height:'30vmin',
             width:'30vmin',
-            p:'10%',
+            p:'3%',
             opacity:.8,
             zIndex:-50,
             fontFamily:'body',

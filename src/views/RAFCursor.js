@@ -109,7 +109,7 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
         sx={{
           width: `${maxRadius/10}px`,
           height:`${maxRadius/10}px`,
-          backgroundColor:'white',
+          backgroundColor:'light',
           left:`${initPos.x-maxRadius/20}px`,
           top:`${initPos.y-maxRadius/20}px`,
           borderRadius:'100%',

@@ -5,76 +5,60 @@ import {
   useMotionTemplate
 } from 'framer-motion'
 import { Y } from '../Controller'
-import TileContent from './TileContent'
 import useScrub from '../../hooks/use-scrub'
 import useInterval from '../../hooks/use-interval'
-import scenes from '../../assets/sceneList'
+import { scenes, colors } from '../../assets/sceneList'
 import useSize from '../../hooks/use-debounced-window-size'
+import Content from './Content'
 
-const scene = {
-  philosopher: scenes[6],
-  educator: scenes[4],
-  developer: scenes[2]
-}
-const bg = {
-  educator: 'rgb(6,75,72)',
-  developer: 'rgb(19,20,56)',
-  philosopher: 'rgb(98,23,46)'
-}
-const darkBg = {
-  educator: 'rgb(4,51,49)',
-  developer: 'rgb(25,27,77)',
-  philosopher: 'rgb(77,18,36)'
-}
 
-export default function Tiles({ type }) {
+export default function Tile({ type, width }) {
   const y = useContext(Y)
-  const relY = useInterval(scene[type], y)
-  const thresholds = {
-    one: .56,
-    two: .70,
-  }
-  const id = relY < thresholds.one ? 'one' : relY < thresholds.two ? 'two' : 'three'
-  const width = useSize().width
-  const factor = 1200/width
+  const relY = useInterval(scenes[type], y)
+  const size = useSize()
 
   const tileKfs = {
     0: {
       opacity: 1,
-      width: '2vw'
+      width: '2px'
     },
-    35: {
+    25: {
       borderRadius: '30px',
-      width: '2vw',
-      height: '2vw',
+      width: '10px',
+      height: '10px',
+      top: '11vh',
+      opacity: 1,
+    },
+    30: {
       top: '25vh',
-      opacity: 1,
-    },
-    38: {
-      bg: 'rgb(238, 250, 255, 1)'
-    },
-    40: {
-      top: '32vh',
-      width: '2vw',
-      height: '2vw',
+      width: '10px',
+      height: '10px',
       borderRadius: '30px',
     },
-    41: {
-      bg: 'rgb(238, 250, 255, 0)'
+    36: {
+      width: `${width}px`,
+      height: `${.6*size.height}px`,
+      borderRadius: '2px',
     },
-    46: {
-      width: '60vw',
-      height: `${40*factor}vw`,
-      borderRadius: '10px',
-      bg: 'rgb(238, 250, 255, 0)'
-    },
-    80: {
-      opacity: 1,
+    82: {
+      width: `${width}px`,
+      height: `${.6*size.height}px`,
+      borderRadius: '2px',
     },
     88: {
-      opacity: 0,
+      top: '25vh',
+      width: '10px',
+      height: '10px',
+      borderRadius: '30px',
     },
-    100: {
+    93: {
+      borderRadius: '30px',
+      width: '10px',
+      height: '10px',
+      top: '11vh',
+      opacity: 1,
+    },
+    95: {
       opacity: 0
     }
   }
@@ -88,31 +72,60 @@ export default function Tiles({ type }) {
   const tileHeight = useScrub(tileHeightParams, relY)
   const tileOpacityParams = {keyframes: tileKfs, type: 'opacity'}
   const tileOpacity = useScrub(tileOpacityParams, relY)
-  const tileLeft = `${41-(tileWidth.current.slice(0,-2)/2)}vw`
-  const tileBgParams = {keyframes: tileKfs, type: 'bg'}
-  const bgColor = useScrub(tileBgParams, relY)
+  const tileLeft = `${size.width/2-(tileWidth.current.slice(0,-2)/2)}px`
 
   const glowKfs = {
-    35: '400%',
-    40: '400%',
-    46: '200%',
+    0: '400%',
+    30: '400%',
+    36: '200%',
+    82: '200%',
+    88: '400%',
   }
   const glowSize = useScrub(glowKfs, relY)
 
   const purpleGradient = useMotionTemplate`radial-gradient(ellipse at center, #5257F7CC 10%,#5257F703 70%,#5257F700 75%, transparent 100vw)`
   const tealGradient = useMotionTemplate`radial-gradient(ellipse at center, #0ca89bCC 10%,#0ca89b03 70%,#0ca89b00 75%, transparent 100vw)`
   const redGradient = useMotionTemplate`radial-gradient(ellipse at center, #bd5585CC 10%,#bd558503 70%,#bd558500 75%, transparent 100vw)`
-  const color = y <= .31 || y >= .99
-    ? 'purple'
-    : y > .31 && y <= .65
-      ? 'teal'
-      : 'red'
   const gradients = {
     purple: purpleGradient,
     teal: tealGradient,
     red: redGradient
   }
-  const radialGradient = gradients[color]
+  const radialGradient = gradients[colors[type]]
+
+  //adjust timing if these become lotties
+  const oneKfs = {
+    36: '0deg',
+    45: '0deg',
+    50: '90deg'
+  }
+  const twoKfs = {
+    50: '-90deg',
+    55: '0deg',
+    63: '0deg',
+    68: '90deg'
+  }
+  const threeKfs = {
+    68: '-90deg',
+    73: '0deg',
+    82: '0deg'
+  }
+  const id = relY >= .68 ? 'three' : relY >= .50 ? 'two' : 'one'
+  const kfs = id === 'one' ? oneKfs : id === 'two' ? twoKfs : threeKfs
+  const tileSpin = useScrub(kfs, relY)
+  const spin = useMotionTemplate`rotateY(${tileSpin})`
+
+  const hazeKfs = {
+    31: .8,
+    32: .6,
+    34: .2,
+    36: 0,
+    82: 0,
+    84: .2,
+    86: .6,
+    87: .8
+  }
+  const haze = useScrub(hazeKfs, relY)
 
 
   return (
@@ -130,7 +143,7 @@ export default function Tiles({ type }) {
         flexDirection:'column',
         justifyContent:'center',
         alignItems:'center',
-        display:relY >= .35 ? 'flex' : 'none'
+        display:relY >= .23 ? 'flex' : 'none'
       }}>
       <motion.div
         id='tile-glow'
@@ -138,6 +151,7 @@ export default function Tiles({ type }) {
           backgroundImage:radialGradient,
           height:glowSize,
           width:glowSize,
+          transform:spin
         }}
         sx={{
           mixBlendMode:'soft-light',
@@ -145,36 +159,36 @@ export default function Tiles({ type }) {
           zIndex:10,
         }}>
       </motion.div>
-      <div
-        id='perspective-wrapper'
+      <motion.div
+        id='tile'
+        style={{
+          borderRadius:tileRadius,
+          transform:spin,
+        }}
         sx={{
-          zIndex:100,
           height:'100%',
           width:'100%',
-          position:'absolute',
-          top:0,
-          left:0,
-          isolation:'isolate',
-          perspective:'20vw'
-        }}
-        >
+          mixBlendMode:'normal',
+          zIndex:104,
+          overflow:'hidden',
+          bg:'light'
+        }}>
+        <Content type={type}/>
         <motion.div
-          id='tile'
-          style={{
-            borderRadius:tileRadius,
-            backgroundColor:bgColor
-          }}
+          id='cursor-melt'
+          style={{opacity:haze}}
           sx={{
-            height:'100%',
-            width:'100%',
             cursor:'pointer',
-            mixBlendMode:'normal',
-            zIndex:104,
-            overflow:'hidden',
+            height:relY > .36 && relY < .82 ? '95%' : '100%',
+            width:relY > .36 && relY < .82 ? '95%' : '100%',
+            m:relY > .36 && relY < .82 ? '2.5%' : 0,
+            position:'absolute',
+            top:0,
+            left:0,
+            bg:'light'
           }}>
-          <TileContent type={type} id={id}/>
         </motion.div>
-      </div>
+      </motion.div>
     </motion.div>
   )
 }

@@ -20,7 +20,7 @@ export default function Subhead({ type, width }) {
   const opacityKfs = {
     0: 0,
     5: 0,
-    10: 1,
+    15: 1,
     25: 1,
     30: 0,
     100: 0
@@ -31,7 +31,7 @@ export default function Subhead({ type, width }) {
     <motion.div
       style={{opacity:opacity}}
       sx={{
-        height:'100vh',
+        height:'50vh',
         width:width,
         display:'flex',
         justifyContent:'center',
@@ -42,6 +42,7 @@ export default function Subhead({ type, width }) {
         fontSize:'teensy',
         position:'absolute',
         left:`${(size/2 - width/2).toFixed(2)}px`,
+        top:'25vh',
         textAlign:'justify'
       }}>
       <h2>

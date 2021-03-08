@@ -185,13 +185,11 @@ const Slider = forwardRef(({ type, scrollTo, showCursor, carouselX }, ref) => {
         sx={{
           mixBlendMode:'soft-light',
           position:'absolute',
-          zIndex:10,
         }}>
       </motion.div>
       <motion.div
         style={{
           transform:grow,
-          zIndex:1001
         }}>
         {type}
       </motion.div>
