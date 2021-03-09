@@ -4,6 +4,7 @@ import {
 } from 'react'
 import useSize from './use-debounced-window-size'
 
+//rename useCarousel?
 const useSliderX = (widths, globalY) => {
   const {
     pW,

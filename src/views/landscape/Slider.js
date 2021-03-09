@@ -17,6 +17,7 @@ import sceneList, {
   colors
 } from '../../assets/sceneList'
 import useScenes from '../../hooks/use-scenes'
+import useBoundingBox from '../../hooks/use-bounding-box'
 
 
 const pulse = keyframes({
@@ -31,22 +32,19 @@ const pulse = keyframes({
   }
 })
 
-const Slider = forwardRef(({ type, scrollTo, showCursor, carouselX }, ref) => {
+const Slider = forwardRef((props, ref) => {
+  const {
+    type,
+    scrollTo,
+    showCursor,
+    carouselX
+  } = props
   const yPer = useContext(Y)
   const size = useSize()
 
   const sliderRef = useRef()
-  const [hX, setHX] = useState(0)
-  const [hY, setHY] = useState(0)
-
-  useEffect(() => {
-    if (sliderRef.current && yPer === 0) {
-      const rect = sliderRef.current.getBoundingClientRect()
-      setHX(rect.left)
-      setHY(rect.top)
-      ref.current = rect.width
-    }
-  }, [size, type, yPer, ref])
+  const { hX, hY, width } = useBoundingBox(sliderRef.current, yPer)
+  ref.current = width
 
   const yKfs = {
     0: `${hY || 0}px`,
@@ -152,16 +150,34 @@ const Slider = forwardRef(({ type, scrollTo, showCursor, carouselX }, ref) => {
 
   //scrollTo faster?
   return (
-    <motion.div
+    <>
+    <div
       ref={sliderRef}
+      id={`${type}-flex`}
+      sx={{
+        height:'auto',
+        width:'auto',
+        fontFamily:'heading',
+        fontSize:'min(max(1rem, 2vw), 25px)',
+        color:'Orange1',
+        display:'flex',
+        justifyContent:'center',
+        alignItems:'center',
+        boxSizing:'border-box',
+        visibility:'hidden',
+        zIndex:-1001
+      }}>
+      {type}
+    </div>
+    <motion.div
       id={type}
       onClick={() => scrollTo(scrollToPoints[type],size.height/2.5,0)}
       onMouseEnter={() => showCursor(true)}
       onMouseLeave={() => showCursor(false)}
       style={{
-        left:yPer !== 0 ? x : '',
-        top:yPer !== 0 ? y : '',
-        position:yPer !== 0 ? 'absolute' : '',
+        left:x,
+        top:y,
+        position:'absolute',
         opacity:opacity
       }}
       sx={{
@@ -196,6 +212,7 @@ const Slider = forwardRef(({ type, scrollTo, showCursor, carouselX }, ref) => {
         {type}
       </motion.div>
     </motion.div>
+    </>
   )
 })
 

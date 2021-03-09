@@ -4,7 +4,6 @@ import {
   createContext,
   useContext,
   useRef,
-  useEffect,
 } from 'react'
 import Subhead from './landscape/Subhead'
 import Tile from './landscape/Tile'
@@ -15,10 +14,10 @@ import MobileName from './portrait/Name'
 import Slider from './landscape/Slider'
 import MobileSlider from './portrait/Slider'
 import MobileSliderFlex from './portrait/SliderFlex'
-import DrawingLight from './portrait/Light'
 import Icons from './Icons'
 import { Y } from './Controller'
 import useSliderX from '../hooks/use-slider-x'
+import useBoundingBox from '../hooks/use-bounding-box'
 
 
 export const Cursor = createContext()
@@ -30,24 +29,17 @@ const Layout = ({ scrollTo, w, h }) => {
   const [showCursor, setShowCursor] = useState(false)
   const [showInfo, setShowInfo] = useState(false)
 
-  const pSlider = useRef(100)
-  const eSlider = useRef(200)
-  const dSlider = useRef(10)
+  const pSlider = useRef(0)
+  const eSlider = useRef(0)
+  const dSlider = useRef(0)
   const flex = useRef(null)
-  const flexW = useRef(0)
 
-  useEffect(() => {
-    if (flex.current && yPer === 0) {
-      const rect = flex.current.getBoundingClientRect()
-      flexW.current = rect.width
-    }
-  }, [yPer])
-
+  const { width } = useBoundingBox(flex.current, yPer)
   const widths = {
     pW: pSlider.current,
     eW: eSlider.current,
     dW: dSlider.current,
-    flexW: flexW.current
+    flexW: width
   }
   const { pX, eX, dX } = useSliderX(widths, yPer)
 
@@ -188,20 +180,20 @@ const Layout = ({ scrollTo, w, h }) => {
         </section>
         {yPer >= .03 &&
           <section>
-            <Subhead type='developer' width={flexW.current} w={w}/>
-            <Tile type='developer' width={flexW.current} w={w} h={h}/>
+            <Subhead type='developer' width={width} w={w}/>
+            <Tile type='developer' width={width} w={w} h={h}/>
           </section>
         }
         {yPer >= .37 &&
           <section>
-            <Subhead type='educator' width={flexW.current} w={w}/>
-            <Tile type='educator' width={flexW.current} w={w} h={h}/>
+            <Subhead type='educator' width={width} w={w}/>
+            <Tile type='educator' width={width} w={w} h={h}/>
           </section>
         }
         {yPer >= .71 &&
           <section>
-            <Subhead type='philosopher' width={flexW.current} w={w}/>
-            <Tile type='philosopher' width={flexW.current} w={w} h={h}/>
+            <Subhead type='philosopher' width={width} w={w}/>
+            <Tile type='philosopher' width={width} w={w} h={h}/>
           </section>
         }
         <Icons

@@ -11,6 +11,7 @@ export default function useBoundingBox(ref, y) {
   const prevSize = useRef({height:null,width:null})
   const [hX, setHX] = useState()
   const [hY, setHY] = useState()
+  const [width, setWidth] = useState()
 
   useLayoutEffect(() => {
     if ((size.width !== prevSize.current.width || size.height !== prevSize.current.height) || y === 0) {
@@ -18,10 +19,12 @@ export default function useBoundingBox(ref, y) {
         const rect = ref.getBoundingClientRect()
         setHX(rect.left)
         setHY(rect.top)
+        setWidth(rect.width)
         prevSize.current = size
       }
     }
   }, [y, ref, size])
 
-  return { hX, hY }
+  return { hX, hY, width }
 }
+//have this return an array??

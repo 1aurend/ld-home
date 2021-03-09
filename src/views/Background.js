@@ -126,8 +126,7 @@ export default function TextBackground({ children, showInfo, setShowInfo }) {
             borderRadius:'2px',
             visibility:showInfo? 'visible' : 'hidden',
           }}>
-          Thanks go here!
-          more
+          About
         </motion.div>
       </div>
     </motion.div>
