@@ -53,12 +53,12 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         display:'flex',
         justifyContent:'flex-start',
         alignItems:'flex-end',
-        zIndex:1001
+        zIndex:1001,
+        cursor:'pointer',
       }}>
       <h2
         height='100%'
         sx={{
-          cursor:'pointer',
           fontFamily:'heading',
           fontWeight:'bold',
           color:'Orange1',

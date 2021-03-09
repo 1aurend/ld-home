@@ -64,6 +64,7 @@ export default function TextBackground({ children, showInfo, setShowInfo }) {
         height: '100vh',
         width: '100vw',
         overflow:'hidden',
+        cursor:showInfo ? 'pointer' : 'none'
       }}>
       <div
         id='isolate'
@@ -113,19 +114,20 @@ export default function TextBackground({ children, showInfo, setShowInfo }) {
           }}
           sx={{
             position:'absolute',
-            left:'7vw',
-            bottom:'10vh',
+            left:'6vw',
+            bottom:'9vh',
             height:'30vmin',
             width:'30vmin',
             p:'3%',
             opacity:.8,
-            zIndex:-50,
-            fontFamily:'body',
+            zIndex:50,
+            fontFamily:'inter',
             fontSize:'tiny',
             borderRadius:'2px',
-            visibility:showInfo? 'visible' : 'hidden'
+            visibility:showInfo? 'visible' : 'hidden',
           }}>
           Thanks go here!
+          more
         </motion.div>
       </div>
     </motion.div>

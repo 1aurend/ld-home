@@ -52,7 +52,7 @@ export const content = {
     }
   },
   philosopher: {
-    header: ['I received my PhD in philosophy from Harvard University in 2018. My disseration, ', 'Into Question: An Account of Inquiry,', ' considered the content and epistemic status of mental states involved in inquiry, doubt, and question-asking. My philosophical training grounds both my teaching and my approach to development.'],
+    header: ['I received my PhD in philosophy from Harvard University in 2018. My disseration, ', 'Into Question: An Account of Inquiry,', ' considers the content and epistemic status of mental states involved in inquiry, doubt, and question-asking. My philosophical training grounds both my teaching and my approach to development.'],
     tiles: {
       one: {
         title: 'Is Suspension an Inquiring State of Mind?',

@@ -19,7 +19,7 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
   const windowSize = useSize()
   const y = useContext(Y)
   const showCursor = useContext(Cursor)
-  const [grow, setGrow] = useState(false)
+  const [infoPos, setInfoPos] = useState({x:-maxRadius*1.25,y:maxRadius*1.25})
 
   // TODO: use a div to calculate these values
   // QUESTION: why is initPos a state?
@@ -55,15 +55,13 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
 
   // useEffect(() => {
   //   if (showInfo) {
-  //     lightRadius.set(`${maxRadius*5}px`)
-  //     setGrow(true)
+  //     setInfoPos(initPos => initPos)
   //   }
-  //   setGrow(false)
-  // }, [showInfo, lightRadius, maxRadius])
+  // }, [showInfo])
 
   const test = useMotionValue(`${maxRadius*5}px`)
 
-  const info = `radial-gradient(#5257F7AA,#5257F703,#5257F700 ${test})`
+  const info = useMotionTemplate`radial-gradient(#5257F7AA,#5257F703,#5257F700 ${test})`
   const onPurple = useMotionTemplate`radial-gradient(#5257F7AA,#5257F703,#5257F700 ${lightRadius})`
   const onTeal = useMotionTemplate`radial-gradient(#0ca89bAA,#0ca89b03,#0ca89b00 ${lightRadius})`
   const onRed = useMotionTemplate`radial-gradient(#bd5585AA,#bd558503,#bd558500 ${lightRadius})`
@@ -114,11 +112,11 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
           borderRadius:'100%',
           mixBlendMode:'soft-light',
           position:'fixed',
-          left:`${showInfo ? initPos.x-maxRadius*2.5 : initPos.x-maxRadius/2}px`,
-          top:`${showInfo ? initPos.y-maxRadius*2.5 : initPos.y-maxRadius/2}px`,
+          left:`${showInfo ? infoPos.x : initPos.x-maxRadius/2}px`,
+          top:`${showInfo ? infoPos.y : initPos.y-maxRadius/2}px`,
         }}>
       </motion.div>
-      {!showCursor && <div
+      {!showCursor && !showInfo && <div
         sx={{
           width: `${maxRadius/10}px`,
           height:`${maxRadius/10}px`,

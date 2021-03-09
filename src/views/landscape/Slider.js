@@ -150,6 +150,7 @@ const Slider = forwardRef(({ type, scrollTo, showCursor, carouselX }, ref) => {
   const scale = useScrub(scaleKfs, yPer, scenes[type])
   const grow = useMotionTemplate`scale(${scale})`
 
+  //scrollTo faster?
   return (
     <motion.div
       ref={sliderRef}
