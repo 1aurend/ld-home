@@ -5,7 +5,6 @@ import {
   useContext,
   useRef,
   useEffect,
-  useMemo
 } from 'react'
 import Subhead from './landscape/Subhead'
 import Tile from './landscape/Tile'
@@ -26,7 +25,7 @@ export const Cursor = createContext()
 export const Test = createContext()
 
 
-const Layout = ({ scrollTo }) => {
+const Layout = ({ scrollTo, w, h }) => {
   const yPer = useContext(Y)
   const [showCursor, setShowCursor] = useState(false)
   const [showInfo, setShowInfo] = useState(false)
@@ -189,20 +188,20 @@ const Layout = ({ scrollTo }) => {
         </section>
         {yPer >= .03 &&
           <section>
-            <Subhead type='developer' width={flexW.current}/>
-            <Tile type='developer' width={flexW.current}/>
+            <Subhead type='developer' width={flexW.current} w={w}/>
+            <Tile type='developer' width={flexW.current} w={w} h={h}/>
           </section>
         }
         {yPer >= .37 &&
           <section>
-            <Subhead type='educator' width={flexW.current}/>
-            <Tile type='educator' width={flexW.current}/>
+            <Subhead type='educator' width={flexW.current} w={w}/>
+            <Tile type='educator' width={flexW.current} w={w} h={h}/>
           </section>
         }
         {yPer >= .71 &&
           <section>
-            <Subhead type='philosopher' width={flexW.current}/>
-            <Tile type='philosopher' width={flexW.current}/>
+            <Subhead type='philosopher' width={flexW.current} w={w}/>
+            <Tile type='philosopher' width={flexW.current} w={w} h={h}/>
           </section>
         }
         <Icons

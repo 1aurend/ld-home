@@ -173,7 +173,8 @@ const Slider = forwardRef(({ type, scrollTo, showCursor, carouselX }, ref) => {
         cursor:'pointer',
         display:'flex',
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
+        boxSizing:'border-box'
       }}>
       <motion.div
         id={`${type}-glow`}

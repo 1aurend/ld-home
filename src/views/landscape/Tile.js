@@ -10,12 +10,12 @@ import useInterval from '../../hooks/use-interval'
 import { scenes, colors } from '../../assets/sceneList'
 import useSize from '../../hooks/use-debounced-window-size'
 import Content from './Content'
+import { content } from '../../assets/content'
 
 
-export default function Tile({ type, width }) {
+export default function Tile({ type, width, w, h }) {
   const y = useContext(Y)
   const relY = useInterval(scenes[type], y)
-  const size = useSize()
 
   const tileKfs = {
     0: {
@@ -37,12 +37,12 @@ export default function Tile({ type, width }) {
     },
     36: {
       width: `${width}px`,
-      height: `${.6*size.height}px`,
+      height: `${.6*h}px`,
       borderRadius: '2px',
     },
     82: {
       width: `${width}px`,
-      height: `${.6*size.height}px`,
+      height: `${.6*h}px`,
       borderRadius: '2px',
     },
     88: {
@@ -72,7 +72,7 @@ export default function Tile({ type, width }) {
   const tileHeight = useScrub(tileHeightParams, relY)
   const tileOpacityParams = {keyframes: tileKfs, type: 'opacity'}
   const tileOpacity = useScrub(tileOpacityParams, relY)
-  const tileLeft = `${size.width/2-(tileWidth.current.slice(0,-2)/2)}px`
+  const tileLeft = `${w/2-(tileWidth.current.slice(0,-2)/2)}px`
 
   const glowKfs = {
     0: '400%',
@@ -174,20 +174,22 @@ export default function Tile({ type, width }) {
           bg:'light'
         }}>
         <Content type={type}/>
-        <motion.div
-          id='cursor-melt'
-          style={{opacity:haze}}
-          sx={{
-            cursor:'pointer',
-            height:relY > .36 && relY < .82 ? '95%' : '100%',
-            width:relY > .36 && relY < .82 ? '95%' : '100%',
-            m:relY > .36 && relY < .82 ? '2.5%' : 0,
-            position:'absolute',
-            top:0,
-            left:0,
-            bg:'light'
-          }}>
-        </motion.div>
+        <a href={content[type].tiles[id].url} sx={{height:'fit-content',display:'block'}}>
+          <motion.div
+            id='cursor-melt'
+            style={{opacity:haze}}
+            sx={{
+              cursor:'pointer',
+              height:relY > .36 && relY < .82 ? '95%' : '100%',
+              width:relY > .36 && relY < .82 ? '95%' : '100%',
+              m:relY > .36 && relY < .82 ? '2.5%' : 0,
+              position:'absolute',
+              top:0,
+              left:0,
+              bg:'light'
+            }}>
+          </motion.div>
+        </a>
       </motion.div>
     </motion.div>
   )

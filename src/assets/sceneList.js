@@ -12,9 +12,9 @@ const sceneList = {
 }
 
 export const scrollToPoints = {
-  philosopher: .70,
-  educator: .36,
-  developer: .02
+  philosopher: .76,
+  educator: .42,
+  developer: .08
 }
 export const scenes = {
   philosopher: sceneList[6],

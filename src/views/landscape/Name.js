@@ -2,8 +2,6 @@
 import {
   useContext,
   useRef,
-  useEffect,
-  useState
 } from 'react'
 import {
   motion,
@@ -15,6 +13,7 @@ import Letter from './Letter'
 import scenes from '../../assets/sceneList'
 import useScenes from '../../hooks/use-scenes'
 import useSize from '../../hooks/use-debounced-window-size'
+import useBoundingBox from '../../hooks/use-bounding-box'
 
 
 const Name = ({ scrollTo, showCursor }) => {
@@ -23,15 +22,7 @@ const Name = ({ scrollTo, showCursor }) => {
   const step = size.height/2.5
 
   const name = useRef(null)
-  const [hX, setHX] = useState()
-  const [hY, setHY] = useState()
-  useEffect(() => {
-    if (name.current && y === 0) {
-      const rect = name.current.getBoundingClientRect()
-      setHX(rect.left)
-      setHY(rect.top)
-    }
-  }, [y])
+  const { hX, hY } = useBoundingBox(name.current, y)
 
   const [relY, current] = useScenes(scenes, [1,7], y)
 
@@ -101,10 +92,29 @@ const Name = ({ scrollTo, showCursor }) => {
 
   const display = current === 1 && relY >= .94 ? 'none' : current === 7 && relY <= .06 ? 'none' : ''
 
-  return(
+  return (
+    <>
+    <div
+      id='name-flex'
+      ref={name}
+      sx={{
+        fontFamily:'heading',
+        fontSize:'clamp(36px, 7vw, 80px)',
+        color:'Teal2',
+        textAlign:'center',
+        justifySelf:'center',
+        alignSelf:'center',
+        lineHeight:'clamp(36px, 7vw, 80px)',
+        width: 'auto',
+        pb:'5vmin',
+        boxSizing:'border-box',
+        visibility:'hidden',
+        zIndex:-1001
+      }}>
+      Lauren Davidson
+    </div>
     <motion.div
       id='name'
-      ref={name}
       onClick={y > .03 ? () => scrollTo(0, step) : null}
       onMouseEnter={y > .03 ? () => showCursor(true) : null}
       onMouseLeave={y > .03 ? () => showCursor(false) : null}
@@ -115,17 +125,19 @@ const Name = ({ scrollTo, showCursor }) => {
       }}
       sx={{
         fontFamily:'heading',
-        fontSize:'10vmin',
+        fontSize:'clamp(36px, 7vw, 80px)',
         color:'Teal2',
         textAlign:'center',
         justifySelf:'center',
         alignSelf:'center',
-        lineHeight:'10vmin',
+        lineHeight:'clamp(36px, 7vw, 80px)',
         width: 'auto',
         pb:'5vmin',
-        position:y !== 0 ? 'absolute' : '',
+        position:relY !== 0 ? 'absolute' : '',
         transformOrigin:'center',
-        cursor:y > .03 ? 'pointer' : 'none'
+        cursor:y > .03 ? 'pointer' : 'none',
+        boxSizing:'border-box',
+        zIndex:1001
       }}>
       L
       <Letter
@@ -209,6 +221,7 @@ const Name = ({ scrollTo, showCursor }) => {
         back={48}
         />
     </motion.div>
+    </>
   )
 }
 

@@ -13,7 +13,7 @@ export default function Controller() {
 
   return (
     <Y.Provider value={y.percent}>
-      <Layout scrollTo={scrollTo} />
+      <Layout scrollTo={scrollTo} w={size.width} h={size.height} />
     </Y.Provider>
   )
 }

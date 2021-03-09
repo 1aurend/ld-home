@@ -1,20 +1,14 @@
 /** @jsxImportSource theme-ui */
 import { useContext } from 'react'
-import {
-  motion,
-  useMotionTemplate
-} from 'framer-motion'
+import { motion } from 'framer-motion'
 import useScrub from '../../hooks/use-scrub'
 import { Y } from '../Controller'
-import sceneList, { scenes } from '../../assets/sceneList'
-import useScenes from '../../hooks/use-scenes'
-import useSize from '../../hooks/use-debounced-window-size'
+import { scenes } from '../../assets/sceneList'
 import { content } from '../../assets/content'
 
 
 
-export default function Subhead({ type, width }) {
-  const size = useSize().width
+export default function Subhead({ type, width, w }) {
   const y = useContext(Y)
 
   const opacityKfs = {
@@ -26,6 +20,14 @@ export default function Subhead({ type, width }) {
     100: 0
   }
   const opacity = useScrub(opacityKfs, y, scenes[type])
+
+  const text = type === 'philosopher'
+    ? <h2>
+        {content[type].header[0]}
+        <em>{content[type].header[1]}</em>
+        {content[type].header[2]}
+      </h2>
+    : <h2>{content[type].header}</h2>
 
   return (
     <motion.div
@@ -41,13 +43,11 @@ export default function Subhead({ type, width }) {
         m:0,
         fontSize:'teensy',
         position:'absolute',
-        left:`${(size/2 - width/2).toFixed(2)}px`,
+        left:`${(w/2 - width/2).toFixed(2)}px`,
         top:'25vh',
         textAlign:'justify'
       }}>
-      <h2>
-        {content[type].header}
-      </h2>
+      {text}
     </motion.div>
   )
 }

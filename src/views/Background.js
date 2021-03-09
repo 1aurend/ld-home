@@ -113,7 +113,7 @@ export default function TextBackground({ children, showInfo, setShowInfo }) {
           }}
           sx={{
             position:'absolute',
-            left:'5vw',
+            left:'7vw',
             bottom:'10vh',
             height:'30vmin',
             width:'30vmin',
@@ -122,7 +122,7 @@ export default function TextBackground({ children, showInfo, setShowInfo }) {
             zIndex:-50,
             fontFamily:'body',
             fontSize:'tiny',
-            borderRadius:'5%',
+            borderRadius:'2px',
             visibility:showInfo? 'visible' : 'hidden'
           }}>
           Thanks go here!

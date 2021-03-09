@@ -1,10 +1,27 @@
-import { useEffect } from 'react'
+import {
+  useLayoutEffect,
+  useRef,
+  useState
+ } from 'react'
+import useSize from './use-debounced-window-size'
 
 
-// useEffect(() => {
-//   if (sliderRef.current && yPer === 0) {
-//     const rect = sliderRef.current.getBoundingClientRect()
-//     setHX(rect.left)
-//     setHY(rect.top)
-//   }
-// }, [size, yPer])
+export default function useBoundingBox(ref, y) {
+  const size = useSize()
+  const prevSize = useRef({height:null,width:null})
+  const [hX, setHX] = useState()
+  const [hY, setHY] = useState()
+
+  useLayoutEffect(() => {
+    if ((size.width !== prevSize.current.width || size.height !== prevSize.current.height) || y === 0) {
+      if (ref && y === 0) {
+        const rect = ref.getBoundingClientRect()
+        setHX(rect.left)
+        setHY(rect.top)
+        prevSize.current = size
+      }
+    }
+  }, [y, ref, size])
+
+  return { hX, hY }
+}
