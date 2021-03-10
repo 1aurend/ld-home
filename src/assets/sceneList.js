@@ -11,10 +11,29 @@ const sceneList = {
   7: [.97,1], //PTOC
 }
 
+//fix these for 0 buffer
+export const playPause = {
+  1: .075,
+  2: .15,
+  3: .20,
+  4: .245,
+  5: .415,
+  6: .47,
+  7: .52,
+  8: .57,
+  9: .74,
+  10: .81,
+  11: .86,
+  12: .91,
+  13: 1,
+  14: 0
+}
+
+//and these!
 export const scrollToPoints = {
-  philosopher: .76,
-  educator: .42,
-  developer: .08
+  philosopher: .74,
+  educator: .41,
+  developer: .07
 }
 export const scenes = {
   philosopher: sceneList[6],

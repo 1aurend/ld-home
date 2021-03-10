@@ -18,6 +18,7 @@ import Icons from './Icons'
 import { Y } from './Controller'
 import useSliderX from '../hooks/use-slider-x'
 import useBoundingBox from '../hooks/use-bounding-box'
+import Contact from './landscape/Contact'
 
 
 export const Cursor = createContext()
@@ -195,6 +196,9 @@ const Layout = ({ scrollTo, w, h }) => {
             <Subhead type='philosopher' width={width} w={w}/>
             <Tile type='philosopher' width={width} w={w} h={h}/>
           </section>
+        }
+        {yPer >= .97 &&
+          <Contact width={width} w={w}/>
         }
         <Icons
           scrollTo={scrollTo}

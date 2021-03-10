@@ -9,13 +9,17 @@ import useSize from '../hooks/use-debounced-window-size'
 import { motion } from 'framer-motion'
 import useScenes from '../hooks/use-scenes'
 import useScrub from '../hooks/use-scrub'
-import scenes from '../assets/sceneList'
+import sceneList, { playPause } from '../assets/sceneList'
 
 
 export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
   const size = useSize()
   const step = size.height/2.5
   const y = useContext(Y)
+  const next = y > .99 ? 14 : Object.keys(playPause)
+    .filter(key => y < playPause[key])[0]
+  const smooth = y > .99 ? size.height/2.5 : size.height/20
+
 
   const opacityKfs = {
     1: {
@@ -31,7 +35,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
       100:1
     }
   }
-  const [relY, current] = useScenes(scenes, [1,7], y)
+  const [relY, current] = useScenes(sceneList, [1,7], y)
   const opacity = useScrub(opacityKfs[current], relY)
 
 
@@ -42,7 +46,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
       onMouseEnter={() => showCursor(true)}
       onMouseLeave={() => showCursor(false)}
       onClick={e => {e.stopPropagation();setShowInfo(!showInfo)}}
-      style={{opacity:opacity}}
+      style={{opacity:1}}
       sx={{
         position:'absolute',
         left:'5vw',
@@ -70,27 +74,44 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
     </motion.div>
     <motion.div
       id='arrow-container'
-      style={{opacity:opacity}}
+      onMouseEnter={() => showCursor(true)}
+      onMouseLeave={() => showCursor(false)}
+      style={{opacity:1}}
       sx={{
         position:'absolute',
         left:'47.5vw',
         bottom:'5vh',
-        width:'3vw',
-        height:'3vw',
+        width:'2vw', //clamp this?
+        height:y === 0 ? '5.5vw' : '3vw',
         opacity:1,
         display:'flex',
-        justifyContent:'center',
-        alignItems:'flex-end',
-        zIndex:1001
+        flexDirection:'column',
+        justifyContent:'flex-end',
+        alignItems:'center',
+        zIndex:1001,
+        cursor:'pointer',
       }}>
+      {y === 0 && <p
+        sx={{
+          color:'Teal2',
+          fontSize:'teensy',
+          fontFamily:'heading',
+          borderRadius:'100%',
+          opacity:1,
+          width:'max-content',
+          mt:'0',
+          mb:'1vw'
+        }}>
+      enter
+      </p>}
       <img
         id='arrow'
         src={arrow}
         alt='scroll down'
+        onClick={() => scrollTo(playPause[next], smooth, 0)}
         sx={{
-          width:'70%',
-          height:'70%',
-          transform:current === 7 ? 'rotateX(180deg)' : ''
+          transform:current === 7 ? 'rotateX(180deg)' : '',
+          mb:'8px'
         }}/>
     </motion.div>
     <div

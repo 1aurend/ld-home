@@ -36,7 +36,7 @@ const Name = ({ scrollTo, showCursor }) => {
     7: {
       0: `${size.height*0.04}px`,
       80: `${size.height*0.04}px`,
-      100: `${hY/2}px`
+      100: `${hY/2.5}px`
     }
   }
   const top = useScrub(topKfs[current], relY)
@@ -66,7 +66,7 @@ const Name = ({ scrollTo, showCursor }) => {
     7: {
       0: 0.5,
       80: 0.5,
-      100: 1
+      100: 0.8
     }
   }
   const fontSize = useScrub(fontKfs[current], relY)
@@ -115,9 +115,6 @@ const Name = ({ scrollTo, showCursor }) => {
     </div>
     <motion.div
       id='name'
-      onClick={y > .03 ? () => scrollTo(0, step) : null}
-      onMouseEnter={y > .03 ? () => showCursor(true) : null}
-      onMouseLeave={y > .03 ? () => showCursor(false) : null}
       style={{
         transform:scale,
         left:left,
@@ -135,7 +132,6 @@ const Name = ({ scrollTo, showCursor }) => {
         pb:'5vmin',
         position:relY !== 0 ? 'absolute' : '',
         transformOrigin:'center',
-        cursor:y > .03 ? 'pointer' : 'none',
         boxSizing:'border-box',
         zIndex:1001
       }}>

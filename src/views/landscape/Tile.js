@@ -174,7 +174,14 @@ export default function Tile({ type, width, w, h }) {
           bg:'light'
         }}>
         <Content type={type}/>
-        <a href={content[type].tiles[id].url} sx={{height:'fit-content',display:'block'}}>
+        <a
+          href={content[type].tiles[id].url}
+          target='_blank'
+          rel='noopener noreferrer' 
+          sx={{
+            height:'fit-content',
+            display:'block'
+          }}>
           <motion.div
             id='cursor-melt'
             style={{opacity:haze}}
