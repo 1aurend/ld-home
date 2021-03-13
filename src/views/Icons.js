@@ -111,7 +111,9 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         onClick={() => scrollTo(playPause[next], smooth, 0)}
         sx={{
           transform:current === 7 ? 'rotateX(180deg)' : '',
-          mb:'8px'
+          mb:'8px',
+          width:'2vw',
+          height:'auto'
         }}/>
     </motion.div>
     <div
@@ -157,7 +159,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
           src={linkedIn}
           alt='linkedIn'
           height='100%'
-          width='auto'
+          width='100%'
           sx={{
             cursor:'pointer'
           }}/>

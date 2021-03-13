@@ -162,7 +162,10 @@ export default function Tile({ type, width, w, h }) {
       <motion.div
         id='tile'
         style={{
-          borderRadius:tileRadius,
+          borderTopLeftRadius:tileRadius,
+          borderBottomLeftRadius:tileRadius,
+          borderTopRightRadius:tileRadius,
+          borderBottomRightRadius:tileRadius,
           transform:spin,
         }}
         sx={{
@@ -171,7 +174,8 @@ export default function Tile({ type, width, w, h }) {
           mixBlendMode:'normal',
           zIndex:104,
           overflow:'hidden',
-          bg:'light'
+          bg:'light',
+          backgroundClip:'border-box'
         }}>
         <Content type={type}/>
         <a
@@ -184,7 +188,13 @@ export default function Tile({ type, width, w, h }) {
           }}>
           <motion.div
             id='cursor-melt'
-            style={{opacity:haze}}
+            style={{
+              opacity:haze,
+              borderTopLeftRadius:tileRadius,
+              borderBottomLeftRadius:tileRadius,
+              borderTopRightRadius:tileRadius,
+              borderBottomRightRadius:tileRadius,
+            }}
             sx={{
               cursor:'pointer',
               height:relY > .36 && relY < .82 ? '95%' : '100%',
@@ -193,7 +203,8 @@ export default function Tile({ type, width, w, h }) {
               position:'absolute',
               top:0,
               left:0,
-              bg:'light'
+              bg:'light',
+              backgroundClip:'border-box'
             }}>
           </motion.div>
         </a>
