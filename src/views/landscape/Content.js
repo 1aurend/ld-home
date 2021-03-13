@@ -113,7 +113,8 @@ export default function Content({ type }) {
               m:0,
               overflow:'hidden',
               textAlign:'center',
-              width:'max-content'
+              width:'max-content',
+              borderRadius:'inherit'
             }}>
             {content[type].tiles[id].title}
           </motion.h2>
@@ -134,7 +135,8 @@ export default function Content({ type }) {
         justifyContent:'flex-start',
         perspective:'20vw',
         overflow:'hidden',
-        transformOrigin:'center'
+        transformOrigin:'center',
+        borderRadius:'inherit'
       }}>
       <motion.h2
         style={{fontSize:relY >= .33 && relY <= .85 ? titleClamp : titleSize}}
@@ -150,7 +152,8 @@ export default function Content({ type }) {
           bg:colors[type],
           zIndex:401,
           position:'absolute',
-          textAlign:'center'
+          textAlign:'center',
+          borderTopLeftRadius:'inherit'
         }}>
         {content[type].tiles[id].title}
       </motion.h2>
@@ -180,7 +183,9 @@ export default function Content({ type }) {
           display:'flex',
           flexDirection:'column',
           justifyContent:'center',
-          zIndex:401
+          zIndex:401,
+          borderBottomLeftRadius:'inherit',
+          borderBottomRightRadius:'inherit'
         }}>
         <motion.p
           style={{

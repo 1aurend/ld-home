@@ -8,14 +8,78 @@ import { Y } from '../../Controller'
 import useScrub from '../../hooks/use-scrub'
 import useInterval from '../../hooks/use-interval'
 import { scenes, colors } from '../../assets/sceneList'
-import useSize from '../../hooks/use-debounced-window-size'
 import Content from './Content'
 import { content } from '../../assets/content'
+import { isSafari } from 'react-device-detect'
 
 
 export default function Tile({ type, width, w, h }) {
   const y = useContext(Y)
   const relY = useInterval(scenes[type], y)
+
+  const safariKfs = {
+    0: {
+      opacity: 1,
+      width: '2px'
+    },
+    25: {
+      borderRadius: '30px',
+      width: '10px',
+      height: '10px',
+      top: '11vh',
+      opacity: 1,
+    },
+    30: {
+      top: '23vh',
+      width: '10px',
+      height: '10px',
+      borderRadius: '30px',
+    },
+    36: {
+      width: `${width}px`,
+      height: `${width/1.2}px`,
+      borderRadius: '2px',
+    },
+    45: {
+      opacity: 1
+    },
+    50: {
+      opacity: .2
+    },
+    55: {
+      opacity: 1
+    },
+    63: {
+      opacity: 1
+    },
+    68: {
+      opacity: .2
+    },
+    73: {
+      opacity: 1
+    },
+    82: {
+      width: `${width}px`,
+      height: `${width/1.2}px`,
+      borderRadius: '2px',
+    },
+    88: {
+      top: '23vh',
+      width: '10px',
+      height: '10px',
+      borderRadius: '30px',
+    },
+    93: {
+      borderRadius: '30px',
+      width: '10px',
+      height: '10px',
+      top: '11vh',
+      opacity: 1,
+    },
+    95: {
+      opacity: 0
+    }
+  }
 
   const tileKfs = {
     0: {
@@ -70,9 +134,14 @@ export default function Tile({ type, width, w, h }) {
   const tileWidth = useScrub(tileWidthParams, relY)
   const tileHeightParams = {keyframes: tileKfs, type: 'height'}
   const tileHeight = useScrub(tileHeightParams, relY)
-  const tileOpacityParams = {keyframes: tileKfs, type: 'opacity'}
+  const tileOpacityParams = {keyframes: isSafari ? safariKfs : tileKfs, type: 'opacity'}
   const tileOpacity = useScrub(tileOpacityParams, relY)
-  const tileLeft = `${w/2-(tileWidth.current.slice(0,-2)/2)}px`
+
+  const leftKfs = {
+    0: `${w/2-(tileWidth.current.slice(0,-2)/2)}px`,
+    100: `${w/2-(tileWidth.current.slice(0,-2)/2)}px`
+  }
+  const tileLeft = useScrub(leftKfs, relY)
 
   const glowKfs = {
     0: '400%',

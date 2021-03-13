@@ -114,6 +114,9 @@ const Name = ({ scrollTo, showCursor }) => {
     </div>
     <motion.div
       id='name'
+      onClick={() => scrollTo(0,size.height/2.5,0)}
+      onMouseEnter={() => showCursor(true)}
+      onMouseLeave={() => showCursor(false)}
       style={{
         transform:scale,
         left:left,
@@ -133,7 +136,8 @@ const Name = ({ scrollTo, showCursor }) => {
         transformOrigin:'center',
         boxSizing:'border-box',
         zIndex:1001,
-        visibility:hX ? 'visible' : 'hidden'
+        visibility:hX ? 'visible' : 'hidden',
+        cursor:'pointer'
       }}>
       L
       <Letter

@@ -86,7 +86,7 @@ export default function TextBackground({ children, showInfo, setShowInfo }) {
             width:'100%',
             fontFamily:'heading',
             fontSize:'teensy',
-            zIndex:-100,
+            zIndex:-1000,
             overflow:'hidden',
             position:'absolute',
             opacity:1,

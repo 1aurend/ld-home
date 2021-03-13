@@ -16,10 +16,12 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
   const size = useSize()
   const step = size.height/2.5
   const y = useContext(Y)
-  const next = y > .99 ? 14 : Object.keys(playPause)
-    .filter(key => y < playPause[key])[0]
-  const smooth = y > .99 ? size.height/2.5 : size.height/20
-
+  const next = y > .91 ? 13 : Object.keys(playPause).filter(key => y < playPause[key])[0]
+  const greater = Object.keys(playPause).filter(key => y > playPause[key])
+  const prev = y <= .075 ? 0 : Object.keys(playPause).filter(key => y > playPause[key])[greater[greater.length-1]]
+  console.log(prev)
+  console.log(greater)
+  const smooth = size.height/20
 
   const opacityKfs = {
     1: {
@@ -79,10 +81,10 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
       style={{opacity:1}}
       sx={{
         position:'absolute',
-        left:'49vw',
-        bottom:'5vh',
+        left:'5vw',
+        top:'45vh',
         width:'2vw', //clamp this?
-        height:y === 0 ? '5.5vw' : '3vw',
+        height:'auto',
         opacity:1,
         display:'flex',
         flexDirection:'column',
@@ -91,27 +93,23 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         zIndex:1001,
         cursor:'pointer',
       }}>
-      {y === 0 && <p
-        sx={{
-          color:'Teal2',
-          fontSize:'teensy',
-          fontFamily:'heading',
-          borderRadius:'100%',
-          opacity:1,
-          width:'max-content',
-          mt:'0',
-          mb:'1vw'
-        }}>
-      enter
-      </p>}
       <img
         id='arrow'
         src={arrow}
-        alt='scroll down'
+        alt='prev'
+        onClick={() => scrollTo(playPause[prev], smooth, 0)}
+        sx={{
+          transform:'rotateX(180deg)',
+          mb:'2vh',
+          width:'2vw',
+          height:'auto'
+        }}/>
+      <img
+        id='arrow'
+        src={arrow}
+        alt='next'
         onClick={() => scrollTo(playPause[next], smooth, 0)}
         sx={{
-          transform:current === 7 ? 'rotateX(180deg)' : '',
-          mb:'8px',
           width:'2vw',
           height:'auto'
         }}/>

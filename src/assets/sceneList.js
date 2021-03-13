@@ -13,6 +13,7 @@ const sceneList = {
 
 //fix these for 0 buffer
 export const playPause = {
+  0: 0,
   1: .075,
   2: .15,
   3: .20,
@@ -26,7 +27,6 @@ export const playPause = {
   11: .86,
   12: .91,
   13: 1,
-  14: 0
 }
 
 //and these!
