@@ -8,6 +8,7 @@ import { Y } from '../Controller'
 import useScrub from '../hooks/use-scrub'
 import sceneList from '../assets/sceneList'
 import useScenes from '../hooks/use-scenes'
+import About from './About'
 
 
 export default function TextBackground({ children, showInfo, setShowInfo }) {
@@ -108,6 +109,7 @@ export default function TextBackground({ children, showInfo, setShowInfo }) {
         {children}
         <motion.div
           id='about-text'
+          onClick={e => e.stopPropagation()}
           style={{
             backgroundColor:showInfo? '#EEFAFF': bgColor,
             color:bgColor,
@@ -116,17 +118,16 @@ export default function TextBackground({ children, showInfo, setShowInfo }) {
             position:'absolute',
             left:'6vw',
             bottom:'9vh',
-            height:'30vmin',
-            width:'30vmin',
-            p:'3%',
-            opacity:.8,
-            zIndex:50,
+            height:'min-content',
+            width:'20vw',
+            p:'2%',
+            opacity:.9,
+            zIndex:5000,
             fontFamily:'inter',
-            fontSize:'tiny',
             borderRadius:'2px',
             visibility:showInfo? 'visible' : 'hidden',
           }}>
-          About
+          <About/>
         </motion.div>
       </div>
     </motion.div>

@@ -19,7 +19,7 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
   const windowSize = useSize()
   const y = useContext(Y)
   const showCursor = useContext(Cursor)
-  const [infoPos, setInfoPos] = useState({x:-maxRadius*1.25,y:maxRadius*1.25})
+  const [infoPos, setInfoPos] = useState({x:-maxRadius*1.5,y:maxRadius*1})
 
   // TODO: use a div to calculate these values
   // QUESTION: why is initPos a state? because it's the actual pos... why?
