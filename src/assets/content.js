@@ -32,21 +32,21 @@ export const content = {
         title: 'The Learning Lab',
         text: "I'm Assistant Director of the Learning Lab at the Derek Bok Center for Teaching and Learning at Harvard where we support courses innovating through technology, making, and multimodal communication. I manage our team of graduate student Fellows and focus on projects involving coding, game design, and visual communication.",
         url: 'https://bokcenter.harvard.edu/learning-lab',
-        img: "https://live.staticflickr.com/8356/29033365973_c9551a7637_k.jpg",
+        img: 'stack',
         alt: 'A tour of the Golden Record Map interface'
       },
       two: {
         title: 'ThinkerAnalytix',
         text: "I'm Co-founder and President of ThinkerAnalytix, a non-profit that develops research-backed tools for training students in logic and reasoning and supports teachers as they implement those tools in classrooms. Our new online course launched in 2020 and is taught in 35+ schools.",
         url: 'https://thinkeranalytix.org/',
-        img: 'TA',
+        img: 'ta',
         alt: 'The start of a logic puzzle game'
       },
       three: {
         title: 'Coaching',
         text: 'I taught handstands and tumbling at Gravity Alternative Movement from 2017 until 2020 when it closed due to COVID-19. I loved helping my circus students train smarter and develop new skills. I hope to be back in the gym soon!',
         url: 'https://www.instagram.com/gravityalternativemovement/?hl=en',
-        img: "https://live.staticflickr.com/65535/50960028002_76dce38754_k.jpg",
+        img: 'gravity',
         alt: 'Answering a series of questions in Chord Crusher'
       }
     }
@@ -83,7 +83,10 @@ export const fbFilenames = {
   suspension:'suspension.png',
   ta:'TA_game.png',
   inquiry:'inquiry.png',
-  doubt:'doubt.png'
+  doubt:'doubt.png',
+  gravity:'gravity.jpg',
+  stack:'stack.jpg',
+  contact:'contact.jpg'
 }
 
 

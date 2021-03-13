@@ -30,23 +30,23 @@ export default function Tile({ type, width, w, h }) {
       opacity: 1,
     },
     30: {
-      top: '25vh',
+      top: '23vh',
       width: '10px',
       height: '10px',
       borderRadius: '30px',
     },
     36: {
       width: `${width}px`,
-      height: `${.6*h}px`,
+      height: `${width/1.2}px`,
       borderRadius: '2px',
     },
     82: {
       width: `${width}px`,
-      height: `${.6*h}px`,
+      height: `${width/1.2}px`,
       borderRadius: '2px',
     },
     88: {
-      top: '25vh',
+      top: '23vh',
       width: '10px',
       height: '10px',
       borderRadius: '30px',

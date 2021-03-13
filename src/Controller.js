@@ -35,7 +35,10 @@ export default function Controller() {
       const storage = firebase.storage().ref()
       Object.keys(fbFilenames).forEach( file => {
         storage.child(fbFilenames[file]).getDownloadURL()
-          .then(url => setImages(images => ({...images, [file]:url})))
+          .then(url => {
+            setImages(images => ({...images, [file]:url}))
+            //put in img?
+          })
           .catch(err => alert(err))
       })
     }
@@ -45,6 +48,11 @@ export default function Controller() {
     <Y.Provider value={y.percent}>
       <Images.Provider value={images}>
         <Layout scrollTo={scrollTo} w={size.width} h={size.height} />
+        <img
+          style={{visibility:'hidden'}}
+          alt='test'
+          src={images.gravity && ''}
+          />
       </Images.Provider>
     </Y.Provider>
   )

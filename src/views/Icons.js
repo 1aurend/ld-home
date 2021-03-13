@@ -79,7 +79,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
       style={{opacity:1}}
       sx={{
         position:'absolute',
-        left:'47.5vw',
+        left:'49vw',
         bottom:'5vh',
         width:'2vw', //clamp this?
         height:y === 0 ? '5.5vw' : '3vw',

@@ -2,12 +2,13 @@
 import { useContext } from 'react'
 import { motion } from 'framer-motion'
 import useScrub from '../../hooks/use-scrub'
-import { Y } from '../../Controller'
+import { Y, Images } from '../../Controller'
 import sceneList from '../../assets/sceneList'
 
 
 export default function Contact({ width, w }) {
   const y = useContext(Y)
+  const fb = useContext(Images)
 
   const opacityKfs = {
     0: 0,
@@ -33,7 +34,7 @@ export default function Contact({ width, w }) {
       }}>
       <img
         alt='Lauren hanging from truss in the Learning Lab studio'
-        src="https://live.staticflickr.com/881/27477298788_8c3abc3748_h.jpg"
+        src={fb.contact}
         sx={{
           height:'auto',
           width:width*.8,

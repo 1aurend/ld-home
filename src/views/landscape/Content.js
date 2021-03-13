@@ -9,9 +9,6 @@ import { Y, Images } from '../../Controller'
 import { scenes } from '../../assets/sceneList'
 import useInterval from '../../hooks/use-interval'
 import useScrub from '../../hooks/use-scrub'
-import TA from '../../assets/images/TA_game.png'
-import suspension from '../../assets/images/suspension.png'
-
 
 
 const colors = {
@@ -25,7 +22,6 @@ export default function Content({ type }) {
   const fb = useContext(Images)
   const relY = useInterval(scenes[type], y)
   const id = relY >= .68 ? 'three' : relY >= .50 ? 'two' : 'one'
-  console.log(fb)
 
   const fontKfs = {
     31: '.5vw',
@@ -63,15 +59,9 @@ export default function Content({ type }) {
   }
   const lineHeight = useScrub(lineHeightKfs, relY)
 
-  const images = {
-    TA: TA,
-    suspension: suspension
-  }
-  const src = type === 'philosopher'
+  const src = type !== 'developer'
     ? fb[content[type].tiles[id].img]
-    : content[type].tiles[id].img.indexOf('http') !== -1
-    ? content[type].tiles[id].img
-    : images[content[type].tiles[id].img]
+    : content[type].tiles[id].img
 
   if (type === 'philosopher') {
     return (
@@ -96,7 +86,8 @@ export default function Content({ type }) {
             height:'auto',
             alignSelf:'center',
             zIndex:400,
-            pt:'5%'
+            mt:'5%',
+            border:'5px solid #3D4849'
           }}/>
         <div
           sx={{
@@ -108,11 +99,10 @@ export default function Content({ type }) {
             left:0,
             bg:colors[type],
             p:'5%',
-            pl:'5%',
-            pr:'5%',
             display:'flex',
             flexDirection:'column',
             justifyContent:'center',
+            alignItems:'center',
             zIndex:401
           }}>
           <motion.h2
@@ -122,7 +112,8 @@ export default function Content({ type }) {
               color:'light',
               m:0,
               overflow:'hidden',
-              textAlign:'center'
+              textAlign:'center',
+              width:'max-content'
             }}>
             {content[type].tiles[id].title}
           </motion.h2>
