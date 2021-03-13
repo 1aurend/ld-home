@@ -4,7 +4,7 @@ import {
   motion,
   useMotionTemplate
 } from 'framer-motion'
-import { Y } from '../Controller'
+import { Y } from '../../Controller'
 import BannerText from './BannerText'
 import useScrub from '../../hooks/use-scrub'
 import useInterval from '../../hooks/use-interval'

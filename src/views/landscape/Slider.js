@@ -10,7 +10,7 @@ import { keyframes } from '@emotion/react'
 import { motion, useMotionTemplate } from 'framer-motion'
 import useScrub from '../../hooks/use-scrub'
 import useSize from '../../hooks/use-debounced-window-size'
-import { Y } from '../Controller'
+import { Y } from '../../Controller'
 import sceneList, {
   scrollToPoints,
   scenes,
@@ -177,7 +177,6 @@ const Slider = forwardRef((props, ref) => {
       style={{
         left:x,
         top:y,
-        position:'absolute',
         opacity:opacity
       }}
       sx={{
@@ -191,7 +190,9 @@ const Slider = forwardRef((props, ref) => {
         display:'flex',
         justifyContent:'center',
         alignItems:'center',
-        boxSizing:'border-box'
+        boxSizing:'border-box',
+        visibility:hX ? 'visible' : 'hidden',
+        position:'absolute',
       }}>
       <motion.div
         id={`${type}-glow`}

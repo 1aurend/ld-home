@@ -4,7 +4,7 @@ import {
   motion,
   useMotionTemplate
 } from 'framer-motion'
-import { Y } from '../Controller'
+import { Y } from '../../Controller'
 import useScrub from '../../hooks/use-scrub'
 import useInterval from '../../hooks/use-interval'
 import { scenes, colors } from '../../assets/sceneList'
@@ -177,7 +177,7 @@ export default function Tile({ type, width, w, h }) {
         <a
           href={content[type].tiles[id].url}
           target='_blank'
-          rel='noopener noreferrer' 
+          rel='noopener noreferrer'
           sx={{
             height:'fit-content',
             display:'block'

@@ -8,7 +8,7 @@ import {
   useMotionTemplate
 } from 'framer-motion'
 import useScrub from '../../hooks/use-scrub'
-import { Y } from '../Controller'
+import { Y } from '../../Controller'
 import Letter from './Letter'
 import scenes from '../../assets/sceneList'
 import useScenes from '../../hooks/use-scenes'
@@ -19,7 +19,6 @@ import useBoundingBox from '../../hooks/use-bounding-box'
 const Name = ({ scrollTo, showCursor }) => {
   const y = useContext(Y)
   const size = useSize()
-  const step = size.height/2.5
 
   const name = useRef(null)
   const { hX, hY } = useBoundingBox(name.current, y)
@@ -130,10 +129,11 @@ const Name = ({ scrollTo, showCursor }) => {
         lineHeight:'clamp(36px, 7vw, 80px)',
         width: 'auto',
         pb:'5vmin',
-        position:relY !== 0 ? 'absolute' : '',
+        position:'absolute',
         transformOrigin:'center',
         boxSizing:'border-box',
-        zIndex:1001
+        zIndex:1001,
+        visibility:hX ? 'visible' : 'hidden'
       }}>
       L
       <Letter

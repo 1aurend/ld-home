@@ -1,6 +1,6 @@
 /** @jsxImportSource theme-ui */
 import { useContext } from 'react'
-import { Y } from './Controller'
+import { Y } from '../Controller'
 import email from '../assets/icons/mail.svg'
 import github from '../assets/icons/GitHub-Mark-Light-64px.png'
 import linkedIn from '../assets/icons/In-White-72.png'

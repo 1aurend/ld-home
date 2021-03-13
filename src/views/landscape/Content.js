@@ -5,7 +5,7 @@ import {
   useMotionTemplate
 } from 'framer-motion'
 import { content } from '../../assets/content'
-import { Y } from '../Controller'
+import { Y, Images } from '../../Controller'
 import { scenes } from '../../assets/sceneList'
 import useInterval from '../../hooks/use-interval'
 import useScrub from '../../hooks/use-scrub'
@@ -22,8 +22,10 @@ const colors = {
 
 export default function Content({ type }) {
   const y = useContext(Y)
+  const fb = useContext(Images)
   const relY = useInterval(scenes[type], y)
   const id = relY >= .68 ? 'three' : relY >= .50 ? 'two' : 'one'
+  console.log(fb)
 
   const fontKfs = {
     31: '.5vw',
@@ -65,9 +67,69 @@ export default function Content({ type }) {
     TA: TA,
     suspension: suspension
   }
-  const src = content[type].tiles[id].img.indexOf('http') !== -1
+  const src = type === 'philosopher'
+    ? fb[content[type].tiles[id].img]
+    : content[type].tiles[id].img.indexOf('http') !== -1
     ? content[type].tiles[id].img
     : images[content[type].tiles[id].img]
+
+  if (type === 'philosopher') {
+    return (
+      <section
+        sx={{
+          p:0,
+          m:0,
+          height:'100%',
+          width:'100%',
+          display:relY >= .31 && relY <= .85 ? 'flex' : 'none',
+          flexDirection:'column',
+          justifyContent:'flex-start',
+          perspective:'20vw',
+          overflow:'hidden',
+          transformOrigin:'center'
+        }}>
+        <img
+          src={src}
+          alt='fix this'
+          sx={{
+            maxWidth:'90%',
+            height:'auto',
+            alignSelf:'center',
+            zIndex:400,
+            pt:'5%'
+          }}/>
+        <div
+          sx={{
+            maxHeight:'25%',
+            minHeight:'20%',
+            width:'100%',
+            position:'absolute',
+            bottom:0,
+            left:0,
+            bg:colors[type],
+            p:'5%',
+            pl:'5%',
+            pr:'5%',
+            display:'flex',
+            flexDirection:'column',
+            justifyContent:'center',
+            zIndex:401
+          }}>
+          <motion.h2
+            style={{fontSize:relY >= .33 && relY <= .85 ? titleClamp : titleSize}}
+            sx={{
+              fontFamily:'heading',
+              color:'light',
+              m:0,
+              overflow:'hidden',
+              textAlign:'center'
+            }}>
+            {content[type].tiles[id].title}
+          </motion.h2>
+        </div>
+      </section>
+    )
+  }
 
   return (
     <section

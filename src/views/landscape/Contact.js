@@ -2,7 +2,7 @@
 import { useContext } from 'react'
 import { motion } from 'framer-motion'
 import useScrub from '../../hooks/use-scrub'
-import { Y } from '../Controller'
+import { Y } from '../../Controller'
 import sceneList from '../../assets/sceneList'
 
 
@@ -47,7 +47,7 @@ export default function Contact({ width, w }) {
           m:0,
           fontSize:'3.5vmin',
           textAlign:'justify',
-        }}>hello@laurendavidson.ninja</h2>
+        }}>some email here</h2>
     </motion.div>
   )
 }

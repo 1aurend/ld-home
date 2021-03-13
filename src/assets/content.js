@@ -55,28 +55,35 @@ export const content = {
     header: ['I received my PhD in philosophy from Harvard University in 2018. My disseration, ', 'Into Question: An Account of Inquiry,', ' considers the content and epistemic status of mental states involved in inquiry, doubt, and question-asking. My philosophical training grounds both my teaching and my approach to development.'],
     tiles: {
       one: {
-        title: 'Is Suspension an Inquiring State of Mind?',
+        title: 'Suspension',
         text: '',
         url: 'http://nrs.harvard.edu/urn-3:HUL.InstRepos:39945331',
         img: 'suspension',
         alt: 'A tour of the Golden Record Map interface'
       },
       two: {
-        title: 'Committing to Inquiry',
+        title: 'Inquiry',
         text: '',
         url: 'http://nrs.harvard.edu/urn-3:HUL.InstRepos:39945331',
-        img: "https://live.staticflickr.com/65535/50959928151_9a4a1fb8e1_k.jpg",
+        img: 'inquiry',
         alt: 'A tour of the Knights and Knaves interface'
       },
       three: {
-        title: 'Room for Doubt',
+        title: 'Doubt',
         text: '',
         url: 'http://nrs.harvard.edu/urn-3:HUL.InstRepos:39945331',
-        img: "https://live.staticflickr.com/65535/50960028002_76dce38754_k.jpg",
+        img: 'doubt',
         alt: 'Answering a series of questions in Chord Crusher'
       }
     }
   }
+}
+
+export const fbFilenames = {
+  suspension:'suspension.png',
+  ta:'TA_game.png',
+  inquiry:'inquiry.png',
+  doubt:'doubt.png'
 }
 
 

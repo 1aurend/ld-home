@@ -2,7 +2,7 @@
 import { useContext } from 'react'
 import { motion } from 'framer-motion'
 import useScrub from '../../hooks/use-scrub'
-import { Y } from '../Controller'
+import { Y } from '../../Controller'
 import { scenes } from '../../assets/sceneList'
 import { content } from '../../assets/content'
 
