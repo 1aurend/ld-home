@@ -53,18 +53,26 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
   const [ relY, current ] = useScenes(sceneList, [2,4,6], y)
   const lightRadius = useScrub(kfs[current], relY)
 
-  // useEffect(() => {
-  //   if (showInfo) {
-  //     setInfoPos(initPos => initPos)
-  //   }
-  // }, [showInfo])
+  const about = useMotionValue(`${maxRadius*5}px`)
+  const infoPurple = useMotionTemplate`radial-gradient(#5257F7AA,#5257F703,#5257F700 ${about})`
+  const infoTeal = useMotionTemplate`radial-gradient(#0ca89bAA,#0ca89b03,#0ca89b00 ${about})`
+  const infoRed = useMotionTemplate`radial-gradient(#bd5585AA,#bd558503,#bd558500 ${about})`
 
-  const test = useMotionValue(`${maxRadius*5}px`)
-
-  const info = useMotionTemplate`radial-gradient(#5257F7AA,#5257F703,#5257F700 ${test})`
   const onPurple = useMotionTemplate`radial-gradient(#5257F7AA,#5257F703,#5257F700 ${lightRadius})`
   const onTeal = useMotionTemplate`radial-gradient(#0ca89bAA,#0ca89b03,#0ca89b00 ${lightRadius})`
   const onRed = useMotionTemplate`radial-gradient(#bd5585AA,#bd558503,#bd558500 ${lightRadius})`
+
+  const bgImage = showInfo
+    ? y <= .33 || y >= .995
+      ? infoPurple
+      : y > .33 && y <= .67
+      ? infoTeal
+      : infoRed
+    : y <= .33 || y >= .995
+      ? onPurple
+      : y > .33 && y <= .67
+      ? onTeal
+      : onRed
 
   const ticking = useRef(false)
   const ePos = useRef({x:initX,y:initY})
@@ -104,7 +112,7 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
       <motion.div
         id='cursor'
         style={{
-          backgroundImage: showInfo ? info : y <= .33 || y >= .995 ? onPurple : y > .33 && y <= .67 ? onTeal : onRed
+          backgroundImage:bgImage
         }}
         sx={{
           width: `${showInfo ? maxRadius*5 : maxRadius}px`,

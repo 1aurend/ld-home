@@ -179,27 +179,33 @@ const Layout = ({ scrollTo, w, h }) => {
             </div>
           </div>
         </section>
-        {yPer >= .03 &&
-          <section>
-            <Subhead type='developer' width={width} w={w}/>
-            <Tile type='developer' width={width} w={w} h={h}/>
-          </section>
-        }
-        {yPer >= .37 &&
-          <section>
-            <Subhead type='educator' width={width} w={w}/>
-            <Tile type='educator' width={width} w={w} h={h}/>
-          </section>
-        }
-        {yPer >= .71 &&
-          <section>
-            <Subhead type='philosopher' width={width} w={w}/>
-            <Tile type='philosopher' width={width} w={w} h={h}/>
-          </section>
-        }
-        {yPer >= .97 &&
-          <Contact width={width} w={w}/>
-        }
+        <section
+          sx={{
+            display:yPer >= .03 ? '' : 'none'
+          }}>
+          <Subhead type='developer' width={width} w={w}/>
+          <Tile type='developer' width={width} w={w} h={h}/>
+        </section>
+        <section
+          sx={{
+            display:yPer >= .37 ? '' : 'none'
+          }}>
+          <Subhead type='educator' width={width} w={w}/>
+          <Tile type='educator' width={width} w={w} h={h}/>
+        </section>
+        <section
+          sx={{
+            display:yPer >= .03 ? '' : 'none'
+          }}>
+          <Subhead type='philosopher' width={width} w={w}/>
+          <Tile type='philosopher' width={width} w={w} h={h}/>
+        </section>
+        <Contact
+          width={width}
+          w={w}
+          sx={{
+            display:yPer >= .97 ? '' : 'none'
+          }}/>
         <Icons
           scrollTo={scrollTo}
           showCursor={setShowCursor}

@@ -193,6 +193,7 @@ const Slider = forwardRef((props, ref) => {
         boxSizing:'border-box',
         visibility:hX ? 'visible' : 'hidden',
         position:'absolute',
+        zIndex:1002
       }}>
       <motion.div
         id={`${type}-glow`}
