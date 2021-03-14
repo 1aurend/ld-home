@@ -10,7 +10,31 @@ import { motion } from 'framer-motion'
 import useScenes from '../hooks/use-scenes'
 import useScrub from '../hooks/use-scrub'
 import sceneList, { playPause } from '../assets/sceneList'
+import { keyframes } from '@emotion/react'
 
+
+const pulse = keyframes({
+  '0%': {
+    transform: `scale3d(1, 1, 1)`
+  },
+  '50%': {
+    transform: `scale3d(1.15, 1.15, 1.15)`
+  },
+  '100%': {
+    transform: `scale3d(1, 1, 1)`
+  }
+})
+const pulseRotate = keyframes({
+  '0%': {
+    transform: `scale3d(1, 1, 1) rotateX(180deg)`
+  },
+  '50%': {
+    transform: `scale3d(1.15, 1.15, 1.15) rotateX(180deg)`
+  },
+  '100%': {
+    transform: `scale3d(1, 1, 1) rotateX(180deg)`
+  }
+})
 
 export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
   const size = useSize()
@@ -19,8 +43,6 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
   const next = y > .91 ? 13 : Object.keys(playPause).filter(key => y < playPause[key])[0]
   const greater = Object.keys(playPause).filter(key => y > playPause[key])
   const prev = y <= .075 ? 0 : Object.keys(playPause).filter(key => y > playPause[key])[greater[greater.length-1]]
-  console.log(prev)
-  console.log(greater)
   const smooth = size.height/20
 
   const opacityKfs = {
@@ -102,7 +124,8 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
           transform:'rotateX(180deg)',
           mb:'2vh',
           width:'2vw',
-          height:'auto'
+          height:'auto',
+          animation:y === 0 ? `${pulseRotate} 1.5s ease-in-out` : 'none',
         }}/>
       <img
         id='arrow'
@@ -111,7 +134,8 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         onClick={() => scrollTo(playPause[next], smooth, 0)}
         sx={{
           width:'2vw',
-          height:'auto'
+          height:'auto',
+          animation:y === 0 ? `${pulse} 1.5s ease-in-out` : 'none',
         }}/>
     </motion.div>
     <div

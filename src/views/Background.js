@@ -2,6 +2,7 @@
 import { useContext } from 'react'
 import Cursor from './RAFCursor'
 import peirce from '../assets/texts/fixationOfBelief'
+import dewey from '../assets/texts/howWeThink'
 import { motion } from 'framer-motion'
 import { yMultiplier } from '../assets/sceneList'
 import { Y } from '../Controller'
@@ -94,16 +95,7 @@ export default function TextBackground({ children, showInfo, setShowInfo }) {
             bg:'none'
           }}>
           {peirce}
-          {peirce}
-          {peirce}
-          {peirce}
-          {peirce}
-          {peirce}
-          {peirce}
-          {peirce}
-          {peirce}
-          {peirce}
-          {peirce}
+          {dewey}
         </motion.div>
         <Cursor showInfo={showInfo}/>
         {children}

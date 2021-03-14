@@ -1,9 +1,7 @@
 /** @jsxImportSource theme-ui */
 import {
   useRef,
-  useEffect,
   useContext,
-  useState,
   forwardRef
 } from 'react'
 import { keyframes } from '@emotion/react'
@@ -154,6 +152,9 @@ const Slider = forwardRef((props, ref) => {
     <div
       ref={sliderRef}
       id={`${type}-flex`}
+      onClick={() => scrollTo(scrollToPoints[type],size.height/2.5,0)}
+      onMouseEnter={() => showCursor(true)}
+      onMouseLeave={() => showCursor(false)}
       sx={{
         height:'auto',
         width:'auto',
@@ -164,8 +165,10 @@ const Slider = forwardRef((props, ref) => {
         justifyContent:'center',
         alignItems:'center',
         boxSizing:'border-box',
-        visibility:'hidden',
-        zIndex:-1001
+        visibility:yPer <= 0.001 ? 'visible' : 'hidden',
+        animation:yPer === 0 ? `${pulse} 1.5s ease-in-out` : 'none',
+        zIndex:100,
+        cursor:'pointer'
       }}>
       {type}
     </div>
@@ -185,13 +188,12 @@ const Slider = forwardRef((props, ref) => {
         fontFamily:'heading',
         fontSize:'min(max(1rem, 2vw), 25px)',
         color:'Orange1',
-        animation:yPer === 0 ? `${pulse} 1.5s ease-in-out` : 'none',
         cursor:'pointer',
         display:'flex',
         justifyContent:'center',
         alignItems:'center',
         boxSizing:'border-box',
-        visibility:hX ? 'visible' : 'hidden',
+        visibility:yPer > 0.001 ? 'visible' : 'hidden',
         position:'absolute',
       }}>
       <motion.div

@@ -22,7 +22,7 @@ export const playPause = {
   6: .49,
   7: .54,
   8: .585,
-  9: .745,
+  9: .75,
   10: .81,
   11: .86,
   12: .91,
@@ -31,9 +31,9 @@ export const playPause = {
 
 //and these!
 export const scrollToPoints = {
-  philosopher: .74,
-  educator: .41,
-  developer: .07
+  philosopher: .75,
+  educator: .415,
+  developer: .075
 }
 export const scenes = {
   philosopher: sceneList[6],

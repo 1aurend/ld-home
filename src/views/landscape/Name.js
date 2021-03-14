@@ -107,8 +107,8 @@ const Name = ({ scrollTo, showCursor }) => {
         width: 'auto',
         pb:'5vmin',
         boxSizing:'border-box',
-        visibility:'hidden',
-        zIndex:-1001
+        visibility:y <= 0.001 ? 'visible' : 'hidden',
+        zIndex:100
       }}>
       Lauren Davidson
     </div>
@@ -136,7 +136,7 @@ const Name = ({ scrollTo, showCursor }) => {
         transformOrigin:'center',
         boxSizing:'border-box',
         zIndex:1001,
-        visibility:hX ? 'visible' : 'hidden',
+        visibility:y > 0.001 ? 'visible' : 'hidden',
         cursor:'pointer'
       }}>
       L

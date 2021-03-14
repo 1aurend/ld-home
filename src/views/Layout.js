@@ -10,10 +10,10 @@ import Tile from './landscape/Tile'
 import useMediaQueries from '../hooks/use-media-queries'
 import Background from './Background'
 import Name from './landscape/Name'
-import MobileName from './portrait/Name'
+// import MobileName from './portrait/Name'
 import Slider from './landscape/Slider'
-import MobileSlider from './portrait/Slider'
-import MobileSliderFlex from './portrait/SliderFlex'
+// import MobileSlider from './portrait/Slider'
+// import MobileSliderFlex from './portrait/SliderFlex'
 import Icons from './Icons'
 import { Y } from '../Controller'
 import useSliderX from '../hooks/use-slider-x'
@@ -139,6 +139,7 @@ const Layout = ({ scrollTo, w, h }) => {
           }}>
           <div
             id='name-width'
+            ref={flex}
             sx={{
               display:'flex',
               flexDirection:'column',
@@ -151,7 +152,6 @@ const Layout = ({ scrollTo, w, h }) => {
             <Name scrollTo={scrollTo} showCursor={setShowCursor}/>
             <div
               id='sliders'
-              ref={flex}
               sx={{
                 display:'flex',
                 justifyContent:'space-between',
