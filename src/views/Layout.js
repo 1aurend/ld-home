@@ -105,7 +105,7 @@ const Layout = ({ scrollTo, w, h }) => {
               fontWeight:'heading',
               color:'Teal1',
             }}>
-            Mobile version coming soon! Please visit on a computer for the full experience.
+            Mobile version coming soon! Please visit on a computer or expand your window for the full experience.
           </h2>
         </div>
       </main>
