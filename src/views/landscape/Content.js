@@ -66,6 +66,7 @@ export default function Content({ type }) {
   if (type === 'philosopher') {
     return (
       <section
+        id='tile-content'
         sx={{
           p:0,
           m:0,
@@ -80,7 +81,7 @@ export default function Content({ type }) {
         }}>
         <img
           src={src}
-          alt='fix this'
+          alt={content[type].tiles[id].alt}
           sx={{
             maxWidth:'90%',
             height:'auto',
@@ -90,6 +91,7 @@ export default function Content({ type }) {
             border:'5px solid #3D4849'
           }}/>
         <div
+          id='tile-title'
           sx={{
             maxHeight:'25%',
             minHeight:'20%',
@@ -125,6 +127,7 @@ export default function Content({ type }) {
 
   return (
     <section
+      id='tile-content'
       sx={{
         p:0,
         m:0,
@@ -139,6 +142,7 @@ export default function Content({ type }) {
         borderRadius:'inherit'
       }}>
       <motion.h2
+        id='tile-title'
         style={{fontSize:relY >= .33 && relY <= .85 ? titleClamp : titleSize}}
         sx={{
           fontFamily:'heading',
@@ -159,7 +163,7 @@ export default function Content({ type }) {
       </motion.h2>
       <img
         src={src}
-        alt='fix this'
+        alt={content[type].tiles[id].alt}
         sx={{
           maxWidth:'85%',
           maxHeight:'90%',
@@ -169,6 +173,7 @@ export default function Content({ type }) {
           pt:'12%'
         }}/>
       <div
+        id='tile-text'
         sx={{
           maxHeight:'35%',
           minHeight:'30%',

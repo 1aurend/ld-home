@@ -7,9 +7,7 @@ import linkedIn from '../assets/icons/In-White-72.png'
 import arrow from '../assets/icons/arrow2.svg'
 import useSize from '../hooks/use-debounced-window-size'
 import { motion } from 'framer-motion'
-import useScenes from '../hooks/use-scenes'
-import useScrub from '../hooks/use-scrub'
-import sceneList, { playPause } from '../assets/sceneList'
+import { playPause } from '../assets/sceneList'
 import { keyframes } from '@emotion/react'
 
 
@@ -45,23 +43,6 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
   const prev = y <= .075 ? 0 : Object.keys(playPause).filter(key => y > playPause[key])[greater[greater.length-1]]
   const smooth = size.height/20
 
-  const opacityKfs = {
-    1: {
-      0:1,
-      20:1,
-      50:0,
-      100:0
-    },
-    7: {
-      0:0,
-      50:0,
-      70:1,
-      100:1
-    }
-  }
-  const [relY, current] = useScenes(sceneList, [1,7], y)
-  const opacity = useScrub(opacityKfs[current], relY)
-
 
   return (
     <>
@@ -70,7 +51,6 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
       onMouseEnter={() => showCursor(true)}
       onMouseLeave={() => showCursor(false)}
       onClick={e => {e.stopPropagation();setShowInfo(!showInfo)}}
-      style={{opacity:1}}
       sx={{
         position:'absolute',
         left:'5vw',
@@ -192,18 +172,6 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         alt='contact me'
         height='100%'
         sx={{cursor:'pointer'}}/>
-    </div>
-    <div
-      onClick={() => scrollTo(0, step)}
-      sx={{
-        position:'absolute',
-        top:0,
-        left:0,
-        width:'3vmin',
-        height:'3vmin',
-        cursor:'pointer',
-        zIndex:1001
-      }}>
     </div>
     </>
   )

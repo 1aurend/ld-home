@@ -19,7 +19,7 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
   const windowSize = useSize()
   const y = useContext(Y)
   const showCursor = useContext(Cursor)
-  const [infoPos, setInfoPos] = useState({x:-maxRadius*1.5,y:maxRadius*1})
+  const infoPos = useState({x:-maxRadius*1.5,y:maxRadius*1})[0]
 
   // TODO: use a div to calculate these values
   // QUESTION: why is initPos a state? because it's the actual pos... why?
@@ -105,12 +105,13 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
 
   return(
     <div
+      id='cursor-parent'
       sx={{
         pointerEvents:'none',
         zIndex:1000,
       }}>
       <motion.div
-        id='cursor'
+        id='cursor-glow'
         style={{
           backgroundImage:bgImage
         }}
@@ -125,6 +126,7 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
         }}>
       </motion.div>
       {!showCursor && !showInfo && <div
+        id='cursor-dot'
         sx={{
           width: `${maxRadius/10}px`,
           height:`${maxRadius/10}px`,

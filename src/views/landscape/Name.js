@@ -87,7 +87,7 @@ const Name = ({ scrollTo, showCursor }) => {
   const topParams = {keyframes: dKfs[current], type: 'top'}
   const dLeft = useScrub(leftParams, relY)
   const dTop = useScrub(topParams, relY)
-  const moveD = useMotionTemplate`translate(${dLeft}, ${dTop})`
+  const moveD = useMotionTemplate`translate(clamp(-2.25vw, ${dLeft}, -5vw), ${dTop})`
 
   const display = current === 1 && relY >= .94 ? 'none' : current === 7 && relY <= .06 ? 'none' : ''
 
