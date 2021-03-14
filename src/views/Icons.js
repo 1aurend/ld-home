@@ -4,7 +4,8 @@ import { Y } from '../Controller'
 import email from '../assets/icons/mail.svg'
 import github from '../assets/icons/GitHub-Mark-Light-64px.png'
 import linkedIn from '../assets/icons/In-White-72.png'
-import arrow from '../assets/icons/arrow2.svg'
+import arrowUp from '../assets/icons/arrow-up.svg'
+import arrowDown from '../assets/icons/arrow-down.svg'
 import useSize from '../hooks/use-debounced-window-size'
 import { motion } from 'framer-motion'
 import { playPause } from '../assets/sceneList'
@@ -20,17 +21,6 @@ const pulse = keyframes({
   },
   '100%': {
     transform: `scale3d(1, 1, 1)`
-  }
-})
-const pulseRotate = keyframes({
-  '0%': {
-    transform: `scale3d(1, 1, 1) rotateX(180deg)`
-  },
-  '50%': {
-    transform: `scale3d(1.15, 1.15, 1.15) rotateX(180deg)`
-  },
-  '100%': {
-    transform: `scale3d(1, 1, 1) rotateX(180deg)`
   }
 })
 
@@ -97,19 +87,18 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
       }}>
       <img
         id='arrow-up'
-        src={arrow}
+        src={arrowUp}
         alt='prev'
         onClick={() => scrollTo(playPause[prev], smooth, 0)}
         sx={{
-          transform:'rotateX(180deg)',
           mb:'2vh',
           width:'2vw',
           height:'auto',
-          animation:y === 0 ? `${pulseRotate} 1.5s ease-in-out` : 'none',
+          animation:y === 0 ? `${pulse} 1.5s ease-in-out` : 'none',
         }}/>
       <img
         id='arrow-down'
-        src={arrow}
+        src={arrowDown}
         alt='next'
         onClick={() => scrollTo(playPause[next], smooth, 0)}
         sx={{

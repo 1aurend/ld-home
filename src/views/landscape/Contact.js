@@ -48,7 +48,7 @@ export default function Contact({ width, w }) {
           m:0,
           fontSize:'3.5vmin',
           textAlign:'justify',
-        }}>some email here</h2>
+        }}>lauren@laurendavidson.ninja</h2>
     </motion.div>
   )
 }
