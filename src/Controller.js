@@ -35,7 +35,7 @@ export default function Controller() {
     if (instance) {
       const storage = firebase.storage().ref()
       Object.keys(fbFilenames).forEach( file => {
-        storage.child(fbFilenames[file]).getDownloadURL()
+        storage.child(`active/${fbFilenames[file]}`).getDownloadURL()
           .then(url => {
             setImages(images => ({...images, [file]:url}))
           })
@@ -46,6 +46,7 @@ export default function Controller() {
 
   const downloads = useMemo(() => Object.keys(images).map(img =>
     <img
+      key={img}
       style={{visibility:'hidden'}}
       alt='test'
       src={images[img]}/>

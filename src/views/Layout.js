@@ -19,6 +19,9 @@ import { Y } from '../Controller'
 import useSliderX from '../hooks/use-slider-x'
 import useBoundingBox from '../hooks/use-bounding-box'
 import Contact from './landscape/Contact'
+import { isMobile } from 'react-device-detect'
+import MobileCursor from './RAFCursor'
+import peirce from '../assets/texts/fixationOfBelief'
 
 
 export const Cursor = createContext()
@@ -48,6 +51,66 @@ const Layout = ({ scrollTo, w, h }) => {
     or: '(orientation: portrait)',
   }
   const mediaVals = useMediaQueries(mQs)
+
+  if (mediaVals.or || isMobile) {
+    return (
+      <main
+        sx={{
+          width:'100%',
+          height:'100vh',
+          bg:'DarkPurple1',
+          display:'flex',
+          justifyContent:'center',
+          alignItems:'center',
+          p:'10%',
+          cursor:'none'
+        }}>
+        <div
+          id='isolate'
+          sx={{
+            height:'100vh',
+            width:'100vw',
+            isolation:'isolate',
+            zIndex:1,
+            position:'absolute'
+          }}>
+          <div
+            id='bg-text'
+            sx={{
+              height:`100vh`,
+              width:'100%',
+              fontFamily:'heading',
+              fontSize:'teensy',
+              zIndex:0,
+              overflow:'hidden',
+              position:'absolute',
+              opacity:1,
+              bg:'none',
+              color:'DarkPurple1'
+            }}>
+            {peirce}
+          </div>
+          <Cursor.Provider value={showCursor}>
+            <MobileCursor showInfo={false}/>
+          </Cursor.Provider>
+        </div>
+        <div
+          sx={{
+            zIndex:10
+          }}>
+          <h2
+            sx={{
+              fontFamily:'heading',
+              fontSize:'3vh',
+              fontWeight:'heading',
+              color:'Teal1',
+            }}>
+            Mobile version coming soon! Please visit on a computer for the full experience.
+          </h2>
+        </div>
+      </main>
+    )
+  }
 
   // if (mediaVals.or) {
   //   return (

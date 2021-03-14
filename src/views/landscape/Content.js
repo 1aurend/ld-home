@@ -60,10 +60,6 @@ export default function Content({ type }) {
   const lineHeight = useScrub(lineHeightKfs, relY)
   const lineHeightClamp = useMotionTemplate`clamp(22px,${lineHeight},36px)`
 
-  const src = type !== 'developer'
-    ? fb[content[type].tiles[id].img]
-    : content[type].tiles[id].img
-
   if (type === 'philosopher') {
     return (
       <section
@@ -81,7 +77,7 @@ export default function Content({ type }) {
           transformOrigin:'center'
         }}>
         <img
-          src={src}
+          src={fb[content[type].tiles[id].img]}
           alt={content[type].tiles[id].alt}
           sx={{
             maxWidth:'90%',
@@ -163,7 +159,7 @@ export default function Content({ type }) {
         {content[type].tiles[id].title}
       </motion.h2>
       <img
-        src={src}
+        src={fb[content[type].tiles[id].img]}
         alt={content[type].tiles[id].alt}
         sx={{
           // maxWidth:'85%',
@@ -175,7 +171,7 @@ export default function Content({ type }) {
       <div
         id='tile-text'
         sx={{
-          maxHeight:'37%',
+          maxHeight:'40%',
           minHeight:'30%',
           width:'100%',
           position:'absolute',

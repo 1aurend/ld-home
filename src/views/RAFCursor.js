@@ -16,6 +16,7 @@ import sceneList from '../assets/sceneList'
 
 
 const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
+  console.log('cursor')
   const windowSize = useSize()
   const infoRadius = maxRadius*(windowSize.width/200)
   const y = useContext(Y)
@@ -91,14 +92,12 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
       requestTick()
     }
     const onTouchMove = e => {
-      e.preventDefault()
       ePos.current = {x: e.changedTouches[0].clientX, y:e.changedTouches[0].clientY}
       requestTick()
     }
     if (touch) {
       window.addEventListener('touchmove', onTouchMove)
-      window.addEventListener('touchstart', e => e.preventDefault())
-      return () => {window.removeEventListener('touchmove', onTouchMove);window.removeEventListener('touchstart')}
+      return () => window.removeEventListener('touchmove', onTouchMove)
     }
     window.addEventListener('mousemove', onMouseMove)
     return () => window.removeEventListener('mousemove', onMouseMove)

@@ -75,10 +75,10 @@ const Name = ({ scrollTo, showCursor }) => {
     1: {
       0: {left:'0vw',top:'0vw'},
       95: {left:'0vw',top:'0vw'},
-      100: {left:'-1.75vw',top:'1vw'},
+      100: {left:'-2vw',top:'1vw'},
     },
     7: {
-      0: {left:'-1.75vw',top:'1vw'},
+      0: {left:'-2vw',top:'1vw'},
       5: {left:'0vw',top:'0vw'},
       100: {left:'0vw',top:'0vw'},
     }
