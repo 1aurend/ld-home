@@ -9,7 +9,7 @@ export default function About() {
         display:'flex',
         flexDirection:'column',
         justifyContent:'flex-start',
-        alignItems:'center',
+        alignItems:'flex-start',
         cursor:'default',
         color:'Grey'
       }}>
@@ -18,14 +18,16 @@ export default function About() {
           fontFamily:'inter',
           color:'Grey',
           m:0,
-          fontSize:'tiny',
-          textAlign:'justify',
+          fontSize:'min(1.5vmin, 20px)',
+          textAlign:'center',
+          width:'100%'
         }}>Credits</h3>
       <p
         sx={{
           mt:'5%',
           mb:0,
-          fontSize:'teensy',
+          fontSize:'min(1.25vmin, 16px)',
+          lineHeight:'min(2vmin, 28.8px)',
           fontWeight:'heading'
         }}>
         Background Texts:
@@ -37,7 +39,8 @@ export default function About() {
       <p
         sx={{
           mt:'5%',
-          fontSize:'teensy',
+          fontSize:'min(1.25vmin, 16px)',
+          lineHeight:'min(2vmin, 28.8px)',
           fontWeight:'heading'
         }}>
         Animations built with my <a href='https://github.com/1aurend/use-spacetime' target='_blank' rel='noopener noreferrer' sx={{color:'Orange1',cursor:'pointer',textDecoration:'none'}}>use-spacetime</a> hooks which provide a keyframes-based interface for animating complex scroll interactions with <a href='https://www.framer.com/motion/' target='_blank' rel='noopener noreferrer'  sx={{color:'Orange1',cursor:'pointer',textDecoration:'none'}}>framer-motion</a>.
@@ -45,7 +48,8 @@ export default function About() {
       <p
         sx={{
           mt:'5%',
-          fontSize:'teensy',
+          fontSize:'min(1.25vmin, 16px)',
+          lineHeight:'min(2vmin, 28.8px)',
           fontWeight:'heading'
         }}>
         Many thanks to <a href='https://www.philipfahnl.ai' target='_blank' rel='noopener noreferrer'  sx={{color:'Orange1',cursor:'pointer',textDecoration:'none'}}>Phil</a> for input along the way and to <a href='https://thinkeranalytix.org/team/' target='_blank' rel='noopener noreferrer'  sx={{color:'Orange1',cursor:'pointer',textDecoration:'none'}}>Anne</a> for encouragement!

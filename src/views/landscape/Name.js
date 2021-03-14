@@ -71,24 +71,23 @@ const Name = ({ scrollTo, showCursor }) => {
   const fontSize = useScrub(fontKfs[current], relY)
   const scale = useMotionTemplate`scale(${fontSize})`
 
-  //use min(max()) here in kfs to create clamp without conditional rendering
   const dKfs = {
     1: {
-      0: {left:'0vmin',top:'0vmin'},
-      95: {left:'0vmin',top:'0vmin'},
-      100: {left:'-3.5vmin',top:'2vmin'},
+      0: {left:'0vw',top:'0vw'},
+      95: {left:'0vw',top:'0vw'},
+      100: {left:'-1.75vw',top:'1vw'},
     },
     7: {
-      0: {left:'-3.5vmin',top:'2vmin'},
-      5: {left:'0vmin',top:'0vmin'},
-      100: {left:'0vmin',top:'0vmin'},
+      0: {left:'-1.75vw',top:'1vw'},
+      5: {left:'0vw',top:'0vw'},
+      100: {left:'0vw',top:'0vw'},
     }
   }
   const leftParams = {keyframes: dKfs[current], type: 'left'}
   const topParams = {keyframes: dKfs[current], type: 'top'}
   const dLeft = useScrub(leftParams, relY)
   const dTop = useScrub(topParams, relY)
-  const moveD = useMotionTemplate`translate(${dLeft}, ${dTop})`
+  const moveD = useMotionTemplate`translate(max(${dLeft}, -40px), max(${dTop}, -22px))`
 
   const display = current === 1 && relY >= .94 ? 'none' : current === 7 && relY <= .06 ? 'none' : ''
 
@@ -99,12 +98,12 @@ const Name = ({ scrollTo, showCursor }) => {
       ref={name}
       sx={{
         fontFamily:'heading',
-        fontSize:'clamp(36px, 7vw, 80px)',
+        fontSize:'clamp(36px, 6vw, 100px)',
         color:'Teal2',
         textAlign:'center',
         justifySelf:'center',
         alignSelf:'center',
-        lineHeight:'clamp(36px, 7vw, 80px)',
+        lineHeight:'clamp(36px, 6vw, 100px)',
         width: 'auto',
         pb:'5vmin',
         boxSizing:'border-box',
@@ -125,12 +124,9 @@ const Name = ({ scrollTo, showCursor }) => {
       }}
       sx={{
         fontFamily:'heading',
-        fontSize:'clamp(36px, 7vw, 80px)',
+        fontSize:'clamp(36px, 6vw, 100px)',
         color:'Teal2',
-        textAlign:'center',
-        justifySelf:'center',
-        alignSelf:'center',
-        lineHeight:'clamp(36px, 7vw, 80px)',
+        lineHeight:'clamp(36px, 6vw, 100px)',
         width: 'auto',
         pb:'5vmin',
         position:'absolute',

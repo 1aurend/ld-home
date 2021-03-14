@@ -34,30 +34,31 @@ export default function Content({ type }) {
     87: '.5vw'
   }
   const titleSize = useScrub(fontKfs, relY)
-  const titleClamp = useMotionTemplate`clamp(24px,${titleSize},32px)`
+  const titleClamp = useMotionTemplate`clamp(20px,${titleSize},40px)`
   const captionKfs = {
     31: '.25vw',
     32: '.5vw',
     34: '.75vw',
-    36: `1.15vw`,
-    82: '1.15vw',
+    36: `1vw`,
+    82: '1vw',
     84: '.75vw',
     86: '.5vw',
     87: '.25vw'
   }
   const captionSize = useScrub(captionKfs, relY)
-  const clamp = useMotionTemplate`clamp(10px,${captionSize},14px)`
+  const clamp = useMotionTemplate`clamp(11px,${captionSize},18px)`
   const lineHeightKfs = {
-    31: '.25vw',
-    32: '.5vw',
-    34: '.75vw',
-    36: '1.5vw',
-    82: '1.5vw',
-    84: '.75vw',
-    86: '.5vw',
-    87: '.25vw'
+    31: '.5vw',
+    32: '1vw',
+    34: '1.5vw',
+    36: '2vw',
+    82: '2vw',
+    84: '1.5vw',
+    86: '1vw',
+    87: '.5vw'
   }
   const lineHeight = useScrub(lineHeightKfs, relY)
+  const lineHeightClamp = useMotionTemplate`clamp(22px,${lineHeight},36px)`
 
   const src = type !== 'developer'
     ? fb[content[type].tiles[id].img]
@@ -156,7 +157,6 @@ export default function Content({ type }) {
           overflow:'hidden',
           bg:colors[type],
           zIndex:31,
-          position:'absolute',
           textAlign:'center',
           borderTopLeftRadius:'inherit'
         }}>
@@ -166,17 +166,16 @@ export default function Content({ type }) {
         src={src}
         alt={content[type].tiles[id].alt}
         sx={{
-          maxWidth:'85%',
-          maxHeight:'90%',
-          height:'auto',
+          // maxWidth:'85%',
+          height:'57%',
           alignSelf:'center',
           zIndex:30,
-          pt:'12%',
+          mt:'-1%',
         }}/>
       <div
         id='tile-text'
         sx={{
-          maxHeight:'35%',
+          maxHeight:'37%',
           minHeight:'30%',
           width:'100%',
           position:'absolute',
@@ -196,7 +195,7 @@ export default function Content({ type }) {
         <motion.p
           style={{
             fontSize:relY >= .33 && relY <= .88 ? clamp : captionSize,
-            lineHeight:lineHeight
+            lineHeight:lineHeightClamp
           }}
           sx={{
             m:0,

@@ -6,7 +6,7 @@ import { Y, Images } from '../../Controller'
 import sceneList from '../../assets/sceneList'
 
 
-export default function Contact({ width, w }) {
+export default function Contact({ width, hX }) {
   const y = useContext(Y)
   const fb = useContext(Images)
 
@@ -29,11 +29,11 @@ export default function Contact({ width, w }) {
         justifyContent:'flex-start',
         alignItems:'center',
         position:'absolute',
-        left:`${(w/2 - width/2).toFixed(2)}px`,
+        left:`${hX}px`,
         top:'30vh',
       }}>
       <img
-        alt='Lauren hanging from truss in the Learning Lab studio'
+        alt='Headshot from side angle'
         src={fb.contact}
         sx={{
           height:'auto',

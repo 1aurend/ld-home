@@ -17,15 +17,14 @@ import sceneList from '../assets/sceneList'
 
 const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
   const windowSize = useSize()
+  const infoRadius = maxRadius*(windowSize.width/200)
   const y = useContext(Y)
   const showCursor = useContext(Cursor)
-  const infoPos = useState({x:-maxRadius*1.5,y:maxRadius*1})[0]
+  const infoPos = useState({x:-infoRadius/2.15,y:windowSize.height-infoRadius/2.25})[0]
 
-  // TODO: use a div to calculate these values
-  // QUESTION: why is initPos a state? because it's the actual pos... why?
-  const initX = windowSize.width*.33
-  const initY = windowSize.height*.60
-  const [initPos, setInitPos] = useState({x:initX,y:initY})
+  const initX = windowSize.width*.25
+  const initY = windowSize.height*.20
+  const [pos, setPos] = useState({x:initX,y:initY})
 
   const kfs = {
     2: {
@@ -53,7 +52,7 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
   const [ relY, current ] = useScenes(sceneList, [2,4,6], y)
   const lightRadius = useScrub(kfs[current], relY)
 
-  const about = useMotionValue(`${maxRadius*5}px`)
+  const about = useMotionValue(`${infoRadius}px`)
   const infoPurple = useMotionTemplate`radial-gradient(#5257F7AA,#5257F703,#5257F700 ${about})`
   const infoTeal = useMotionTemplate`radial-gradient(#0ca89bAA,#0ca89b03,#0ca89b00 ${about})`
   const infoRed = useMotionTemplate`radial-gradient(#bd5585AA,#bd558503,#bd558500 ${about})`
@@ -79,7 +78,7 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
   useEffect(()=>{
     const moveSpotlight = () => {
       ticking.current = false
-      setInitPos(ePos.current)
+      setPos(ePos.current)
     }
     const requestTick = () => {
       if (!ticking.current) {
@@ -118,13 +117,13 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
           backgroundImage:bgImage
         }}
         sx={{
-          width: `${showInfo ? maxRadius*5 : maxRadius}px`,
-          height:`${showInfo ? maxRadius*5 : maxRadius}px`,
+          width: `${showInfo ? infoRadius : maxRadius}px`,
+          height:`${showInfo ? infoRadius : maxRadius}px`,
           borderRadius:'100%',
           mixBlendMode:'soft-light',
           position:'absolute',
-          left:`${showInfo ? infoPos.x : initPos.x-maxRadius/2}px`,
-          top:`${showInfo ? infoPos.y : initPos.y-maxRadius/2}px`,
+          left:`${showInfo ? infoPos.x : pos.x-maxRadius/2}px`,
+          top:`${showInfo ? infoPos.y : pos.y-maxRadius/2}px`,
         }}>
       </motion.div>
       {!showCursor && !showInfo && <div
@@ -133,8 +132,8 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
           width: `${maxRadius/10}px`,
           height:`${maxRadius/10}px`,
           backgroundColor:'light',
-          left:`${initPos.x-maxRadius/20}px`,
-          top:`${initPos.y-maxRadius/20}px`,
+          left:`${pos.x-maxRadius/20}px`,
+          top:`${pos.y-maxRadius/20}px`,
           borderRadius:'100%',
           opacity:1,
           position:'absolute',

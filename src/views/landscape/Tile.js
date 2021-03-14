@@ -103,12 +103,12 @@ export default function Tile({ type, width, w, h }) {
     },
     36: {
       width: `${width}px`,
-      height: `${width/1.2}px`,
+      height: `${Math.min(Math.max(width/1.2, .55*h),700)}px`,
       borderRadius: '2px',
     },
     82: {
       width: `${width}px`,
-      height: `${width/1.2}px`,
+      height: `${Math.min(Math.max(width/1.2, .55*h),700)}px`,
       borderRadius: '2px',
     },
     88: {

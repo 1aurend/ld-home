@@ -35,7 +35,7 @@ const Layout = ({ scrollTo, w, h }) => {
   const dSlider = useRef(0)
   const flex = useRef(null)
 
-  const { width } = useBoundingBox(flex.current, yPer)
+  const { hX, width } = useBoundingBox(flex.current, yPer)
   const widths = {
     pW: pSlider.current,
     eW: eSlider.current,
@@ -202,7 +202,7 @@ const Layout = ({ scrollTo, w, h }) => {
         </section>
         <Contact
           width={width}
-          w={w}
+          hX={hX}
           sx={{
             display:yPer >= .97 ? '' : 'none'
           }}/>

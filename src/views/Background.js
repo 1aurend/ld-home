@@ -111,7 +111,7 @@ export default function TextBackground({ children, showInfo, setShowInfo }) {
             left:'6vw',
             bottom:'9vh',
             height:'auto',
-            width:'20vw',
+            width:'min(18vw, 400px)',
             p:'2%',
             opacity:.9,
             zIndex:51,

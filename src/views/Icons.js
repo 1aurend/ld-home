@@ -45,8 +45,8 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         position:'absolute',
         left:'5vw',
         bottom:'5vh',
-        width:'5vmin',
-        height:'5vmin',
+        width:'clamp(25px, 2vw, 40px)',
+        height:'auto',
         opacity:1,
         display:'flex',
         justifyContent:'flex-start',
@@ -60,7 +60,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
           fontFamily:'heading',
           fontWeight:'bold',
           color:'Orange1',
-          fontSize:'3vmin',
+          fontSize:'clamp(25px, 2vw, 40px)',
           m:0
         }}>
         ?
@@ -74,8 +74,8 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
       sx={{
         position:'absolute',
         left:'5vw',
-        top:'45vh',
-        width:'2vw', //clamp this?
+        top:'47vh',
+        width:'clamp(27px, 2vw, 40px)',
         height:'auto',
         opacity:1,
         display:'flex',
@@ -92,7 +92,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         onClick={() => scrollTo(playPause[prev], smooth, 0)}
         sx={{
           mb:'2vh',
-          width:'2vw',
+          width:'clamp(27px, 2vw, 40px)',
           height:'auto',
           animation:y === 0 ? `${pulse} 1.5s ease-in-out` : 'none',
         }}/>
@@ -102,7 +102,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         alt='next'
         onClick={() => scrollTo(playPause[next], smooth, 0)}
         sx={{
-          width:'2vw',
+          width:'clamp(27px, 2vw, 40px)',
           height:'auto',
           animation:y === 0 ? `${pulse} 1.5s ease-in-out` : 'none',
         }}/>
@@ -115,8 +115,8 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         position:'absolute',
         right:'5vw',
         top:'5vh',
-        width:'15vmin',
-        height:'3vmin',
+        width:'min(15vmin, 165px)',
+        height:'min(3vmin, 35px)',
         opacity:0.5,
         display:'flex',
         justifyContent:'space-between',
@@ -134,7 +134,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
           alt='github'
           height='100%'
           sx={{
-            width:'3vmin',
+            width:'min(3vmin, 35px)',
             cursor:'pointer'
           }}/>
       </a>
@@ -143,7 +143,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         target='_blank'
         rel='noopener noreferrer'
         sx={{
-          width:'3vmin',
+          width:'min(3vmin, 35px)',
           cursor:'pointer'
         }}>
         <img
