@@ -2,7 +2,9 @@
 import { useContext } from 'react'
 import {
   motion,
-  useMotionTemplate
+  useMotionTemplate,
+  useTransform,
+  useMotionValue
 } from 'framer-motion'
 import { Y } from '../../Controller'
 import useScrub from '../../hooks/use-scrub'
@@ -136,12 +138,8 @@ export default function Tile({ type, width, w, h }) {
   const tileHeight = useScrub(tileHeightParams, relY)
   const tileOpacityParams = {keyframes: isSafari ? safariKfs : tileKfs, type: 'opacity'}
   const tileOpacity = useScrub(tileOpacityParams, relY)
-
-  const leftKfs = {
-    0: `${w/2-(tileWidth.current.slice(0,-2)/2)}px`,
-    100: `${w/2-(tileWidth.current.slice(0,-2)/2)}px`
-  }
-  const tileLeft = useScrub(leftKfs, relY)
+  const motionW = useMotionValue(w)
+  const tileLeft = useTransform([tileWidth, motionW], ([latest, w]) => `${(w/2)-(latest.slice(0,-2)/2)}px`)
 
   const glowKfs = {
     0: '400%',

@@ -1,7 +1,8 @@
 import {
   createContext,
   useState,
-  useEffect
+  useEffect,
+  useMemo
 } from 'react'
 import useSize from './hooks/use-debounced-window-size'
 import Layout from './views/Layout'
@@ -37,22 +38,24 @@ export default function Controller() {
         storage.child(fbFilenames[file]).getDownloadURL()
           .then(url => {
             setImages(images => ({...images, [file]:url}))
-            //put in img?
           })
           .catch(err => alert(err))
       })
     }
   }, [instance])
 
+  const downloads = useMemo(() => Object.keys(images).map(img =>
+    <img
+      style={{visibility:'hidden'}}
+      alt='test'
+      src={images[img]}/>
+  ), [images])
+
   return (
     <Y.Provider value={y.percent}>
       <Images.Provider value={images}>
         <Layout scrollTo={scrollTo} w={size.width} h={size.height} />
-        <img
-          style={{visibility:'hidden'}}
-          alt='test'
-          src={images.gravity && ''}
-          />
+        {downloads}
       </Images.Provider>
     </Y.Provider>
   )

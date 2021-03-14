@@ -170,7 +170,7 @@ export default function Content({ type }) {
         }}/>
       <div
         sx={{
-          maxHeight:'33%',
+          maxHeight:'35%',
           minHeight:'30%',
           width:'100%',
           position:'absolute',

@@ -10,7 +10,8 @@ export default function About() {
         flexDirection:'column',
         justifyContent:'flex-start',
         alignItems:'center',
-        cursor:'default'
+        cursor:'default',
+        color:'Grey'
       }}>
       <h3
         sx={{
@@ -29,8 +30,8 @@ export default function About() {
         }}>
         Background Texts:
         <ul sx={{mt:'2%', pl:'1em'}}>
-          <li sx={{listStyleType:'none', mb:'2%'}}>Charles S. Pierce, <em>The Fixation of Belief</em></li>
-          <li sx={{listStyleType:'none'}}>John Dewey, <em>How We Think</em></li>
+          <li sx={{listStyleType:'none', mb:'2%'}}>Charles S. Pierce, <a href='http://www.bocc.ubi.pt/pag/peirce-charles-fixation-belief.html' target='_blank' rel='noopener noreferrer'  sx={{color:'Orange1',cursor:'pointer',textDecoration:'none'}}><em>The Fixation of Belief</em></a></li>
+          <li sx={{listStyleType:'none'}}>John Dewey, <a href='https://www.gutenberg.org/files/37423/37423-h/37423-h.htm' target='_blank' rel='noopener noreferrer'  sx={{color:'Orange1',cursor:'pointer',textDecoration:'none'}}><em>How We Think</em></a></li>
         </ul>
       </p>
       <p
