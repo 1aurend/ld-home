@@ -47,7 +47,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
   return (
     <>
     <motion.div
-      id='about'
+      id='about-icon'
       onMouseEnter={() => showCursor(true)}
       onMouseLeave={() => showCursor(false)}
       onClick={e => {e.stopPropagation();setShowInfo(!showInfo)}}
@@ -61,7 +61,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         display:'flex',
         justifyContent:'flex-start',
         alignItems:'flex-end',
-        zIndex:1001,
+        zIndex:50,
         cursor:'pointer',
       }}>
       <h2
@@ -92,11 +92,11 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         flexDirection:'column',
         justifyContent:'flex-end',
         alignItems:'center',
-        zIndex:1001,
+        zIndex:50,
         cursor:'pointer',
       }}>
       <img
-        id='arrow'
+        id='arrow-up'
         src={arrow}
         alt='prev'
         onClick={() => scrollTo(playPause[prev], smooth, 0)}
@@ -108,7 +108,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
           animation:y === 0 ? `${pulseRotate} 1.5s ease-in-out` : 'none',
         }}/>
       <img
-        id='arrow'
+        id='arrow-down'
         src={arrow}
         alt='next'
         onClick={() => scrollTo(playPause[next], smooth, 0)}
@@ -132,7 +132,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         display:'flex',
         justifyContent:'space-between',
         cursor:'pointer',
-        zIndex:1001,
+        zIndex:50,
       }}>
       <a
         href='https://github.com/1aurend'
@@ -160,10 +160,10 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         <img
           src={linkedIn}
           alt='linkedIn'
-          height='100%'
-          width='100%'
           sx={{
-            cursor:'pointer'
+            cursor:'pointer',
+            height:'100%',
+            width:'100%'
           }}/>
       </a>
       <img
@@ -171,6 +171,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         src={email}
         alt='contact me'
         height='100%'
+        width='auto'
         sx={{cursor:'pointer'}}/>
     </div>
     </>

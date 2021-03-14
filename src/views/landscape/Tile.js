@@ -139,6 +139,7 @@ export default function Tile({ type, width, w, h }) {
   const tileOpacityParams = {keyframes: isSafari ? safariKfs : tileKfs, type: 'opacity'}
   const tileOpacity = useScrub(tileOpacityParams, relY)
   const motionW = useMotionValue(w)
+  motionW.set(w)
   const tileLeft = useTransform([tileWidth, motionW], ([latest, w]) => `${(w/2)-(latest.slice(0,-2)/2)}px`)
 
   const glowKfs = {
@@ -150,7 +151,7 @@ export default function Tile({ type, width, w, h }) {
   }
   const glowSize = useScrub(glowKfs, relY)
 
-  const purpleGradient = useMotionTemplate`radial-gradient(ellipse at center, #5257F7CC 10%,#5257F703 70%,#5257F700 75%, transparent 100vw)`
+  const purpleGradient = useMotionTemplate`radial-gradient(ellipse at center, #5257F7CC 10%,#5257F703 70%,#5257F700 75%, transparent 30vw)`
   const tealGradient = useMotionTemplate`radial-gradient(ellipse at center, #0ca89bCC 10%,#0ca89b03 70%,#0ca89b00 75%, transparent 100vw)`
   const redGradient = useMotionTemplate`radial-gradient(ellipse at center, #bd5585CC 10%,#bd558503 70%,#bd558500 75%, transparent 100vw)`
   const gradients = {
@@ -183,6 +184,7 @@ export default function Tile({ type, width, w, h }) {
   const spin = useMotionTemplate`rotateY(${tileSpin})`
 
   const hazeKfs = {
+    0: .8,
     31: .8,
     32: .6,
     34: .2,
@@ -190,7 +192,9 @@ export default function Tile({ type, width, w, h }) {
     82: 0,
     84: .2,
     86: .6,
-    87: .8
+    87: .8,
+    93: .8,
+    95: 0
   }
   const haze = useScrub(hazeKfs, relY)
 
@@ -203,14 +207,14 @@ export default function Tile({ type, width, w, h }) {
         width:tileWidth,
         top:tileTop,
         left:tileLeft,
-        opacity:tileOpacity,
+        opacity:isSafari ? tileOpacity : 1
       }}
       sx={{
         position:'absolute',
         flexDirection:'column',
         justifyContent:'center',
         alignItems:'center',
-        display:relY >= .23 ? 'flex' : 'none'
+        display:relY >= .23 ? 'flex' : 'none',
       }}>
       <motion.div
         id='tile-glow'
@@ -218,12 +222,12 @@ export default function Tile({ type, width, w, h }) {
           backgroundImage:radialGradient,
           height:glowSize,
           width:glowSize,
-          transform:spin
+          transform:spin,
+          opacity:tileOpacity,
         }}
         sx={{
           mixBlendMode:'soft-light',
           position:'absolute',
-          zIndex:10,
         }}>
       </motion.div>
       <motion.div
@@ -234,15 +238,16 @@ export default function Tile({ type, width, w, h }) {
           borderTopRightRadius:tileRadius,
           borderBottomRightRadius:tileRadius,
           transform:spin,
+          opacity:tileOpacity,
         }}
         sx={{
           height:'100%',
           width:'100%',
           mixBlendMode:'normal',
-          zIndex:104,
           overflow:'hidden',
           bg:'light',
-          backgroundClip:'border-box'
+          backgroundClip:'border-box',
+          zIndex:30
         }}>
         <Content type={type}/>
         <a
@@ -263,7 +268,6 @@ export default function Tile({ type, width, w, h }) {
               borderBottomRightRadius:tileRadius,
             }}
             sx={{
-              cursor:'pointer',
               height:relY > .36 && relY < .82 ? '95%' : '100%',
               width:relY > .36 && relY < .82 ? '95%' : '100%',
               m:relY > .36 && relY < .82 ? '2.5%' : 0,
@@ -271,7 +275,8 @@ export default function Tile({ type, width, w, h }) {
               top:0,
               left:0,
               bg:'light',
-              backgroundClip:'border-box'
+              backgroundClip:'border-box',
+              cursor:'pointer',
             }}>
           </motion.div>
         </a>

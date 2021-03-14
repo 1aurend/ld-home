@@ -71,6 +71,7 @@ const Name = ({ scrollTo, showCursor }) => {
   const fontSize = useScrub(fontKfs[current], relY)
   const scale = useMotionTemplate`scale(${fontSize})`
 
+  //use min(max()) here in kfs to create clamp without conditional rendering
   const dKfs = {
     1: {
       0: {left:'0vmin',top:'0vmin'},
@@ -87,7 +88,7 @@ const Name = ({ scrollTo, showCursor }) => {
   const topParams = {keyframes: dKfs[current], type: 'top'}
   const dLeft = useScrub(leftParams, relY)
   const dTop = useScrub(topParams, relY)
-  const moveD = useMotionTemplate`translate(clamp(-2.25vw, ${dLeft}, -5vw), ${dTop})`
+  const moveD = useMotionTemplate`translate(${dLeft}, ${dTop})`
 
   const display = current === 1 && relY >= .94 ? 'none' : current === 7 && relY <= .06 ? 'none' : ''
 
@@ -108,7 +109,7 @@ const Name = ({ scrollTo, showCursor }) => {
         pb:'5vmin',
         boxSizing:'border-box',
         visibility:y <= 0.001 ? 'visible' : 'hidden',
-        zIndex:100
+        zIndex:20
       }}>
       Lauren Davidson
     </div>
@@ -135,36 +136,38 @@ const Name = ({ scrollTo, showCursor }) => {
         position:'absolute',
         transformOrigin:'center',
         boxSizing:'border-box',
-        zIndex:1001,
+        zIndex:50,
         visibility:y > 0.001 ? 'visible' : 'hidden',
         cursor:'pointer'
       }}>
       L
       <Letter
         val={'a'}
-        z={205}
+        z={26}
         out={85}
         back={33}
         />
       <Letter
         val={'u'}
-        z={204}
+        z={25}
         out={82}
         back={36}
         />
       <Letter
         val={'r'}
-        z={203}
+        z={24}
         out={79}
         back={39}
         />
       <Letter
         val={'e'}
-        z={202}
+        z={23}
         out={76}
         back={42}
         />
-      <Letter val={'n'} z={201}
+      <Letter
+        val={'n'}
+        z={22}
         out={73}
         back={45}
         />
@@ -180,43 +183,43 @@ const Name = ({ scrollTo, showCursor }) => {
       </motion.span>
       <Letter
         val={'a'}
-        z={205}
+        z={26}
         out={85}
         back={30}
         />
       <Letter
         val={'v'}
-        z={204}
+        z={25}
         out={82}
         back={33}
         />
       <Letter
         val={'i'}
-        z={203}
+        z={24}
         out={79}
         back={36}
         />
       <Letter
         val={'d'}
-        z={202}
+        z={23}
         out={76}
         back={39}
         />
       <Letter
         val={'s'}
-        z={201}
+        z={22}
         out={73}
         back={42}
         />
       <Letter
         val={'o'}
-        z={203}
+        z={21}
         out={70}
         back={45}
         />
       <Letter
         val={'n'}
-        z={202}
+        z={20}
         out={67}
         back={48}
         />

@@ -92,12 +92,14 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
       requestTick()
     }
     const onTouchMove = e => {
+      e.preventDefault()
       ePos.current = {x: e.changedTouches[0].clientX, y:e.changedTouches[0].clientY}
       requestTick()
     }
     if (touch) {
       window.addEventListener('touchmove', onTouchMove)
-      return () => window.removeEventListener('touchmove', onTouchMove)
+      window.addEventListener('touchstart', e => e.preventDefault())
+      return () => {window.removeEventListener('touchmove', onTouchMove);window.removeEventListener('touchstart')}
     }
     window.addEventListener('mousemove', onMouseMove)
     return () => window.removeEventListener('mousemove', onMouseMove)
@@ -108,7 +110,7 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
       id='cursor-parent'
       sx={{
         pointerEvents:'none',
-        zIndex:1000,
+        zIndex:10
       }}>
       <motion.div
         id='cursor-glow'
@@ -120,7 +122,7 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
           height:`${showInfo ? maxRadius*5 : maxRadius}px`,
           borderRadius:'100%',
           mixBlendMode:'soft-light',
-          position:'fixed',
+          position:'absolute',
           left:`${showInfo ? infoPos.x : initPos.x-maxRadius/2}px`,
           top:`${showInfo ? infoPos.y : initPos.y-maxRadius/2}px`,
         }}>
@@ -135,7 +137,7 @@ const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
           top:`${initPos.y-maxRadius/20}px`,
           borderRadius:'100%',
           opacity:1,
-          position:'fixed',
+          position:'absolute',
         }}>
       </div>}
     </div>

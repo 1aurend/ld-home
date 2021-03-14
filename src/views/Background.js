@@ -74,7 +74,7 @@ export default function TextBackground({ children, showInfo, setShowInfo }) {
           height:'100vh',
           width:'100vw',
           isolation:'isolate',
-          zIndex:0,
+          zIndex:1,
           position:'absolute'
         }}>
         <motion.div
@@ -88,7 +88,7 @@ export default function TextBackground({ children, showInfo, setShowInfo }) {
             width:'100%',
             fontFamily:'heading',
             fontSize:'teensy',
-            zIndex:-1000,
+            zIndex:0,
             overflow:'hidden',
             position:'absolute',
             opacity:1,
@@ -114,10 +114,11 @@ export default function TextBackground({ children, showInfo, setShowInfo }) {
             width:'20vw',
             p:'2%',
             opacity:.9,
-            zIndex:5000,
+            zIndex:51,
             fontFamily:'inter',
             borderRadius:'2px',
             visibility:showInfo? 'visible' : 'hidden',
+            cursor:'default'
           }}>
           <About/>
         </motion.div>

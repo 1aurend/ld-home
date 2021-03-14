@@ -167,20 +167,19 @@ const Slider = forwardRef((props, ref) => {
         boxSizing:'border-box',
         visibility:yPer <= 0.001 ? 'visible' : 'hidden',
         animation:yPer === 0 ? `${pulse} 1.5s ease-in-out` : 'none',
-        zIndex:100,
+        zIndex:20,
         cursor:'pointer'
       }}>
       {type}
     </div>
     <motion.div
-      id={type}
+      id={`${type}-parent`}
       onClick={() => scrollTo(scrollToPoints[type],size.height/2.5,0)}
       onMouseEnter={() => showCursor(true)}
       onMouseLeave={() => showCursor(false)}
       style={{
         left:x,
         top:y,
-        opacity:opacity
       }}
       sx={{
         height:'auto',
@@ -209,8 +208,13 @@ const Slider = forwardRef((props, ref) => {
         }}>
       </motion.div>
       <motion.div
+        id={`${type}-slider`}
+        sx={{
+          zIndex:50
+        }}
         style={{
           transform:grow,
+          opacity:opacity
         }}>
         {type}
       </motion.div>

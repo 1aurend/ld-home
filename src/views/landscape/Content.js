@@ -72,7 +72,7 @@ export default function Content({ type }) {
           m:0,
           height:'100%',
           width:'100%',
-          display:relY >= .31 && relY <= .85 ? 'flex' : 'none',
+          display:relY >= .31 && relY <= .87 ? 'flex' : 'none',
           flexDirection:'column',
           justifyContent:'flex-start',
           perspective:'20vw',
@@ -108,7 +108,7 @@ export default function Content({ type }) {
             zIndex:401
           }}>
           <motion.h2
-            style={{fontSize:relY >= .33 && relY <= .85 ? titleClamp : titleSize}}
+            style={{fontSize:relY >= .33 && relY <= .87 ? titleClamp : titleSize}}
             sx={{
               fontFamily:'heading',
               color:'light',
@@ -133,17 +133,18 @@ export default function Content({ type }) {
         m:0,
         height:'100%',
         width:'100%',
-        display:relY >= .31 && relY <= .85 ? 'flex' : 'none',
+        display:relY >= .31 && relY <= .87 ? 'flex' : 'none',
         flexDirection:'column',
         justifyContent:'flex-start',
         perspective:'20vw',
         overflow:'hidden',
         transformOrigin:'center',
-        borderRadius:'inherit'
+        borderRadius:'inherit',
+        zIndex:30
       }}>
       <motion.h2
         id='tile-title'
-        style={{fontSize:relY >= .33 && relY <= .85 ? titleClamp : titleSize}}
+        style={{fontSize:relY >= .33 && relY <= .87 ? titleClamp : titleSize}}
         sx={{
           fontFamily:'heading',
           color:'light',
@@ -154,7 +155,7 @@ export default function Content({ type }) {
           width:'65%',
           overflow:'hidden',
           bg:colors[type],
-          zIndex:401,
+          zIndex:31,
           position:'absolute',
           textAlign:'center',
           borderTopLeftRadius:'inherit'
@@ -169,8 +170,8 @@ export default function Content({ type }) {
           maxHeight:'90%',
           height:'auto',
           alignSelf:'center',
-          zIndex:400,
-          pt:'12%'
+          zIndex:30,
+          pt:'12%',
         }}/>
       <div
         id='tile-text'
@@ -188,7 +189,7 @@ export default function Content({ type }) {
           display:'flex',
           flexDirection:'column',
           justifyContent:'center',
-          zIndex:401,
+          zIndex:31,
           borderBottomLeftRadius:'inherit',
           borderBottomRightRadius:'inherit'
         }}>
