@@ -16,7 +16,6 @@ import sceneList from '../assets/sceneList'
 
 
 const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
-  console.log('cursor')
   const windowSize = useSize()
   const infoRadius = maxRadius*(windowSize.width/200)
   const y = useContext(Y)

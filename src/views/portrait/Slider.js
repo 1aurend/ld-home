@@ -2,15 +2,19 @@
 import React, {
   useRef,
   useEffect,
-  useCallback
+  useCallback,
+  useContext
 } from 'react'
 import { keyframes } from '@emotion/react'
 import {
   motion,
   useMotionValue,
 } from 'framer-motion'
-import getScrubValues from '../../utils/getScrubValues'
-import { animations } from '../../assets/animList'
+import useSize from '../../hooks/use-debounced-window-size'
+import {animations} from '../../deprecated/animList'
+import getScrubValues from '../../deprecated/getScrubValues'
+import {Y} from '../../Controller'
+
 
 const pulse = keyframes({
   '0%': {
@@ -26,10 +30,10 @@ const pulse = keyframes({
 
 
 const Slider = props => {
+  const size = useSize()
+  const yPercent = useContext(Y)
   const {
     type,
-    yPercent,
-    size,
     color='Orange1'
   } = props
   const x = useMotionValue()
@@ -101,7 +105,7 @@ const Slider = props => {
       style={{
         left:yPercent !== 0 ? x : '',
         top:yPercent !== 0 ? y : '',
-        position:yPercent !== 0 ? 'fixed' : '',
+        position:yPercent !== 0 ? 'absolute' : '',
         opacity:type === 'developer' ? opacityD : type === 'educator' ? opacityE : opacityP
       }}
       sx={{
