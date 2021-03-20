@@ -5,21 +5,24 @@ import {
   useContext,
   useRef,
 } from 'react'
-import Subhead from './landscape/Subhead'
-import Tile from './landscape/Tile'
+import { isMobileOnly } from 'react-device-detect'
+import { Y } from '../Controller'
 import useMediaQueries from '../hooks/use-media-queries'
+import useSliderX from '../hooks/use-slider-x'
+import useBoundingBox from '../hooks/use-bounding-box'
 import Background from './Background'
 import Name from './landscape/Name'
 import MobileName from './portrait/Name'
 import Slider from './landscape/Slider'
 import MobileSlider from './portrait/Slider'
-import Icons from './Icons'
+import Subhead from './landscape/Subhead'
+import MobileSubhead from './portrait/Subhead'
+import Tile from './landscape/Tile'
+import MobileTile from './portrait/Tile'
+import Icons from './landscape/Icons'
 import MobileIcons from './portrait/Icons'
-import { Y } from '../Controller'
-import useSliderX from '../hooks/use-slider-x'
-import useBoundingBox from '../hooks/use-bounding-box'
 import Contact from './landscape/Contact'
-import { isMobile } from 'react-device-detect'
+import MobileContact from './portrait/Contact'
 import Placeholder from './portrait/Placeholder'
 
 
@@ -31,6 +34,10 @@ const Layout = ({ scrollTo, w, h }) => {
   const yPer = useContext(Y)
   const [showCursor, setShowCursor] = useState(false)
   const [showInfo, setShowInfo] = useState(false)
+  const mQs = {
+    or: '(orientation: portrait)',
+  }
+  const mediaVals = useMediaQueries(mQs)
 
   const pSlider = useRef(0)
   const eSlider = useRef(0)
@@ -42,14 +49,9 @@ const Layout = ({ scrollTo, w, h }) => {
     pW: pSlider.current,
     eW: eSlider.current,
     dW: dSlider.current,
-    flexW: isMobile ? w*.8 : width
+    flexW: mediaVals.org || isMobileOnly ? w*.8 : width
   }
-
-  const mQs = {
-    or: '(orientation: portrait)',
-  }
-  const mediaVals = useMediaQueries(mQs)
-  const { pX, eX, dX } = useSliderX(widths, yPer, isMobile || mediaVals.or)
+  const { pX, eX, dX } = useSliderX(widths, yPer, mediaVals.or || isMobileOnly)
 
   // if (mediaVals.or || isMobile) {
   //   return (
@@ -59,7 +61,7 @@ const Layout = ({ scrollTo, w, h }) => {
   //   )
   // }
 
-  if (mediaVals.or || isMobile ) {
+  if (mediaVals.or || isMobileOnly ) {
     return (
       <Cursor.Provider value={showCursor}>
         <Background
@@ -127,22 +129,22 @@ const Layout = ({ scrollTo, w, h }) => {
             sx={{
               display:yPer >= .03 ? '' : 'none'
             }}>
-            <Subhead type='developer' width={w*.8} w={w}/>
-            <Tile type='developer' width={w*.8} w={w} h={h}/>
+            <MobileSubhead type='developer' width={w*.8} w={w}/>
+            <MobileTile type='developer' width={w*.8} w={w} h={h}/>
           </section>
           <section
             sx={{
               display:yPer >= .37 ? '' : 'none'
             }}>
-            <Subhead type='educator' width={w*.8} w={w}/>
-            <Tile type='educator' width={w*.8} w={w} h={h}/>
+            <MobileSubhead type='educator' width={w*.8} w={w}/>
+            <MobileTile type='educator' width={w*.8} w={w} h={h}/>
           </section>
           <section
             sx={{
               display:yPer >= .03 ? '' : 'none'
             }}>
-            <Subhead type='philosopher' width={w*.8} w={w}/>
-            <Tile type='philosopher' width={w*.8} w={w} h={h}/>
+            <MobileSubhead type='philosopher' width={w*.8} w={w}/>
+            <MobileTile type='philosopher' width={w*.8} w={w} h={h}/>
           </section>
           <MobileIcons
             scrollTo={scrollTo}

@@ -5,7 +5,10 @@ import {
   useMemo
 } from 'react'
 import useSize from './hooks/use-debounced-window-size'
-import Layout from './views/Layout'
+import useMediaQueries from './hooks/use-media-queries'
+import { isMobileOnly } from 'react-device-detect'
+import DesktopLayout from './views/landscape/Layout'
+import MobileLayout from './views/portrait/Layout'
 import { yMultiplier, wheelMultiplier } from './assets/sceneList'
 import useWheelY from './hooks/use-wheel-y'
 import firebase from 'firebase/app'
@@ -24,6 +27,10 @@ export default function Controller() {
   const { y, scrollTo } = useWheelY(yMultiplier, wheelMultiplier, size)
   const [images, setImages] = useState({})
   const [instance, setInstance] = useState(null)
+  const mQs = {
+    or: '(orientation: portrait)',
+  }
+  const mediaVals = useMediaQueries(mQs)
 
   useEffect(() => {
     firebase.initializeApp(firebaseConfig)
@@ -58,7 +65,12 @@ export default function Controller() {
   return (
     <Y.Provider value={y.percent}>
       <Images.Provider value={images}>
-        <Layout scrollTo={scrollTo} w={size.width} h={size.height} />
+        {(mediaVals.or || isMobileOnly) &&
+          <MobileLayout scrollTo={scrollTo} w={size.width} h={size.height} />
+        }
+        {!(mediaVals.or || isMobileOnly) &&
+          <DesktopLayout scrollTo={scrollTo} w={size.width} h={size.height} />
+        }
         {downloads}
       </Images.Provider>
     </Y.Provider>

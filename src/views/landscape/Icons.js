@@ -1,14 +1,14 @@
 /** @jsxImportSource theme-ui */
 import { useContext } from 'react'
-import { Y } from '../Controller'
-import email from '../assets/icons/mail.svg'
-import github from '../assets/icons/GitHub-Mark-Light-64px.png'
-import linkedIn from '../assets/icons/In-White-72.png'
-import arrowUp from '../assets/icons/arrow-up.svg'
-import arrowDown from '../assets/icons/arrow-down.svg'
-import useSize from '../hooks/use-debounced-window-size'
+import { Y } from '../../Controller'
+import email from '../../assets/icons/mail.svg'
+import github from '../../assets/icons/GitHub-Mark-Light-64px.png'
+import linkedIn from '../../assets/icons/In-White-72.png'
+import arrowUp from '../../assets/icons/arrow-up.svg'
+import arrowDown from '../../assets/icons/arrow-down.svg'
+import useSize from '../../hooks/use-debounced-window-size'
 import { motion } from 'framer-motion'
-import { playPause } from '../assets/sceneList'
+import { playPause } from '../../assets/sceneList'
 import { keyframes } from '@emotion/react'
 
 

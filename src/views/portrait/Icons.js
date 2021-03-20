@@ -31,7 +31,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
   const next = y > .91 ? 13 : Object.keys(playPause).filter(key => y < playPause[key])[0]
   const greater = Object.keys(playPause).filter(key => y > playPause[key])
   const prev = y <= .075 ? 0 : Object.keys(playPause).filter(key => y > playPause[key])[greater[greater.length-1]]
-  const smooth = size.height/100
+  const smooth = size.height/40
 
 
   return (
