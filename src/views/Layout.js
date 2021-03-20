@@ -63,7 +63,10 @@ const Layout = ({ scrollTo, w, h }) => {
   if (mediaVals.or || isMobile ) {
     return (
       <Cursor.Provider value={showCursor}>
-        <Background showInfo={showInfo} setShowInfo={setShowInfo}>
+        <Background
+          showInfo={showInfo}
+          setShowInfo={setShowInfo}
+          maxRadius={150}>
           <section
             id='splash'
             sx={{
@@ -83,14 +86,13 @@ const Layout = ({ scrollTo, w, h }) => {
               sx={{
                 display:'flex',
                 flexDirection:'column',
-                justifyContent:'flex-start',
+                justifyContent:'center',
                 width:'max-content',
                 opacity: 1,
                 height:'100vh',
-                pt:'50%'
               }}
               >
-              <MobileName />
+              <MobileName scrollTo={scrollTo} showCursor={setShowCursor}/>
               <div
                 id='sliders-flex'
                 sx={{

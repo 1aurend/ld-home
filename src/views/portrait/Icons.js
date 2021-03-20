@@ -31,7 +31,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
   const next = y > .91 ? 13 : Object.keys(playPause).filter(key => y < playPause[key])[0]
   const greater = Object.keys(playPause).filter(key => y > playPause[key])
   const prev = y <= .075 ? 0 : Object.keys(playPause).filter(key => y > playPause[key])[greater[greater.length-1]]
-  const smooth = size.height/20
+  const smooth = size.height/100
 
 
   return (
@@ -43,7 +43,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
       onClick={e => {e.stopPropagation();setShowInfo(!showInfo)}}
       sx={{
         position:'absolute',
-        right:'5vw',
+        right:'6vw',
         bottom:'3vh',
         width:'clamp(25px, 3vw, 40px)',
         height:'auto',
@@ -60,7 +60,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
           fontFamily:'heading',
           fontWeight:'bold',
           color:'Orange1',
-          fontSize:'clamp(25px, 3vw, 40px)',
+          fontSize:'clamp(25px, 8vw, 50px)',
           m:0
         }}>
         ?

@@ -12,7 +12,7 @@ import useScenes from '../hooks/use-scenes'
 import About from './About'
 
 
-export default function TextBackground({ children, showInfo, setShowInfo }) {
+export default function TextBackground({ children, showInfo, setShowInfo, maxRadius }) {
   const y = useContext(Y)
   const [ relY, current ] = useScenes(sceneList, [1,3,5,7], y)
 
@@ -97,7 +97,7 @@ export default function TextBackground({ children, showInfo, setShowInfo }) {
           {peirce}
           {dewey}
         </motion.div>
-        <Cursor showInfo={showInfo}/>
+        <Cursor showInfo={showInfo} maxRadius={maxRadius}/>
         {children}
         <motion.div
           id='about-text'
