@@ -75,7 +75,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         position:'absolute',
         left:'49vw',
         bottom:'4vh',
-        width:'clamp(20px, 3vw, 40px)',
+        width:'clamp(20px, 3vh, 80px)',
         height:'auto',
         opacity:1,
         display:'flex',
@@ -92,7 +92,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         onClick={() => scrollTo(playPause[prev], smooth, 0)}
         sx={{
           mb:'2vh',
-          width:'clamp(20px, 2vw, 40px)',
+          width:'clamp(20px, 3vh, 80px)',
           height:'auto',
           animation:y === 0 ? `${pulse} 1.5s ease-in-out` : 'none',
         }}/>
@@ -102,7 +102,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         alt='next'
         onClick={() => scrollTo(playPause[next], smooth, 0)}
         sx={{
-          width:'clamp(20px, 2vw, 40px)',
+          width:'clamp(20px, 3vh, 80px)',
           height:'auto',
           animation:y === 0 ? `${pulse} 1.5s ease-in-out` : 'none',
         }}/>

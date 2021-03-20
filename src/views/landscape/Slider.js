@@ -152,9 +152,6 @@ const Slider = forwardRef((props, ref) => {
     <div
       ref={sliderRef}
       id={`${type}-flex`}
-      onClick={() => scrollTo(scrollToPoints[type],size.height/2.5,0)}
-      onMouseEnter={() => showCursor(true)}
-      onMouseLeave={() => showCursor(false)}
       sx={{
         height:'auto',
         width:'auto',
@@ -168,7 +165,6 @@ const Slider = forwardRef((props, ref) => {
         visibility:yPer <= 0.001 ? 'visible' : 'hidden',
         animation:yPer === 0 ? `${pulse} 1.5s ease-in-out` : 'none',
         zIndex:20,
-        cursor:'pointer'
       }}>
       {type}
     </div>

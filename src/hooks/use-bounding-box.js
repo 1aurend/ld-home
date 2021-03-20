@@ -20,7 +20,7 @@ export default function useBoundingBox(ref, y) {
         const rect = ref.getBoundingClientRect()
         setHX(rect.left)
         setHY(rect.top)
-        setBY(rect.bottom)
+        setBY(size.height-rect.bottom)
         setWidth(rect.width)
         prevSize.current = size
       }

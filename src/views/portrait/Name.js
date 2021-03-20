@@ -25,31 +25,30 @@ const Name = ({ scrollTo, showCursor }) => {
 
   const [relY, current] = useScenes(scenes, [1,7], y)
 
-  const topKfs = {
+  const bottomKfs = {
     1: {
       0: `${bY || 0}px`,
       30: `${bY || 0}px`,
-      95: `${-size.height*0.015}px`,
-      100: `${-size.height*0.015}px`
+      95: `${size.height*0.02}px`,
+      100: `${size.height*0.02}px`
     },
     7: {
-      0: `${-size.height*0.002}px`,
-      80: `${-size.height*0.002}px`,
+      0: `${size.height*0.02}px`,
+      80: `${bY/2.5}px`,
       100: `${bY/2.5}px`
     }
   }
-  const top = useScrub(topKfs[current], relY)
+  const bottom = useScrub(bottomKfs[current], relY)
   const leftKfs = {
     1: {
       0: `${hX || 0}px`,
       2: `${hX || 0}px`,
-      30: `${size.width*0.11}px`,
-      100: `${size.width*0.11}px`
+      30: `${size.width*0.095}px`,
+      100: `${size.width*0.095}px`
     },
     7: {
       0: `${size.width*0.06}px`,
-      5: `${size.width*0.06}px`,
-      80: `${hX}px`,
+      60: `${size.width*0.06}px`,
       100: `${hX}px`
     }
   }
@@ -64,26 +63,19 @@ const Name = ({ scrollTo, showCursor }) => {
     },
     7: {
       0: 0.65,
-      80: 0.65,
-      100: 0.8
+      60: 1,
+      100: 1
     }
   }
   const fontSize = useScrub(fontKfs[current], relY)
   const scale = useMotionTemplate`scale(${fontSize})`
-  // const left = useTransform([fontSize], latest => {
-  //   if (latest === 1) {
-  //     return `${bY || 0}px`
-  //   }
-  //   return
-  // })
-
 
   const lKfs = {
     1: {
-      0: {left:'0vw',top:'0vw'},
-      25: {left:'0vw',top:'0vw'},
-      30: {left:'-5vw',top:'10vw'},
-      100: {left:'-5vw',top:'10vw'},
+      0: {left:'0vw',top:'0vh'},
+      26: {left:'0vw',top:'0vh'},
+      30: {left:'-4.5vw',top:'5vh'},
+      100: {left:'-4.5vw',top:'5vh'},
     },
     7: {
       0: {left:'2.5vw',top:'-5vw'},
@@ -93,10 +85,10 @@ const Name = ({ scrollTo, showCursor }) => {
   }
   const leftParams = {keyframes: lKfs[current], type: 'left'}
   const topParams = {keyframes: lKfs[current], type: 'top'}
-  const dLeft = useScrub(leftParams, relY)
-  const dTop = useScrub(topParams, relY)
+  const lLeft = useScrub(leftParams, relY)
+  const lTop = useScrub(topParams, relY)
   //fix these for responsive
-  const moveD = useMotionTemplate`translate(min(${dLeft}, 40px), max(${dTop}, 0px))`
+  const moveL = useMotionTemplate`translate(min(${lLeft}, 50px), min(${lTop}, 60px))`
 
   return (
     <>
@@ -108,7 +100,6 @@ const Name = ({ scrollTo, showCursor }) => {
         fontSize:'clamp(30px, 14vw, 90px)',
         color:'Teal2',
         textAlign:'right',
-        alignSelf:'center',
         lineHeight:'clamp(25px, 13vw, 80px)',
         width: 'auto',
         pb:'5vmin',
@@ -133,7 +124,7 @@ const Name = ({ scrollTo, showCursor }) => {
       style={{
         transform:scale,
         left:left,
-        bottom:top,
+        bottom:bottom,
       }}
       sx={{
         fontFamily:'heading',
@@ -143,7 +134,7 @@ const Name = ({ scrollTo, showCursor }) => {
         width: 'auto',
         pb:'5vmin',
         position:'absolute',
-        transformOrigin:'center left',
+        transformOrigin:'bottom left',
         boxSizing:'border-box',
         zIndex:50,
         visibility:y > 0.001 ? 'visible' : 'hidden',
@@ -156,7 +147,7 @@ const Name = ({ scrollTo, showCursor }) => {
       <div>
         <motion.span
           style={{
-            transform:moveD
+            transform:moveL
           }}
           sx={{
             display:'inline-block'

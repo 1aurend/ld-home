@@ -13,15 +13,14 @@ import Name from './landscape/Name'
 import MobileName from './portrait/Name'
 import Slider from './landscape/Slider'
 import MobileSlider from './portrait/Slider'
-import MobileSliderFlex from './portrait/SliderFlex'
 import Icons from './Icons'
+import MobileIcons from './portrait/Icons'
 import { Y } from '../Controller'
 import useSliderX from '../hooks/use-slider-x'
 import useBoundingBox from '../hooks/use-bounding-box'
 import Contact from './landscape/Contact'
 import { isMobile } from 'react-device-detect'
 import Placeholder from './portrait/Placeholder'
-import MobileIcons from './portrait/Icons'
 
 
 export const Cursor = createContext()
@@ -43,14 +42,14 @@ const Layout = ({ scrollTo, w, h }) => {
     pW: pSlider.current,
     eW: eSlider.current,
     dW: dSlider.current,
-    flexW: width
+    flexW: isMobile ? w*.8 : width
   }
-  const { pX, eX, dX } = useSliderX(widths, yPer)
 
   const mQs = {
     or: '(orientation: portrait)',
   }
   const mediaVals = useMediaQueries(mQs)
+  const { pX, eX, dX } = useSliderX(widths, yPer, isMobile || mediaVals.or)
 
   // if (mediaVals.or || isMobile) {
   //   return (
@@ -86,28 +85,13 @@ const Layout = ({ scrollTo, w, h }) => {
               sx={{
                 display:'flex',
                 flexDirection:'column',
-                justifyContent:'center',
+                justifyContent:'flex-start',
                 width:'max-content',
                 opacity: 1,
                 height:'100vh',
-              }}
-              >
+                pt:'28vh'
+              }}>
               <MobileName scrollTo={scrollTo} showCursor={setShowCursor}/>
-              <div
-                id='sliders-flex'
-                sx={{
-                  width:'80vw',
-                  display:yPer >= .05 ? 'flex' : 'none',
-                  justifyContent:'space-between',
-                  position:'absolute',
-                  top:'10vh',
-                  left:'10vw'
-                }}
-                >
-                <MobileSliderFlex type='philosopher' color={'Teal1'}/>
-                <MobileSliderFlex type='educator' color={'Teal1'}/>
-                <MobileSliderFlex type='developer' color={'Teal1'}/>
-              </div>
               <div
                 id='sliders'
                 sx={{
@@ -118,11 +102,47 @@ const Layout = ({ scrollTo, w, h }) => {
                   height:'30vmin'
                 }}
                 >
-                <MobileSlider type='philosopher' />
-                <MobileSlider type='educator' />
-                <MobileSlider type='developer' />
+                <MobileSlider
+                  type='philosopher'
+                  ref={pSlider}
+                  scrollTo={scrollTo}
+                  showCursor={setShowCursor}
+                  carouselX={pX}/>
+                <MobileSlider
+                  type='developer'
+                  ref={dSlider}
+                  scrollTo={scrollTo}
+                  showCursor={setShowCursor}
+                  carouselX={dX}/>
+                <MobileSlider
+                  type='educator'
+                  ref={eSlider}
+                  scrollTo={scrollTo}
+                  showCursor={setShowCursor}
+                  carouselX={eX}/>
               </div>
             </div>
+          </section>
+          <section
+            sx={{
+              display:yPer >= .03 ? '' : 'none'
+            }}>
+            <Subhead type='developer' width={w*.8} w={w}/>
+            <Tile type='developer' width={w*.8} w={w} h={h}/>
+          </section>
+          <section
+            sx={{
+              display:yPer >= .37 ? '' : 'none'
+            }}>
+            <Subhead type='educator' width={w*.8} w={w}/>
+            <Tile type='educator' width={w*.8} w={w} h={h}/>
+          </section>
+          <section
+            sx={{
+              display:yPer >= .03 ? '' : 'none'
+            }}>
+            <Subhead type='philosopher' width={w*.8} w={w}/>
+            <Tile type='philosopher' width={w*.8} w={w} h={h}/>
           </section>
           <MobileIcons
             scrollTo={scrollTo}
