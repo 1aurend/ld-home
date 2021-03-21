@@ -20,12 +20,16 @@ import { fbFilenames } from './assets/content'
 
 export const Y = createContext()
 export const Images = createContext()
+export const Cursor = createContext()
+export const ToggleCursor = createContext()
 
 
 export default function Controller() {
   const size = useSize()
   const { y, scrollTo } = useWheelY(yMultiplier, wheelMultiplier, size)
   const [images, setImages] = useState({})
+  const [cursor, toggleCursor] = useState(false)
+  const [showInfo, setShowInfo] = useState(false)
   const [instance, setInstance] = useState(null)
   const mQs = {
     or: '(orientation: portrait)',
@@ -65,13 +69,27 @@ export default function Controller() {
   return (
     <Y.Provider value={y.percent}>
       <Images.Provider value={images}>
-        {(mediaVals.or || isMobileOnly) &&
-          <MobileLayout scrollTo={scrollTo} w={size.width} h={size.height} />
-        }
-        {!(mediaVals.or || isMobileOnly) &&
-          <DesktopLayout scrollTo={scrollTo} w={size.width} h={size.height} />
-        }
-        {downloads}
+        <Cursor.Provider value={cursor}>
+          <ToggleCursor.Provider value={toggleCursor}>
+            {(mediaVals.or || isMobileOnly) &&
+              <MobileLayout
+                scrollTo={scrollTo}
+                w={size.width}
+                h={size.height}
+                showInfo={showInfo}
+                setShowInfo={setShowInfo}/>
+            }
+            {!(mediaVals.or || isMobileOnly) &&
+              <DesktopLayout
+                scrollTo={scrollTo}
+                w={size.width}
+                h={size.height}
+                showInfo={showInfo}
+                setShowInfo={setShowInfo}/>
+            }
+            {downloads}
+          </ToggleCursor.Provider>
+        </Cursor.Provider>
       </Images.Provider>
     </Y.Provider>
   )

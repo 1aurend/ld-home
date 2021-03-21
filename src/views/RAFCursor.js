@@ -5,10 +5,13 @@ import React, {
   useRef,
   useContext
 } from 'react'
-import { motion, useMotionTemplate, useMotionValue } from 'framer-motion'
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue 
+} from 'framer-motion'
 import { isMobile } from 'react-device-detect'
-import { Cursor } from './Layout'
-import { Y } from '../Controller'
+import { Y, Cursor } from '../Controller'
 import useSize from '../hooks/use-debounced-window-size'
 import useScrub from '../hooks/use-scrub'
 import useScenes from '../hooks/use-scenes'
