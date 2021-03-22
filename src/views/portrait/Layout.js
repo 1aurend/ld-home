@@ -61,6 +61,7 @@ const Layout = props => {
         }}>
         <div
           id='name-width'
+          ref={flex}
           sx={{
             display:'flex',
             flexDirection:'column',

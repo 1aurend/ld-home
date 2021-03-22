@@ -8,7 +8,7 @@ import React, {
 import {
   motion,
   useMotionTemplate,
-  useMotionValue 
+  useMotionValue
 } from 'framer-motion'
 import { isMobile } from 'react-device-detect'
 import { Y, Cursor } from '../Controller'
@@ -18,6 +18,7 @@ import useScenes from '../hooks/use-scenes'
 import sceneList from '../assets/sceneList'
 
 
+// TODO: move info to right for mobile. decide whether this needs to be split into mobile/desktop
 const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
   const windowSize = useSize()
   const infoRadius = maxRadius*(windowSize.width/200)

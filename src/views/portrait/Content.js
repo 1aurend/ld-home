@@ -27,20 +27,20 @@ export default function Content({ type }) {
     31: '.5vw',
     32: '.75vw',
     34: '1.5vw',
-    36: '2.5vw',
-    82: '2.5vw',
+    36: '5vw',
+    82: '5vw',
     84: '1.5vw',
     86: '.75vw',
     87: '.5vw'
   }
   const titleSize = useScrub(fontKfs, relY)
-  const titleClamp = useMotionTemplate`clamp(20px,${titleSize},40px)`
+  const titleClamp = useMotionTemplate`clamp(18px,${titleSize},28px)`
   const captionKfs = {
     31: '.25vw',
     32: '.5vw',
     34: '.75vw',
-    36: `1vw`,
-    82: '1vw',
+    36: `2vw`,
+    82: '2vw',
     84: '.75vw',
     86: '.5vw',
     87: '.25vw'
@@ -51,8 +51,8 @@ export default function Content({ type }) {
     31: '.5vw',
     32: '1vw',
     34: '1.5vw',
-    36: '2vw',
-    82: '2vw',
+    36: '4vw',
+    82: '4vw',
     84: '1.5vw',
     86: '1vw',
     87: '.5vw'
@@ -149,7 +149,7 @@ export default function Content({ type }) {
           p:'3%',
           pl:'5%',
           pr:'5%',
-          width:'65%',
+          width:'75%',
           overflow:'hidden',
           bg:colors[type],
           zIndex:31,
@@ -171,7 +171,7 @@ export default function Content({ type }) {
       <div
         id='tile-text'
         sx={{
-          maxHeight:'40%',
+          maxHeight:'50%',
           minHeight:'30%',
           width:'100%',
           position:'absolute',

@@ -41,7 +41,7 @@ export default function Subhead({ type, width, w }) {
         fontFamily:'heading',
         color:'Orange1',
         m:0,
-        fontSize:'teensy',
+        fontSize:'clamp(10px, 2.75vmin, 18px)',
         position:'absolute',
         left:`${(w/2 - width/2).toFixed(2)}px`,
         top:'25vh',

@@ -30,25 +30,25 @@ export default function Contact({ width, hX }) {
         alignItems:'center',
         position:'absolute',
         left:`${hX}px`,
-        top:'30vh',
+        bottom:'50vh',
       }}>
-      <img
-        alt='Headshot from side angle'
-        src={fb.contact}
-        sx={{
-          height:'auto',
-          width:width*.8,
-          mb:'4vh',
-          filter:'grayscale(100%)'
-        }}/>
       <h2
         sx={{
           fontFamily:'heading',
           color:'Teal2',
           m:0,
-          fontSize:'3.5vmin',
+          fontSize:'4vmin',
           textAlign:'justify',
+          mb:'4vh',
         }}>lauren@laurendavidson.ninja</h2>
+      <img
+        alt='Headshot from side angle'
+        src={fb.contact}
+        sx={{
+          height:'auto',
+          width:width*1.15,
+          filter:'grayscale(100%)'
+        }}/>
     </motion.div>
   )
 }

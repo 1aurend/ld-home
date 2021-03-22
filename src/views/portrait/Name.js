@@ -34,8 +34,8 @@ const Name = ({ scrollTo, showCursor }) => {
     },
     7: {
       0: `${size.height*0.02}px`,
-      80: `${bY/2.5}px`,
-      100: `${bY/2.5}px`
+      40: `${bY}px`,
+      100: size.height/size.width > 2 ? `${size.height*.32}px` : `${size.height*.25}px`
     }
   }
   const bottom = useScrub(bottomKfs[current], relY)
@@ -47,8 +47,8 @@ const Name = ({ scrollTo, showCursor }) => {
       100: `${size.width*0.095}px`
     },
     7: {
-      0: `${size.width*0.06}px`,
-      60: `${size.width*0.06}px`,
+      0: `${size.width*0.095}px`,
+      40: `${size.width*0.095}px`,
       100: `${hX}px`
     }
   }
@@ -63,7 +63,8 @@ const Name = ({ scrollTo, showCursor }) => {
     },
     7: {
       0: 0.65,
-      60: 1,
+      5: 0.65,
+      40: 1,
       100: 1
     }
   }
@@ -78,8 +79,9 @@ const Name = ({ scrollTo, showCursor }) => {
       100: {left:'-4.5vw',top:'5vh'},
     },
     7: {
-      0: {left:'2.5vw',top:'-5vw'},
-      5: {left:'0vw',top:'0vw'},
+      0: {left:'-4.5vw',top:'5vh'},
+      40: {left:'-4.5vw',top:'5vh'},
+      44: {left:'0vw',top:'0vw'},
       100: {left:'0vw',top:'0vw'},
     }
   }
@@ -99,7 +101,7 @@ const Name = ({ scrollTo, showCursor }) => {
         fontFamily:'heading',
         fontSize:'clamp(30px, 14vw, 90px)',
         color:'Teal2',
-        textAlign:'right',
+        textAlign: 'right',
         lineHeight:'clamp(25px, 13vw, 80px)',
         width: 'auto',
         pb:'5vmin',
@@ -142,7 +144,7 @@ const Name = ({ scrollTo, showCursor }) => {
         display:'flex',
         flexDirection:'column',
         justifyContent:'flex-end',
-        alignItems:'flex-end'
+        alignItems:y > .98 ? 'center' : 'flex-end'
       }}>
       <div>
         <motion.span
@@ -158,31 +160,31 @@ const Name = ({ scrollTo, showCursor }) => {
           val={'a'}
           z={26}
           out={20}
-          back={33}
+          back={45}
           />
         <Letter
           val={'u'}
           z={25}
           out={14}
-          back={36}
+          back={51}
           />
         <Letter
           val={'r'}
           z={24}
           out={11}
-          back={39}
+          back={54}
           />
         <Letter
           val={'e'}
           z={23}
           out={8}
-          back={42}
+          back={57}
           />
         <Letter
           val={'n'}
           z={22}
           out={5}
-          back={45}
+          back={60}
           />
       </div>
       <motion.div>
@@ -199,43 +201,43 @@ const Name = ({ scrollTo, showCursor }) => {
           val={'a'}
           z={26}
           out={23}
-          back={30}
+          back={42}
           />
         <Letter
           val={'v'}
           z={25}
           out={20}
-          back={33}
+          back={45}
           />
         <Letter
           val={'i'}
           z={24}
           out={17}
-          back={36}
+          back={48}
           />
         <Letter
           val={'d'}
           z={23}
           out={14}
-          back={39}
+          back={51}
           />
         <Letter
           val={'s'}
           z={22}
           out={11}
-          back={42}
+          back={54}
           />
         <Letter
           val={'o'}
           z={21}
           out={8}
-          back={45}
+          back={57}
           />
         <Letter
           val={'n'}
           z={20}
           out={5}
-          back={48}
+          back={60}
           />
       </motion.div>
     </motion.div>

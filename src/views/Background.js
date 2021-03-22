@@ -92,7 +92,8 @@ export default function TextBackground({ children, showInfo, setShowInfo, maxRad
             overflow:'hidden',
             position:'absolute',
             opacity:1,
-            bg:'none'
+            bg:'none',
+            textAlign:'justify'
           }}>
           {peirce}
           {dewey}

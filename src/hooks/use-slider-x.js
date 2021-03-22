@@ -44,7 +44,7 @@ const useSliderX = (widths, globalY, even=false) => {
       setEX(getXs(eW, 'e', even))
       setDX(getXs(dW, 'd', even))
     }
-  }, [globalY, size, dW, eW, pW, flexW])
+  }, [globalY, size, dW, eW, pW, flexW, even])
 
   return { pX, eX, dX }
 }

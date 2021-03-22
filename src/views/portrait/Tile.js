@@ -96,23 +96,23 @@ export default function Tile({ type, width, w, h }) {
       opacity: 1,
     },
     30: {
-      top: '23vh',
+      top: '20vh',
       width: '10px',
       height: '10px',
       borderRadius: '30px',
     },
     36: {
       width: `${width}px`,
-      height: `${Math.min(Math.max(width/1.2, .55*h),700)}px`,
+      height: `${Math.min(Math.max(width/1.2, .6*h),700)}px`,
       borderRadius: '2px',
     },
     82: {
       width: `${width}px`,
-      height: `${Math.min(Math.max(width/1.2, .55*h),700)}px`,
+      height: `${Math.min(Math.max(width/1.2, .6*h),700)}px`,
       borderRadius: '2px',
     },
     88: {
-      top: '23vh',
+      top: '20vh',
       width: '10px',
       height: '10px',
       borderRadius: '30px',
@@ -142,11 +142,14 @@ export default function Tile({ type, width, w, h }) {
   motionW.set(w)
   const tileLeft = useTransform([tileWidth, motionW], ([latest, w]) => `${(w/2)-(latest.slice(0,-2)/2)}px`)
 
+  //adjust these for mobile
   const glowKfs = {
     0: '400%',
     30: '400%',
-    36: '200%',
-    82: '200%',
+    32: '250%',
+    36: '175%',
+    82: '175%',
+    86: '250%',
     88: '400%',
   }
   const glowSize = useScrub(glowKfs, relY)
