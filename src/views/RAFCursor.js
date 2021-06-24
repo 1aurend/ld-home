@@ -5,18 +5,21 @@ import React, {
   useRef,
   useContext
 } from 'react'
-import { motion, useMotionTemplate, useMotionValue } from 'framer-motion'
+import {
+  motion,
+  useMotionTemplate,
+  useMotionValue
+} from 'framer-motion'
 import { isMobile } from 'react-device-detect'
-import { Cursor } from './Layout'
-import { Y } from '../Controller'
+import { Y, Cursor } from '../Controller'
 import useSize from '../hooks/use-debounced-window-size'
 import useScrub from '../hooks/use-scrub'
 import useScenes from '../hooks/use-scenes'
 import sceneList from '../assets/sceneList'
 
 
+// TODO: move info to right for mobile. decide whether this needs to be split into mobile/desktop
 const RAFCursor = ({ maxRadius=200, touch=isMobile, showInfo }) => {
-  console.log('cursor')
   const windowSize = useSize()
   const infoRadius = maxRadius*(windowSize.width/200)
   const y = useContext(Y)

@@ -1,14 +1,14 @@
 /** @jsxImportSource theme-ui */
 import { useContext } from 'react'
-import { Y } from '../Controller'
-import email from '../assets/icons/mail.svg'
-import github from '../assets/icons/GitHub-Mark-Light-64px.png'
-import linkedIn from '../assets/icons/In-White-72.png'
-import arrowUp from '../assets/icons/arrow-up.svg'
-import arrowDown from '../assets/icons/arrow-down.svg'
-import useSize from '../hooks/use-debounced-window-size'
+import { Y } from '../../Controller'
+import email from '../../assets/icons/mail.svg'
+import github from '../../assets/icons/GitHub-Mark-Light-64px.png'
+import linkedIn from '../../assets/icons/In-White-72.png'
+import arrowUp from '../../assets/icons/arrow-up.svg'
+import arrowDown from '../../assets/icons/arrow-down.svg'
+import useSize from '../../hooks/use-debounced-window-size'
 import { motion } from 'framer-motion'
-import { playPause } from '../assets/sceneList'
+import { playPause } from '../../assets/sceneList'
 import { keyframes } from '@emotion/react'
 
 
@@ -31,7 +31,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
   const next = y > .91 ? 13 : Object.keys(playPause).filter(key => y < playPause[key])[0]
   const greater = Object.keys(playPause).filter(key => y > playPause[key])
   const prev = y <= .075 ? 0 : Object.keys(playPause).filter(key => y > playPause[key])[greater[greater.length-1]]
-  const smooth = size.height/20
+  const smooth = size.height/40
 
 
   return (
@@ -43,9 +43,9 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
       onClick={e => {e.stopPropagation();setShowInfo(!showInfo)}}
       sx={{
         position:'absolute',
-        left:'5vw',
-        bottom:'5vh',
-        width:'clamp(25px, 2vw, 40px)',
+        right:'6vw',
+        bottom:'3vh',
+        width:'clamp(25px, 3vw, 40px)',
         height:'auto',
         opacity:1,
         display:'flex',
@@ -60,7 +60,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
           fontFamily:'heading',
           fontWeight:'bold',
           color:'Orange1',
-          fontSize:'clamp(25px, 2vw, 40px)',
+          fontSize:'clamp(25px, 8vw, 50px)',
           m:0
         }}>
         ?
@@ -73,9 +73,9 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
       style={{opacity:1}}
       sx={{
         position:'absolute',
-        left:'5vw',
-        top:'47vh',
-        width:'clamp(27px, 2vw, 40px)',
+        left:'49vw',
+        bottom:'4vh',
+        width:'clamp(20px, 3vh, 80px)',
         height:'auto',
         opacity:1,
         display:'flex',
@@ -92,7 +92,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         onClick={() => scrollTo(playPause[prev], smooth, 0)}
         sx={{
           mb:'2vh',
-          width:'clamp(27px, 2vw, 40px)',
+          width:'clamp(20px, 3vh, 80px)',
           height:'auto',
           animation:y === 0 ? `${pulse} 1.5s ease-in-out` : 'none',
         }}/>
@@ -102,7 +102,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         alt='next'
         onClick={() => scrollTo(playPause[next], smooth, 0)}
         sx={{
-          width:'clamp(27px, 2vw, 40px)',
+          width:'clamp(20px, 3vh, 80px)',
           height:'auto',
           animation:y === 0 ? `${pulse} 1.5s ease-in-out` : 'none',
         }}/>
@@ -114,9 +114,9 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
       sx={{
         position:'absolute',
         right:'5vw',
-        top:'5vh',
-        width:'min(15vmin, 165px)',
-        height:'min(3vmin, 35px)',
+        top:'3vh',
+        width:'min(20vmin, 135px)',
+        height:'min(5vmin, 25px)',
         opacity:0.5,
         display:'flex',
         justifyContent:'space-between',
@@ -134,7 +134,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
           alt='github'
           height='100%'
           sx={{
-            width:'min(3vmin, 35px)',
+            width:'min(5vmin, 25px)',
             cursor:'pointer'
           }}/>
       </a>
@@ -143,7 +143,7 @@ export default function Icons({ scrollTo, showCursor, setShowInfo, showInfo }) {
         target='_blank'
         rel='noopener noreferrer'
         sx={{
-          width:'min(3vmin, 35px)',
+          width:'min(5vmin, 25px)',
           cursor:'pointer'
         }}>
         <img

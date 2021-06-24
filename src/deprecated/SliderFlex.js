@@ -9,8 +9,7 @@ import {
   motion,
   useMotionValue,
 } from 'framer-motion'
-import getScrubValues from '../../utils/getScrubValues'
-import { animations } from '../../assets/animList'
+import useSize from '../../hooks/use-debounced-window-size'
 
 const pulse = keyframes({
   '0%': {
@@ -26,10 +25,10 @@ const pulse = keyframes({
 
 
 const Slider = props => {
+  const size = useSize()
   const {
     type,
     yPercent,
-    size,
     color='Orange1'
   } = props
   const x = useMotionValue()
@@ -38,10 +37,10 @@ const Slider = props => {
   const hY = useRef()
   const sliderRef = useRef()
   const toY = useRef()
-  const startX = animations.SLIDER[type].portrait.x.from
-  const startY = animations.SLIDER[type].portrait.y.from
-  const endX = animations.SLIDER[type].portrait.x.to
-  const endY = animations.SLIDER[type].portrait.y.to
+  // const startX = animations.SLIDER[type].portrait.x.from
+  // const startY = animations.SLIDER[type].portrait.y.from
+  // const endX = animations.SLIDER[type].portrait.x.to
+  // const endY = animations.SLIDER[type].portrait.y.to
   const opacityD = useMotionValue(1)
   const opacityE = useMotionValue(1)
   const opacityP = useMotionValue(1)
@@ -86,11 +85,11 @@ const Slider = props => {
   const pFade = [
     {val:opacityP, from:1, to:0, unit:''}
   ]
-  getScrubValues(yPercent, startX, endX, sliderX)
-  getScrubValues(yPercent, startY, endY, sliderY)
-  getScrubValues(yPercent, animations.DTOE.from, animations.DTOE.to, dToE)
-  getScrubValues(yPercent, animations.ETOP.from, animations.ETOP.to, eToP)
-  getScrubValues(yPercent, animations.PHILOSOPHER.line.shrink.from, animations.PHILOSOPHER.line.shrink.to, pFade)
+  // getScrubValues(yPercent, startX, endX, sliderX)
+  // getScrubValues(yPercent, startY, endY, sliderY)
+  // getScrubValues(yPercent, animations.DTOE.from, animations.DTOE.to, dToE)
+  // getScrubValues(yPercent, animations.ETOP.from, animations.ETOP.to, eToP)
+  // getScrubValues(yPercent, animations.PHILOSOPHER.line.shrink.from, animations.PHILOSOPHER.line.shrink.to, pFade)
 
 
   return (
